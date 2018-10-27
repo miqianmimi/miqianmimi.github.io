@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HKUST,Parameter Server,Distributed ML,SysML," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="here for paper    Author: Liang Luo (University of Washington Microsoft Research)  Distributed Machine Learning, Parameter Server">
+<meta name="keywords" content="HKUST,Parameter Server,Distributed ML,SysML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ParameterHub">
+<meta property="og:url" content="http://yoursite.com/2018/09/11/ParameterHub/index.html">
+<meta property="og:site_name" content="miqianmimi Ma">
+<meta property="og:description" content="here for paper    Author: Liang Luo (University of Washington Microsoft Research)  Distributed Machine Learning, Parameter Server">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/GPUCPU.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/CUDA.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/EC2.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/VERBSAPI.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/RoCE.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/DPDK.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/OSI.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/Infiniband.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/PCIe.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/DRAM.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/OpenBLAS.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/Chunk.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/Xeon.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/DIMM.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/GTX1080TI.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/ConnectX-3.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/SX6025.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/CentOS.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/CUDA8.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/GCC.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/OpenMPI.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/MVAPICH.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/SSE.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/OpenMP.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/GHC.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/AMDEPYC.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/GLOO.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/MemoryMap.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/ParameterHub/CUBRID.jpeg">
+<meta property="og:updated_time" content="2018-09-16T03:52:50.644Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ParameterHub">
+<meta name="twitter:description" content="here for paper    Author: Liang Luo (University of Washington Microsoft Research)  Distributed Machine Learning, Parameter Server">
+<meta name="twitter:image" content="http://yoursite.com/2018/09/11/ParameterHub/GPUCPU.jpeg">
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/11/ParameterHub/"/>
+
+
+
+
+
+  <title>ParameterHub | miqianmimi Ma</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">miqianmimi Ma</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/11/ParameterHub/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YiqingMa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="miqianmimi Ma">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ParameterHub</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-11T20:40:14+08:00">
+                2018-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/paper/" itemprop="url" rel="index">
+                    <span itemprop="name">paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://arxiv.org/pdf/1805.07891.pdf" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span>here for paper</span></a> </p>
+
+<ul>
+<li>Author: <code>Liang Luo</code> (University of Washington Microsoft Research)</li>
+<li><p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS"> Distributed Machine Learning, Parameter Server </p>
+
+</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h2 id="What-This-paper-talking-about"><a href="#What-This-paper-talking-about" class="headerlink" title="What This paper talking about:"></a>What This paper talking about:</h2><blockquote>
+<h3 id="Distributed-DNN-Training-is-Communication-Bound"><a href="#Distributed-DNN-Training-is-Communication-Bound" class="headerlink" title="Distributed DNN Training is Communication Bound"></a>Distributed DNN Training is Communication Bound</h3><p>Distributed Cloud DNN training time is chiefly spend waiting for parameter exchanges.</p>
+<p>Compute engines shift training performance bottleneck from computation to communication.</p>
+<p>（1） Insufficient Bandwidth （2） Framework Bottlenecks （3） Deployment-related Overhead These are three bottleneck in cloud-based DDNN training </p>
+<h3 id="PHUB-Optimized-Parameter-Server"><a href="#PHUB-Optimized-Parameter-Server" class="headerlink" title="PHUB :Optimized Parameter Server"></a>PHUB :Optimized Parameter Server</h3><p>On MXNet, our profiling of MXNet reveals two problems:</p>
+<p>(1) insufficient network bandwidth</p>
+<p>(2) an in efficient PS software stack</p>
+<h4 id="Network-Stack"><a href="#Network-Stack" class="headerlink" title="Network Stack"></a>Network Stack</h4><p>optimized InfiniBand Support for lower network overhead, with one-shot registration, zero copy and minimized metadata. So all bandwidth is dedicated to gradient payload.</p>
+<h4 id="Aggregation-and-Optimization"><a href="#Aggregation-and-Optimization" class="headerlink" title="Aggregation and Optimization"></a>Aggregation and Optimization</h4><p>Fine grained key chunking for maximized overlap of network transfer and gradient processing.Optimal load balancing in processor cores; locality-preserving, vectorized implementation of aggregator and optimizer.</p>
+<h4 id="Gradient-Memory-layout"><a href="#Gradient-Memory-layout" class="headerlink" title="Gradient Memory layout"></a>Gradient Memory layout</h4><p>NUMA aware, balanced scheme for assigning a key chunk to a processor core, through a series of load-balanced, locality-preserving assignment of queue pairs, interfaces ,completion queues to cores. PHub incurs zero synchronization between cores or between NUMA domains.</p>
+<h4 id="software-alone-is-not-sufficient"><a href="#software-alone-is-not-sufficient" class="headerlink" title="software alone is not sufficient"></a>software alone is not sufficient</h4><p>Single interface/connection in the server must handle traffic for all participating workers. Propose PBox, a new server architecture that balances IO, memory and network bandwidth.</p>
+<hr>
+<h3 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution:"></a>Contribution:</h3><p> A detailed bottleneck analysis of current state-of-the-art cloud-based DDNN training</p>
+<p> Design and implementation of the PHub PS Software</p>
+<p> A balanced central PS hardware architecture, PBox to leverage PHub for rack-level and hierarchical crosss-rack gradient reduction</p>
+<p> A comperhensive evaluation of PHub in terms of performance, scalability, and deployment cost</p>
+<hr>
+</blockquote>
+<h2 id="What-i-learned"><a href="#What-i-learned" class="headerlink" title="What i learned:"></a>What i learned:</h2><blockquote>
+<h3 id="Cloud-Based-Training"><a href="#Cloud-Based-Training" class="headerlink" title="Cloud-Based Training:"></a>Cloud-Based Training:</h3><p> forward pass</p>
+<p> backward pass</p>
+<p> backpropogation</p>
+<p> updated</p>
+<p> GPU thousands of samples</p>
+<hr>
+<h3 id="Key-value-stores"><a href="#Key-value-stores" class="headerlink" title="Key value stores:"></a>Key value stores:</h3><p> PS are specialized key value stores that collect the gradients and update the model. key refer to layer and value refer to the set of parameter for that layer</p>
+<hr>
+<h3 id="Common-PS-configuration-has-4-kinds"><a href="#Common-PS-configuration-has-4-kinds" class="headerlink" title="Common PS configuration has 4 kinds:"></a>Common PS configuration has 4 kinds:</h3><p>Colocated Centralized (CC)</p>
+<p>Non-colocated Centralized (NC)</p>
+<p>Non-colocated Shared (NCS)</p>
+<p>Colocated Shared(CS)</p>
+<hr>
+<h3 id="MXNet-Framework"><a href="#MXNet-Framework" class="headerlink" title="MXNet Framework:"></a>MXNet Framework:</h3><p>MXNet is a widely used on <strong>AWS</strong> </p>
+<p>And its PS implementation relies on TCP ,built on top of the <a href="http://zeromq.org/" target="_blank" rel="noopener">ZMQ</a> distribted messaging library.</p>
+<p>ØMQ是一个为可伸缩的分布式或并发应用程序设计的高性能异步消息库.</p>
+</blockquote>
+<blockquote>
+<hr>
+<h3 id="GPU-CUDA-CuDNN-的理解"><a href="#GPU-CUDA-CuDNN-的理解" class="headerlink" title="GPU CUDA CuDNN 的理解:"></a>GPU CUDA CuDNN 的理解:</h3><h4 id="GPU-VS-CPU"><a href="#GPU-VS-CPU" class="headerlink" title="GPU VS CPU"></a><code>GPU VS CPU</code></h4><p><img src="/2018/09/11/ParameterHub/GPUCPU.jpeg" alt="GPU-VS-CPU"></p>
+<p>GPU 相比 CPU 有更多的运算单元 ALU , 而 Control 和 Cache 的单元不是很多，这是因为GPU在进行并行计算的时候每个运算单元都是执行相同的程序，而不需要太多的控制。 </p>
+<p><strong>Cache 单元是用来做数据缓存的,CPU可以通过Cache来减少存取内存的次数,GPU中Cache很小，因为可以通过并行运算减少内存延迟</strong></p>
+<p>因此CPU的Cahce设计主要是实现低延迟，Control主要是通用性，复杂的逻辑控制单元可以保证CPU高效分发任务和指令。所以CPU擅长逻辑控制，是串行计算，而GPU擅长高强度计算，是并行计算。</p>
+<p>打个比方，GPU就像成千上万的苦力，每个人干的都是类似的苦力活，相互之间没有依赖，都是独立的，简单的人多力量大；CPU就像包工头，虽然也能干苦力的活，但是人少，所以一般负责任务分配，人员调度等工作。</p>
+<p>可以看出GPU加速是通过大量线程并行实现的，因此对于不能高度并行化的工作而言，GPU就没什么效果了。而CPU则是串行操作，需要很强的通用性，主要起到统管和分配任务的作用。</p>
+<hr>
+<h4 id="CUDA"><a href="#CUDA" class="headerlink" title="CUDA"></a><code>CUDA</code></h4><p><img src="/2018/09/11/ParameterHub/CUDA.jpeg" alt="CUDA"></p>
+<p>CUDA的官方文档（参考资料1）是这么介绍CUDA的：a general purpose parallel computing platform and programming model that leverages the parallel compute engine in NVIDIA GPUs to solve many complex computational problems in a more efficient way than on a CPU. </p>
+<p>换句话说CUDA是 <strong>NVIDIA推出的用于自家GPU的并行计算框架</strong>，也就是说CUDA只能在NVIDIA的GPU上运行，<strong>而且只有当要解决的计算问题是可以大量并行计算的时候才能发挥CUDA的作用。</strong></p>
+<p>在 CUDA 架构下，显示芯片执行时的最小单位是thread。数个 thread 可以组成一个 block<br>一个 block 中的 thread 能存取同一块共享的内存，而且可以快速进行同步的动作。每一个 block 所能包含的 thread 数目是有限的。</p>
+<p>不过，<strong>执行相同程序的 block，可以组成grid</strong>。不同 block 中的 thread无法存取同一个共享的内存，因此无法直接互通或进行同步。因此，不同block中的thread能合作的程度是比较低的。</p>
+<p>不过利用这个模式，可以让程序不用担心显示芯片实际上能同时执行的thread数目限制。</p>
+<p>例如,一个具有很少量执行单元的显示芯片，可能会把各个block中的thread顺序执行,而非同时执行。不同的grid则可以执行不同的程序（即kernel）.</p>
+<hr>
+<h4 id="CuDDN"><a href="#CuDDN" class="headerlink" title="CuDDN"></a><code>CuDDN</code></h4><p>CuDDN是NVIDIA打造的针对深度神经网络的加速库，是一个用于深层神经网络的GPU加速库。如果你要用GPU训练模型，cuDNN不是必须的，但是一般会采用这个加速库。</p>
+<p>The NVIDIA CUDA® Deep Neural Network library (cuDNN) is a GPU-accelerated library of primitives for deep neural networks. </p>
+<p>CuDNN provides highly tuned implementations for standard routines such as forward and backward convolution, pooling, normalization, and activation layers. </p>
+<p>cuDNN is part of the NVIDIA Deep Learning <strong>SDK</strong>. <code>SDK=软件开发包</code></p>
+<hr>
+<h3 id="Some-of-GPU-NAME"><a href="#Some-of-GPU-NAME" class="headerlink" title="Some of GPU NAME:"></a>Some of GPU NAME:</h3><ul>
+<li>Grid K520 </li>
+<li>K80 </li>
+<li>M60 </li>
+<li>GTX 1080 Ti</li>
+<li>V100</li>
+<li>TensorCore V100</li>
+<li><code>Amazon EC2</code> g2, p2, g3 and p3<br><img src="/2018/09/11/ParameterHub/EC2.jpeg" alt="EC2"><br>Amazon EC2 为您提供了一个真正的虚拟计算环境，让您使用 Web 服务接口启动多种操作系统的实例，通过自定义应用环境加载这些实例，管理您的网络访问权限，并根据自己需要的系统数量来运行您的映像。</li>
+</ul>
+<p>G2 instances are designed for applications that require 3D graphics capabilities. The instance is backed by a high-performance NVIDIA GPU, making it ideally suited for video creation services, 3D visualizations, streaming graphics-intensive applications, and other server-side workloads requiring massive parallel processing power.</p>
+<p>With this new instance type, customers can build high-performance DirectX, OpenGL, CUDA, and OpenCL applications and services without making expensive up-front capital investments.</p>
+<hr>
+<h3 id="zero-copy"><a href="#zero-copy" class="headerlink" title="zero-copy"></a><a href="https://blog.csdn.net/u013256816/article/details/52589524" target="_blank" rel="noopener">zero-copy</a></h3><p>零复制（英语：Zero-copy；也译零拷贝）技术是指计算机执行操作时，CPU不需要先将数据从某处内存复制到另一个特定区域。 </p>
+<p>这种技术通常用于通过网络传输文件时节省CPU周期和内存带宽</p>
+<p>你可以用一种叫做Zero-Copy的技术来去掉这些4次user模式和kernel模式的copy。</p>
+<p>应用程序用Zero-Copy来请求kernel直接把disk的data传输给socket，而不是通过应用程序传输。Zero-Copy大大提高了应用程序的性能，并且减少了kernel和user模式上下文的切换</p>
+<hr>
+<h3 id="kernel-bypass"><a href="#kernel-bypass" class="headerlink" title="kernel bypass"></a><a href="https://www.cnblogs.com/CasperWu/p/4689872.html" target="_blank" rel="noopener">kernel bypass</a></h3><p>内核旁路（英语：Kernel Bypass)</p>
+<p>系统网络优化可以有两方面的工作可以做：1 绕开内核(bypass)；2 用硬件替代软件(offload)。</p>
+<p>绕开内核</p>
+<p>1.不使用内核子系统的功能，采用自己实现的相同功能的代码来处理</p>
+<p>2.从用户空间直接访问和控制设备内存以避免数据从设备拷贝到内核，再从内核拷贝到用户空间</p>
+<p>硬件替代：</p>
+<p>1.专用的硬件设备替代软件的部分功能</p>
+<p>2.典型的用硬件替代软件的例子有：DMA engines, GPUs, Rendering screens,cryptography,TOE(TCP Offload Engines).</p>
+<hr>
+<h3 id="Verbs-API"><a href="#Verbs-API" class="headerlink" title="Verbs API"></a><a href="http://fabbritech.blogspot.com/2012/07/linux-rdma-verbs-api-tutorials.html" target="_blank" rel="noopener">Verbs API</a></h3><p><img src="/2018/09/11/ParameterHub/VERBSAPI.jpeg" alt="Verbs API"><br>IBM RDMA support</p>
+<hr>
+<h3 id="RoCE"><a href="#RoCE" class="headerlink" title="RoCE"></a><a href="https://blog.csdn.net/hrl7752/article/details/78186810" target="_blank" rel="noopener">RoCE</a></h3><p><img src="/2018/09/11/ParameterHub/RoCE.jpeg" alt="RoCE"><br>RDMA over Converged Ethernet (RoCE) is a network protocol that allows remote direct memory access (RDMA) over an Ethernet network. </p>
+<p>There are two RoCE versions, RoCE v1 and RoCE v2.</p>
+<p> RoCE v1 is an Ethernet link layer protocol and hence allows communication between any two hosts in the same Ethernet broadcast domain. </p>
+<p> RoCE v2 is an internet layer protocol which means that RoCE v2 packets can be routed. </p>
+<p> Although the RoCE protocol benefits from the characteristics of a converged Ethernet network, the protocol can also be used on a traditional or non-converged Ethernet network.</p>
+<hr>
+<h3 id="DPDK"><a href="#DPDK" class="headerlink" title="DPDK"></a><a href="https://www.dpdk.org/" target="_blank" rel="noopener">DPDK</a></h3><p><img src="/2018/09/11/ParameterHub/DPDK.jpeg" alt="DPDK"><br>DPDK is the Data Plane Development Kit that consists of libraries to accelerate packet processing workloads running on a wide variety of CPU architectures.</p>
+<hr>
+<h3 id="NUMA"><a href="#NUMA" class="headerlink" title="NUMA"></a><a href="http://cenalulu.github.io/linux/numa/" target="_blank" rel="noopener">NUMA</a></h3><p>非统一内存访问架构（英语：Non-uniform memory access，简称NUMA）是一种为多处理器的计算机设计的内存，内存访问时间取决于内存相对于处理器的位置。在NUMA下，处理器访问它自己的本地内存的速度比非本地内存（内存位于另一个处理器，或者是处理器之间共享的内存）快一些。</p>
+<p>在NUMA架构出现前，CPU欢快的朝着频率越来越高的方向发展。受到物理极限的挑战，又转为核数越来越多的方向发展。如果每个core的工作性质都是share-nothing（类似于map-reduce的node节点的作业属性），那么也许就不会有NUMA。由于所有CPU Core都是通过共享一个北桥来读取内存，随着核数如何的发展，北桥在响应时间上的性能瓶颈越来越明显。于是，聪明的硬件设计师们，先到了把内存控制器（原本北桥中读取内存的部分）也做个拆分，平分到了每个die上。于是NUMA就出现了！</p>
+<p>CPU平均划分为若干个Chip（不多于4个），每个Chip有自己的内存控制器及内存插槽.</p>
+<hr>
+<h3 id="OSI"><a href="#OSI" class="headerlink" title="OSI"></a>OSI</h3><p><img src="/2018/09/11/ParameterHub/OSI.jpeg" alt="OSI"><br>开放式系统互联通信参考模型，简称为OSI模型，一种概念模型，由国际标准化组织提出，一个试图使各种计算机在世界范围内互连为网络的标准框架。</p>
+<hr>
+<h3 id="Infiniband"><a href="#Infiniband" class="headerlink" title="Infiniband"></a><a href="https://www.mellanox.com/pdf/whitepapers/IB_Intro_WP_190.pdf" target="_blank" rel="noopener">Infiniband</a></h3><p><img src="/2018/09/11/ParameterHub/Infiniband.jpeg" alt="Infiniband"><br>InfiniBand（直译为“无限带宽”技术，缩写为IB）是一个用于高性能计算的计算机网络通信标准，它具有极高的吞吐量和极低的延迟，用于计算机与计算机之间的数据互连。InfiniBand也用作服务器与存储系统之间的直接或交换互连，以及存储系统之间的互连。</p>
+<p>是一种网络协议栈,和TCP/IP协议完全不一样</p>
+<hr>
+<h3 id="PCIe"><a href="#PCIe" class="headerlink" title="PCIe"></a>PCIe</h3><p><img src="/2018/09/11/ParameterHub/PCIe.jpeg" alt="PCIe"><br>Peripheral Component Interconnect Express</p>
+<p>2004年，Intel再一次带领小伙伴革了PCI的命。PCI express（PCIe，注意官方写法是这样，而不是PCIE或者PCI-E）诞生了，其后又经历了两代，现在是第三代,gen4有望在2017年公布，而gen5已经开始起草中。</p>
+<p>PCI Express，简称PCI-E，官方简称PCIe，是電腦匯流排PCI的一種，它沿用現有的PCI編程概念及通訊標準，但建基於更快的串行通信系統。</p>
+<hr>
+<h3 id="giga-Kilo-mega-giga-tera-peta-exa-zetta"><a href="#giga-Kilo-mega-giga-tera-peta-exa-zetta" class="headerlink" title="giga, Kilo, mega, giga, tera, peta, exa, zetta :"></a>giga, Kilo, mega, giga, tera, peta, exa, zetta :</h3><table>
+<thead>
+<tr>
+<th>全称</th>
+<th>简写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kilo</td>
+<td>K</td>
+</tr>
+<tr>
+<td>meg</td>
+<td>M</td>
+</tr>
+<tr>
+<td>giga</td>
+<td>G</td>
+</tr>
+<tr>
+<td>tera</td>
+<td>T</td>
+</tr>
+<tr>
+<td>peta</td>
+<td>P</td>
+</tr>
+<tr>
+<td>exa</td>
+<td>E</td>
+</tr>
+<tr>
+<td>zetta</td>
+<td>Z</td>
+</tr>
+<tr>
+<td>yotta</td>
+<td>Y</td>
+</tr>
+</tbody>
+</table>
+<p>在电子及物理领域，是以10为底的幂进行计量，以10^3为增量进位。如1K=10^3, 1M=10^6。如物理的质量、功率、能量、电压、电流。如二进制数据传输速度。</p>
+<hr>
+<h3 id="DRAM"><a href="#DRAM" class="headerlink" title="DRAM:"></a>DRAM:</h3><p><img src="/2018/09/11/ParameterHub/DRAM.jpeg" alt="DRAM"><br>动态随机存取存储器（Dynamic Random Access Memory，DRAM）是一种半导体記憶體，主要的作用原理是利用電容內儲存電荷的多寡來代表一個二进制位元（bit）</p>
+<hr>
+<h3 id="BLAS-OpenBLAS"><a href="#BLAS-OpenBLAS" class="headerlink" title="BLAS:OpenBLAS"></a>BLAS:OpenBLAS</h3><p><img src="/2018/09/11/ParameterHub/OpenBLAS.jpeg" alt="OpenBLAS"><br>BLAS（Basic Linear Algebra Subprograms，基础线性代数程序集）是一个应用程序接口（API）标准，用以规范发布基础线性代数操作的数值库（如矢量或矩阵乘法）</p>
+<p>In scientific computing, OpenBLAS is an open source implementation of the BLAS (Basic Linear Algebra Subprograms) API with many hand-crafted optimizations for specific processor types. It is developed at the Lab of Parallel Software and Computational Science, ISCAS.</p>
+<hr>
+<h3 id="Chunk"><a href="#Chunk" class="headerlink" title="Chunk:"></a>Chunk:</h3><p><img src="/2018/09/11/ParameterHub/Chunk.jpeg" alt="Chunk"></p>
+<p>HTTP 报文</p>
+<p>Each chunk contains a header which indicates some parameters (e.g. the type of chunk, comments, size etc.) In the middle there is a variable area containing data which are decoded by the program from the parameters in the header.</p>
+<p>Chunks may also be fragments of information which are downloaded or managed by P2P programs.</p>
+<hr>
+<h3 id="incast-congestion-Incast-Congestion-Control-for-TCP"><a href="#incast-congestion-Incast-Congestion-Control-for-TCP" class="headerlink" title="incast congestion : Incast Congestion Control for TCP"></a>incast congestion : Incast Congestion Control for TCP</h3><p>TCP incast congestion happens in high-bandwidth and low-latency networks, when multiple synchronized servers send data to a same receiver in parallel . For many important data center applications such as MapReduce and Search, this many-to-one traffic pattern is common. Hence TCP incast congestion may severely degrade their performances, e.g., by increasing response time.</p>
+<p>如果在网路中的包太多，就会发生Incast Congestion的问题（可以理解为，network有很多switch，router啥的，一旦一次性发一堆包，这些包同时到达switch，这些switch就会忙不过来）。应对这个问题就是不要让大量包在同一时间发送出去，在客户端限制每次发出去的包的数量（具体实现就是客户端弄个队列）。每次发送的包的数量称为“Window_size”。这个值太小的话，发送太慢，自然延迟会变高；这个值太大，发送的包太多把network_switch搞崩溃了，就可能发生比如丢包之类的情况，可能被当作cache miss，这样延迟也会变高。所以这个值需要调。</p>
+<hr>
+<h3 id="Oversubscription-超额"><a href="#Oversubscription-超额" class="headerlink" title="Oversubscription 超额"></a>Oversubscription 超额</h3><p>Oversubscription, in a SAN (storage area network) switching environment, is the practice of connecting multiple devices to the same switch port to optimize switch use.</p>
+<p>Each SAN port can support a particular communication speed and a Fibre Channel switch may offer 1 Gb, 2 Gb, or 4 Gb FC ports. However, because ports are rarely run at their maximum speed for a prolonged period, multiple slower devices may fan in to a single port to take advantage of unused capacity. For example, a single storage server may not be able to sustain 4 Gbps to a switch port, so two 2 Gb servers or four 1 Gb servers may all be aggregated to that 4 Gb switch port.</p>
+<p>就机顶盒的Switch的bandwidth 支持不到那么多设备的带宽.</p>
+<p>fat-tree保证没有Oversubbcription（越上越粗,2的指数上升)实际做不到，所以有多种拓扑结构 </p>
+<p>需要调整收敛比</p>
+<hr>
+<h3 id="Several-Devices"><a href="#Several-Devices" class="headerlink" title="Several Devices"></a>Several Devices</h3><h4 id="Xeon-E5-2680-v4-system-CPU-of-Intel"><a href="#Xeon-E5-2680-v4-system-CPU-of-Intel" class="headerlink" title="Xeon E5-2680 v4 system : CPU of Intel"></a>Xeon E5-2680 v4 system : CPU of Intel</h4><p><img src="/2018/09/11/ParameterHub/Xeon.jpeg" alt="Xeon"></p>
+<h4 id="DDR-2400-DIMMs-第四代双倍数据存储器"><a href="#DDR-2400-DIMMs-第四代双倍数据存储器" class="headerlink" title="DDR-2400 DIMMs 第四代双倍数据存储器"></a>DDR-2400 DIMMs 第四代双倍数据存储器</h4><p><img src="/2018/09/11/ParameterHub/DIMM.jpeg" alt="DIMM"></p>
+<h4 id="GTX-1080-Ti-GPU-显卡"><a href="#GTX-1080-Ti-GPU-显卡" class="headerlink" title="GTX 1080 Ti GPU 显卡"></a>GTX 1080 Ti GPU 显卡</h4><p><img src="/2018/09/11/ParameterHub/GTX1080TI.jpeg" alt="GTX"></p>
+<h4 id="Mellanox-ConnectX-3-Infiniband-card-with-56-Gbps"><a href="#Mellanox-ConnectX-3-Infiniband-card-with-56-Gbps" class="headerlink" title="Mellanox ConnectX-3 Infiniband card with 56 Gbps"></a>Mellanox ConnectX-3 Infiniband card with 56 Gbps</h4><p><img src="/2018/09/11/ParameterHub/ConnectX-3.jpeg" alt="ConnectX-3"></p>
+<h4 id="Mellanox-SX6025-56-Gbps-36-port-switch"><a href="#Mellanox-SX6025-56-Gbps-36-port-switch" class="headerlink" title="Mellanox SX6025 56 Gbps 36-port switch."></a>Mellanox SX6025 56 Gbps 36-port switch.</h4><p><img src="/2018/09/11/ParameterHub/SX6025.jpeg" alt="SX6025"></p>
+<hr>
+<h3 id="bps网络传输率："><a href="#bps网络传输率：" class="headerlink" title="bps网络传输率："></a>bps网络传输率：</h3><p>规定使用「比特每秒」（bits或bps）为单位，经常和国际单位制词头关联在一起，如「千」（kbit/s或kbps），「兆」(百萬)（Mbit/s或Mbps），「吉」（Gbit/s或Gbps）和「太」（Tbit/s或Tbps）</p>
+<hr>
+<h3 id="CentOS-7-3"><a href="#CentOS-7-3" class="headerlink" title="CentOS 7.3"></a>CentOS 7.3</h3><p><img src="/2018/09/11/ParameterHub/CentOS.jpeg" alt="CentOS"><br>CentOS是Linux发行版之一，它是来自于Red Hat Enterprise Linux依照开放源代码规定发布的源代码所编译而成。由于出自同样的源代码，因此有些要求高度稳定性的服务器以CentOS替代商业版的Red Hat Enterprise Linux使用</p>
+<hr>
+<h3 id="CUDA-8"><a href="#CUDA-8" class="headerlink" title="CUDA 8"></a>CUDA 8</h3><p><img src="/2018/09/11/ParameterHub/CUDA8.jpeg" alt="CUDA8"><br>CUDA是由NVIDIA所推出的一种集成技术，是该公司对于GPU的正式名称。通过这个技术，用户可利用NVIDIA的GeForce 8以后的GPU和较新的Quadro GPU进行计算。亦是首次可以利用GPU作为C-编译器的开发环境。NVIDIA营销的时候，往往将编译器与架构混合推广，造成混乱</p>
+<hr>
+<h3 id="PS-Lite"><a href="#PS-Lite" class="headerlink" title="PS-Lite"></a>PS-Lite</h3><p>MXNet之ps-lite及parameter server原理</p>
+<p>ps-lite框架是DMLC组自行实现的parameter server通信框架，是DMLC其他项目的核心，例如其深度学习框架MXNET的分布式训练就依赖ps-lite的实现。</p>
+<p>DMLC Distributed (Deep) Machine Learning Community </p>
+<p>–A Community of Awesome Machine Learning Projects</p>
+<hr>
+<h3 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a>GCC</h3><p><img src="/2018/09/11/ParameterHub/GCC.jpeg" alt="GCC"><br>GNU编译器套装，指一套编程语言编译器，以GPL及LGPL许可证所发行的自由软件，也是GNU项目的关键部分，也是GNU工具链的主要组成部分之一。GCC也常被认为是跨平台编译器的事实标准。1985年由理查德·马修·斯托曼开始发展，现在由自由软件基金会负责维护工作。 原名为GNU C语言编译器，因为它原本只能处理C语言</p>
+<p>GNU是一个自由的操作系统，其内容软件完全以GPL方式发布。这个操作系统是GNU计划的主要目标，名称来自GNU’s Not Unix!的递归缩写，因为GNU的设计类似Unix，但它不包含具著作权的Unix代码。GNU的创始人，理查德·马修·斯托曼，将GNU视为“达成社会目的技术方法”。</p>
+<p>GNU Not Unix </p>
+<hr>
+<h3 id="OpenMPI-amp-MVAPICH"><a href="#OpenMPI-amp-MVAPICH" class="headerlink" title="OpenMPI &amp; MVAPICH"></a>OpenMPI &amp; <a href="http://mvapich.cse.ohio-state.edu/downloads/" target="_blank" rel="noopener">MVAPICH</a></h3><p><img src="/2018/09/11/ParameterHub/OpenMPI.jpeg" alt="MPI"><br>The Open MPI Project is an open source Message Passing Interface implementation that is developed and maintained by a consortium of academic, research, and industry partners. </p>
+<p>Open MPI is therefore able to combine the expertise, technologies, and resources from all across the High Performance Computing community in order to build the best MPI library available. Open MPI offers advantages for system and software vendors, application developers and computer science researchers.</p>
+<p><img src="/2018/09/11/ParameterHub/MVAPICH.jpeg" alt="MVAPICH"><br>The MVAPICH project is led by Network-Based Computing Laboratory (NBCL) of The Ohio State University. The MVAPICH2 software, based on MPI 3.1 standard, delivers the best performance, scalability and fault tolerance for high-end computing systems and servers using InfiniBand, Omni-Path, Ethernet/iWARP, and RoCE networking technologies.</p>
+<hr>
+<h3 id="SSE"><a href="#SSE" class="headerlink" title="SSE"></a>SSE</h3><p><img src="/2018/09/11/ParameterHub/SSE.jpeg" alt="SSE"><br>SSE（Streaming SIMD Extensions）在其计算机芯片Pentium III中引入的指令集，是继MMX的扩展指令集。SSE指令集提供了70条新指令。</p>
+<hr>
+<h3 id="Open-MP"><a href="#Open-MP" class="headerlink" title="Open MP"></a>Open MP</h3><p><img src="/2018/09/11/ParameterHub/OpenMP.jpeg" alt="OpenMP"><br>The OpenMP API specification for parallel programming</p>
+<p>OpenMP（Open Multi-Processing）是一套支持跨平台共享内存方式的多线程并发的编程API.</p>
+<p>OpenMP采用可移植的、可扩展的模型，为程序员提供了一个简单而灵活的开发平台，从标准桌面计算机到超级计算机的并行应用程序接口。</p>
+<hr>
+<h3 id="内存优化总结：ptmalloc、tcmalloc和jemalloc"><a href="#内存优化总结：ptmalloc、tcmalloc和jemalloc" class="headerlink" title="内存优化总结：ptmalloc、tcmalloc和jemalloc"></a>内存优化总结：ptmalloc、tcmalloc和jemalloc</h3><p>系统的物理内存是有限的，而对内存的需求是变化的,程序的动态性越强，内存管理就越重要，选择合适的内存管理算法会带来明显的性能提升。</p>
+<p>目前大部分服务端程序使用glibc提供的malloc/free系列函数，而glibc使用的ptmalloc2在性能上远远弱后于google的tcmalloc和facebook的jemalloc</p>
+<hr>
+<h3 id="Several-ML-CNN-Models"><a href="#Several-ML-CNN-Models" class="headerlink" title="Several ML CNN Models:"></a>Several ML CNN Models:</h3><p>基于Imagenet数据集:</p>
+<p>ResNet</p>
+<p>AlexNet</p>
+<p>VGG</p>
+<p>GoogleNet</p>
+<p>Inception V3</p>
+<hr>
+<h3 id="GHC"><a href="#GHC" class="headerlink" title="GHC"></a>GHC</h3><p><img src="/2018/09/11/ParameterHub/GHC.jpeg" alt="GHC"><br>Grace Hopper Conference (GHC)是庆祝女性在计算领域取得的成就的全球盛会</p>
+<hr>
+<h3 id="Serialization"><a href="#Serialization" class="headerlink" title="Serialization"></a>Serialization</h3><p>in the context of data storage, serialization is the process of translating data structures or object state into a format that can be stored (for example, in a file or memory buffer) or transmitted (for example, across a network connection link) and reconstructed later (possibly in a different computer environment)</p>
+<hr>
+<h3 id="AMD-EPYC"><a href="#AMD-EPYC" class="headerlink" title="AMD EPYC"></a>AMD EPYC</h3><p><img src="/2018/09/11/ParameterHub/AMDEPYC.jpeg" alt="AMDEPYC"><br>AMD EPYC (霄龙) 服务器处理器</p>
+<hr>
+<h3 id="Stream-Triad-performance"><a href="#Stream-Triad-performance" class="headerlink" title="Stream Triad performance"></a>Stream Triad performance</h3><p>STREAM 是业界广为流行的综合性内存带宽实际性能 测量工具之一。随着处理器处理核心数量的增多，内存带宽对于提升整个系统性能越发重要<br>通过测试的内容我们可以了解服务器的具体性能及其优缺点,首先我们在SUSE SLES 11到平台下进行了StreamTRIAD测试,该测试分为四组数据，分别是复制、scale、添加以及triad（以上三项的综合）</p>
+<hr>
+<h3 id="GLOO-The-Function-Gateway-built-on-top-of-Envoy"><a href="#GLOO-The-Function-Gateway-built-on-top-of-Envoy" class="headerlink" title="GLOO:The Function Gateway built on top of Envoy"></a><a href="https://gloo.solo.io" target="_blank" rel="noopener">GLOO:The Function Gateway built on top of Envoy</a></h3><p><img src="/2018/09/11/ParameterHub/GLOO.jpeg" alt="GLOO"><br>Gloo is a high-performance, plugin-extendable, platform-agnostic API Gateway built on top of Envoy. Gloo is designed for microservice, monolithic, and serverless applications.</p>
+<hr>
+<h3 id="Overhead"><a href="#Overhead" class="headerlink" title="Overhead"></a>Overhead</h3><p>overhead is any combination of excess or indirect computation time, memory, bandwidth, or other resources that are required to perform a specific task. It is a special case of engineering overhead.</p>
+<hr>
+<h3 id="Memory-map"><a href="#Memory-map" class="headerlink" title="Memory map:"></a>Memory map:</h3><p><img src="/2018/09/11/ParameterHub/MemoryMap.jpeg" alt="MemoryMap"><br>用于处理器的存储体切换存储器的假设存储器映射，其仅能够寻址64kB。 该方案显示200 kB的内存，其中处理器随时只能访问64kb。 </p>
+<p>操作系统必须管理存储体切换操作，以确保当处理器无法访问部分存储器时程序执行可以继续</p>
+<p>在计算机科学中，存储器映射是数据结构（通常驻留在存储器本身中），指示存储器的布局方式。 内存映射在操作系统的不同部分可能具有不同的含义 </p>
+<p>它是使用关联内存的最快，最灵活的缓存组织。 关联存储器存储存储器字的地址和内容。</p>
+<hr>
+</blockquote>
+<h2 id="Academic-iterms-used-in-paper"><a href="#Academic-iterms-used-in-paper" class="headerlink" title="Academic iterms used in paper:"></a>Academic iterms used in paper:</h2><blockquote>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>英文</th>
+<th>中文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>pinpoint these bottlenecks</td>
+<td>精确定位到瓶颈所在</td>
+</tr>
+<tr>
+<td>2</td>
+<td>interoperability</td>
+<td>操作性</td>
+</tr>
+<tr>
+<td>3</td>
+<td>rendezvous</td>
+<td>会合</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Nonce</td>
+<td>一次性秘钥</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Network stack</td>
+<td>网络协议栈</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Metadata</td>
+<td>元数据，描述其他资料资讯的资料</td>
+</tr>
+<tr>
+<td>7</td>
+<td>element-wise</td>
+<td>按元素</td>
+</tr>
+<tr>
+<td>8</td>
+<td>prototype</td>
+<td>原型</td>
+</tr>
+<tr>
+<td>9</td>
+<td>fine-grained</td>
+<td>细优化，细粒度</td>
+</tr>
+<tr>
+<td>10</td>
+<td>shard</td>
+<td>碎片</td>
+</tr>
+<tr>
+<td>11</td>
+<td>overlap</td>
+<td>交叠</td>
+</tr>
+<tr>
+<td>12</td>
+<td>non-colocated</td>
+<td>非同位</td>
+</tr>
+<tr>
+<td>13</td>
+<td>overhead</td>
+<td>负载</td>
+</tr>
+<tr>
+<td>14</td>
+<td>compute-bound</td>
+<td>（计算密集）CPU瓶颈 (受计算限制的)</td>
+</tr>
+<tr>
+<td>15</td>
+<td>workload</td>
+<td>工作量</td>
+</tr>
+<tr>
+<td>16</td>
+<td>colocated</td>
+<td>合作</td>
+</tr>
+<tr>
+<td>17</td>
+<td>arbitrarily</td>
+<td>任意</td>
+</tr>
+<tr>
+<td>18</td>
+<td>caching</td>
+<td>高速缓存</td>
+</tr>
+<tr>
+<td>19</td>
+<td>key-chunking</td>
+<td>数据块</td>
+</tr>
+<tr>
+<td>20</td>
+<td>scalabbility</td>
+<td>可扩展性</td>
+</tr>
+<tr>
+<td>21</td>
+<td>queue-pair connection</td>
+<td>队列链接</td>
+</tr>
+<tr>
+<td>22</td>
+<td>loopback</td>
+<td>回环网卡</td>
+</tr>
+<tr>
+<td>23</td>
+<td>microbenchmark</td>
+<td>基准化分析法</td>
+</tr>
+<tr>
+<td>24</td>
+<td>tradeoff</td>
+<td>优劣</td>
+</tr>
+<tr>
+<td>25</td>
+<td>invocation</td>
+<td>调用</td>
+</tr>
+<tr>
+<td>26</td>
+<td>amortized cost</td>
+<td>摊销</td>
+</tr>
+<tr>
+<td>27</td>
+<td>orthogonal</td>
+<td>正交</td>
+</tr>
+<tr>
+<td>28</td>
+<td>invocation</td>
+<td>调用</td>
+</tr>
+<tr>
+<td>29</td>
+<td>multi-tenant</td>
+<td>多细粒度</td>
+</tr>
+<tr>
+<td>30</td>
+<td>one-shot registration</td>
+<td>一次性注册</td>
+</tr>
+<tr>
+<td>31</td>
+<td>locality-preserving</td>
+<td>局部保留</td>
+</tr>
+<tr>
+<td>32</td>
+<td>incur</td>
+<td>招来，招致</td>
+</tr>
+<tr>
+<td>33</td>
+<td>load balancing</td>
+<td>负载均衡</td>
+</tr>
+<tr>
+<td>34</td>
+<td>hybrid synchronization</td>
+<td>混合同步</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="Cubrid"><a href="#Cubrid" class="headerlink" title="Cubrid"></a>Cubrid</h3><p><img src="/2018/09/11/ParameterHub/CUBRID.jpeg" alt="Cubrid"><br><a href="https://www.cubrid.org/blog/understanding-tcp-ip-network-stack" target="_blank" rel="noopener">Cubrid</a><br>有很好的网络介绍 <i class="fa fa-pencil fa-lg"></i></p>
+<hr>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HKUST/" rel="tag"># HKUST</a>
+          
+            <a href="/tags/Parameter-Server/" rel="tag"># Parameter Server</a>
+          
+            <a href="/tags/Distributed-ML/" rel="tag"># Distributed ML</a>
+          
+            <a href="/tags/SysML/" rel="tag"># SysML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/11/Blink/" rel="next" title="Blink a Fast NV Link-Based Collective Communication Library">
+                <i class="fa fa-chevron-left"></i> Blink a Fast NV Link-Based Collective Communication Library
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/24/test/" rel="prev" title="Test">
+                Test <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/miqianmimi || github" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/100002269882529 || facebook" target="_blank" title="FB Page">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  FB Page
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/time_liss.253 || instagram" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Instagram
+                </a>
+              </span>
+            
+  <!--以下是加入关于high一下的代码-->
+            <span class="links-of-author-item"><a title="小high一下~" style="underline: none;color:red" rel="alternate" class="mw-harlem_shake_slow wobble shake" href="javascript:shake()"><i class="fa fa-music"></i> &nbsp;&nbsp;High</a></span>
+  <!--以上是加入关于high一下的代码-->
+          
+        </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="YiqingMa" />
+            
+              <p class="site-author-name" itemprop="name">YiqingMa</p>
+              <p class="site-description motion-element" itemprop="description"><p style="color:MediumSeaGreen;font-size:15px;font-family:Comic Sans MS" > If life deals you lemons, make lemonade. </p></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/miqianmimi" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.facebook.com/100002269882529" target="_blank" title="FB Page">
+                      
+                        <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/time_liss.253" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://jacquelinewang.github.io/" title="Jacqueline Wang" target="_blank">Jacqueline Wang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-This-paper-talking-about"><span class="nav-number">1.</span> <span class="nav-text">What This paper talking about:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Distributed-DNN-Training-is-Communication-Bound"><span class="nav-number">1.1.</span> <span class="nav-text">Distributed DNN Training is Communication Bound</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PHUB-Optimized-Parameter-Server"><span class="nav-number">1.2.</span> <span class="nav-text">PHUB :Optimized Parameter Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Network-Stack"><span class="nav-number">1.2.1.</span> <span class="nav-text">Network Stack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Aggregation-and-Optimization"><span class="nav-number">1.2.2.</span> <span class="nav-text">Aggregation and Optimization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Gradient-Memory-layout"><span class="nav-number">1.2.3.</span> <span class="nav-text">Gradient Memory layout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#software-alone-is-not-sufficient"><span class="nav-number">1.2.4.</span> <span class="nav-text">software alone is not sufficient</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Contribution"><span class="nav-number">1.3.</span> <span class="nav-text">Contribution:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-i-learned"><span class="nav-number">2.</span> <span class="nav-text">What i learned:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cloud-Based-Training"><span class="nav-number">2.1.</span> <span class="nav-text">Cloud-Based Training:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-value-stores"><span class="nav-number">2.2.</span> <span class="nav-text">Key value stores:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Common-PS-configuration-has-4-kinds"><span class="nav-number">2.3.</span> <span class="nav-text">Common PS configuration has 4 kinds:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MXNet-Framework"><span class="nav-number">2.4.</span> <span class="nav-text">MXNet Framework:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU-CUDA-CuDNN-的理解"><span class="nav-number">2.5.</span> <span class="nav-text">GPU CUDA CuDNN 的理解:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GPU-VS-CPU"><span class="nav-number">2.5.1.</span> <span class="nav-text">GPU VS CPU</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CUDA"><span class="nav-number">2.5.2.</span> <span class="nav-text">CUDA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CuDDN"><span class="nav-number">2.5.3.</span> <span class="nav-text">CuDDN</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Some-of-GPU-NAME"><span class="nav-number">2.6.</span> <span class="nav-text">Some of GPU NAME:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zero-copy"><span class="nav-number">2.7.</span> <span class="nav-text">zero-copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kernel-bypass"><span class="nav-number">2.8.</span> <span class="nav-text">kernel bypass</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Verbs-API"><span class="nav-number">2.9.</span> <span class="nav-text">Verbs API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RoCE"><span class="nav-number">2.10.</span> <span class="nav-text">RoCE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DPDK"><span class="nav-number">2.11.</span> <span class="nav-text">DPDK</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NUMA"><span class="nav-number">2.12.</span> <span class="nav-text">NUMA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSI"><span class="nav-number">2.13.</span> <span class="nav-text">OSI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Infiniband"><span class="nav-number">2.14.</span> <span class="nav-text">Infiniband</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCIe"><span class="nav-number">2.15.</span> <span class="nav-text">PCIe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#giga-Kilo-mega-giga-tera-peta-exa-zetta"><span class="nav-number">2.16.</span> <span class="nav-text">giga, Kilo, mega, giga, tera, peta, exa, zetta :</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DRAM"><span class="nav-number">2.17.</span> <span class="nav-text">DRAM:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BLAS-OpenBLAS"><span class="nav-number">2.18.</span> <span class="nav-text">BLAS:OpenBLAS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chunk"><span class="nav-number">2.19.</span> <span class="nav-text">Chunk:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#incast-congestion-Incast-Congestion-Control-for-TCP"><span class="nav-number">2.20.</span> <span class="nav-text">incast congestion : Incast Congestion Control for TCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Oversubscription-超额"><span class="nav-number">2.21.</span> <span class="nav-text">Oversubscription 超额</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Several-Devices"><span class="nav-number">2.22.</span> <span class="nav-text">Several Devices</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Xeon-E5-2680-v4-system-CPU-of-Intel"><span class="nav-number">2.22.1.</span> <span class="nav-text">Xeon E5-2680 v4 system : CPU of Intel</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DDR-2400-DIMMs-第四代双倍数据存储器"><span class="nav-number">2.22.2.</span> <span class="nav-text">DDR-2400 DIMMs 第四代双倍数据存储器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GTX-1080-Ti-GPU-显卡"><span class="nav-number">2.22.3.</span> <span class="nav-text">GTX 1080 Ti GPU 显卡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mellanox-ConnectX-3-Infiniband-card-with-56-Gbps"><span class="nav-number">2.22.4.</span> <span class="nav-text">Mellanox ConnectX-3 Infiniband card with 56 Gbps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mellanox-SX6025-56-Gbps-36-port-switch"><span class="nav-number">2.22.5.</span> <span class="nav-text">Mellanox SX6025 56 Gbps 36-port switch.</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bps网络传输率："><span class="nav-number">2.23.</span> <span class="nav-text">bps网络传输率：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CentOS-7-3"><span class="nav-number">2.24.</span> <span class="nav-text">CentOS 7.3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CUDA-8"><span class="nav-number">2.25.</span> <span class="nav-text">CUDA 8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PS-Lite"><span class="nav-number">2.26.</span> <span class="nav-text">PS-Lite</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCC"><span class="nav-number">2.27.</span> <span class="nav-text">GCC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenMPI-amp-MVAPICH"><span class="nav-number">2.28.</span> <span class="nav-text">OpenMPI &amp; MVAPICH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SSE"><span class="nav-number">2.29.</span> <span class="nav-text">SSE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Open-MP"><span class="nav-number">2.30.</span> <span class="nav-text">Open MP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存优化总结：ptmalloc、tcmalloc和jemalloc"><span class="nav-number">2.31.</span> <span class="nav-text">内存优化总结：ptmalloc、tcmalloc和jemalloc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Several-ML-CNN-Models"><span class="nav-number">2.32.</span> <span class="nav-text">Several ML CNN Models:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GHC"><span class="nav-number">2.33.</span> <span class="nav-text">GHC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Serialization"><span class="nav-number">2.34.</span> <span class="nav-text">Serialization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AMD-EPYC"><span class="nav-number">2.35.</span> <span class="nav-text">AMD EPYC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream-Triad-performance"><span class="nav-number">2.36.</span> <span class="nav-text">Stream Triad performance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GLOO-The-Function-Gateway-built-on-top-of-Envoy"><span class="nav-number">2.37.</span> <span class="nav-text">GLOO:The Function Gateway built on top of Envoy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Overhead"><span class="nav-number">2.38.</span> <span class="nav-text">Overhead</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Memory-map"><span class="nav-number">2.39.</span> <span class="nav-text">Memory map:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Academic-iterms-used-in-paper"><span class="nav-number">3.</span> <span class="nav-text">Academic iterms used in paper:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cubrid"><span class="nav-number">3.1.</span> <span class="nav-text">Cubrid</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YiqingMa</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 背景动画 
+  <script type="text/javascript" src="/js/src/particle.js"></script>-->
+</body>
+</html>

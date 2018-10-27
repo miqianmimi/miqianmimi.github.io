@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Parameter Server,Distributed ML," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="又称为：Message Passing Interface 消息传递函数库  MPI的实现有： MPICH(MPI最流行的非专利实现) MVAPICH">
+<meta name="keywords" content="Parameter Server,Distributed ML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MPI">
+<meta property="og:url" content="http://yoursite.com/2018/10/01/MPI/index.html">
+<meta property="og:site_name" content="miqianmimi Ma">
+<meta property="og:description" content="又称为：Message Passing Interface 消息传递函数库  MPI的实现有： MPICH(MPI最流行的非专利实现) MVAPICH">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-10-02T03:57:34.622Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MPI">
+<meta name="twitter:description" content="又称为：Message Passing Interface 消息传递函数库  MPI的实现有： MPICH(MPI最流行的非专利实现) MVAPICH">
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/01/MPI/"/>
+
+
+
+
+
+  <title>MPI | miqianmimi Ma</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">miqianmimi Ma</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/01/MPI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YiqingMa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="miqianmimi Ma">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MPI</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-01T22:19:42+08:00">
+                2018-10-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/paper/" itemprop="url" rel="index">
+                    <span itemprop="name">paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>又称为：<code>Message Passing Interface</code> 消息传递函数库</p>
+<hr>
+<h2 id="MPI的实现有："><a href="#MPI的实现有：" class="headerlink" title="MPI的实现有："></a>MPI的实现有：</h2><ul>
+<li>MPICH(MPI最流行的非专利实现)</li>
+<li>MVAPICH<a id="more"></a>
+</li>
+</ul>
+<h2 id="简单案例："><a href="#简单案例：" class="headerlink" title="简单案例："></a>简单案例：</h2><ol>
+<li>Hello</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"mpi.h"</span></span></span><br><span class="line">main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> myid, numprocs;</span><br><span class="line"></span><br><span class="line">    MPI_Init(&amp;argc, &amp;argv);</span><br><span class="line">    MPI_Comm_rank(MPI_COMM_WORLD, &amp;myid);</span><br><span class="line">    MPI_Comm_size(MPI_COMM_WORLD, &amp;numprocs);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"I am %d of %d \n"</span>, myid, numprocs);</span><br><span class="line">    MPI_Finalize();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">结果：</span><br><span class="line">I am <span class="number">0</span> of <span class="number">4</span></span><br><span class="line">I am <span class="number">2</span> of <span class="number">4</span></span><br><span class="line">I am <span class="number">1</span> of <span class="number">4</span></span><br><span class="line">I am <span class="number">3</span> of <span class="number">4</span></span><br></pre></td></tr></table></figure>
+<h3 id="3种MPI参数："><a href="#3种MPI参数：" class="headerlink" title="3种MPI参数："></a>3种MPI参数：</h3><ul>
+<li>IN: 参数在函数的调用中不会被修改</li>
+<li>OUT: 参数在函数的调用中会被修改</li>
+<li>INOUT: 参数在一些函数为IN，另一些为OUT</li>
+</ul>
+<h3 id="MPI初始化与MPI结束"><a href="#MPI初始化与MPI结束" class="headerlink" title="MPI初始化与MPI结束"></a>MPI初始化与MPI结束</h3><ul>
+<li>MPI_INIT是MPI程序的第一个调用</li>
+<li>启动MPI环境，标志并行代码的开始</li>
+<li>MPI_FINALIZE是最终程序，最后一个调用</li>
+</ul>
+<h3 id="MPI程序的编译和运行"><a href="#MPI程序的编译和运行" class="headerlink" title="MPI程序的编译和运行"></a>MPI程序的编译和运行</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mpicc - o hello hello.c</span><br><span class="line">mpirun - np <span class="number">4</span> . / hello</span><br><span class="line">mpiexec - np <span class="number">4</span> . / hello</span><br></pre></td></tr></table></figure>
+<ul>
+<li>生成hello的可执行代码<br>-</li>
+<li>指定np的值，表示进程数，由用户指定, 这里是4<br>-</li>
+<li>这里比较关键的三个API是 mpicc, mpic++, mpirun, mpiexec</li>
+</ul>
+<h3 id="写MPI程序须知的两个问题："><a href="#写MPI程序须知的两个问题：" class="headerlink" title="写MPI程序须知的两个问题："></a>写MPI程序须知的两个问题：</h3><ol>
+<li>任务由多少进程来进行并行计算 <code>MPI_Comm_size得知进程个数</code></li>
+<li>我是哪一个进程 <code>MPI_Comm_rank得到0 - P - 1的整数，相当于进程ID</code></li>
+</ol>
+<h3 id="有消息传递greetings："><a href="#有消息传递greetings：" class="headerlink" title="有消息传递greetings："></a>有消息传递greetings：</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"mpi.h"</span></span></span><br><span class="line">main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> myid; <span class="comment">//进程数</span></span><br><span class="line">    <span class="keyword">int</span> numprocs; <span class="comment">//进程ID</span></span><br><span class="line">    MPI_Status status; <span class="comment">//消息接受状态变量</span></span><br><span class="line">    <span class="keyword">char</span> message[<span class="number">100</span>]; <span class="comment">//消息buffer，存储也是分布的。</span></span><br><span class="line"></span><br><span class="line">    MPI_Init(&amp;argc, &amp;argv); <span class="comment">//初始化MPI</span></span><br><span class="line">    MPI_Comm_rank(MPI_COMM_WORLD, &amp;myid); <span class="comment">//该函数被各进程各调用一次，得到rank值</span></span><br><span class="line">    MPI_Comm_size(MPI_COMM_WORLD, &amp;numprocs); <span class="comment">//该函数被各进程调用一次，得到进程数</span></span><br><span class="line">    <span class="keyword">if</span> (myid != <span class="number">0</span> ) &#123;</span><br><span class="line">        <span class="built_in">sprintf</span>(message, <span class="string">"Greetings from process %d!"</span>, myid); <span class="comment">//建立消息</span></span><br><span class="line">        MPI_Send(message, <span class="built_in">strlen</span>(message) + <span class="number">1</span>, MPI_CHAR, <span class="number">0</span>, <span class="number">99</span>, MPI_COMM_WORLD) <span class="comment">//发送长度strlen(message)+1，使得\0也一起发出去。</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">/* myid ==0 */</span></span><br><span class="line">        <span class="keyword">for</span> (source = <span class="number">1</span> ; source &lt; numprocs ; source++) &#123;</span><br><span class="line">            MPI_Recv(message, <span class="number">100</span>, MPI_CHAR, source, <span class="number">99</span>, MPI_COMM_WORLD, &amp;status);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, message);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*关闭MPI,MPI代码结束*/</span></span><br><span class="line">    MPI_Finalize();</span><br><span class="line">&#125;<span class="comment">/* end main */</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">结果：</span><br><span class="line">Greetings from process <span class="number">1</span>!</span><br><span class="line">Greetings from process <span class="number">2</span>!</span><br><span class="line">Greetings from process <span class="number">3</span>!</span><br><span class="line">为什么进程<span class="number">1</span>，进程<span class="number">2</span>，进程<span class="number">3</span>依次向进程<span class="number">0</span>发消息？</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码理解：</p>
+</blockquote>
+<ul>
+<li>通信组 / 通信子：MPI_COMM_WORLD</li>
+<li>一个通信组是一个进程组的集合。所有参与并行计算的进程可以组合为一个或多个通信组。</li>
+<li>执行MPI_init后，一个MPI程序的所有进程形成一个缺省的组。这个组被写作MPI_COMM_WORLD</li>
+<li><code>MPI_Comm_size</code>获得通信组comm中包含的进程数</li>
+<li><code>MPI_Comm_rank</code>得到本进程在通信组中的rank值</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">数据传送 +同步操作</span><br><span class="line">MPI_Send(A, <span class="number">10</span>, MPI_DOUBLE, <span class="number">1</span>, <span class="number">99</span>, MPI_COMM_WORLD);</span><br><span class="line">MPI_Recv(B, <span class="number">20</span>, MPI_DOUBLE, <span class="number">0</span>, <span class="number">99</span>, MPI_COMM_WORLD, &amp;STATUS)</span><br></pre></td></tr></table></figure>
+<h2 id="6个最基本的MPI程序"><a href="#6个最基本的MPI程序" class="headerlink" title="6个最基本的MPI程序"></a>6个最基本的MPI程序</h2><ul>
+<li>MPI_Init()</li>
+<li>MPI_Comm_size()</li>
+<li>MPI_Comm_rank()</li>
+<li>MPI_Send()</li>
+<li>MPI_Recv()</li>
+<li>MPI_Finalize()</li>
+</ul>
+<h3 id="Glossary"><a href="#Glossary" class="headerlink" title="Glossary"></a>Glossary</h3><ul>
+<li>Blocking</li>
+<li>non - blocking</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MPI_Send</span><span class="params">(<span class="keyword">void</span>*buf, <span class="keyword">int</span> count, MPI_Datatype datatype, <span class="keyword">int</span> dest, <span class="keyword">int</span> tag, MPI_Commcomm)</span></span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>buf 发送缓冲区的起始地址<br>count 发送信息的元素个数<br>datatype 数据类型<br>dest 目标进程的rank值<br>tag 消息标签<br>comm 通信组</p>
+<hr>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MPI_Recv</span><span class="params">(<span class="keyword">void</span>*buf, <span class="keyword">int</span> count, MPI_Datatype datatype, <span class="keyword">int</span> source, <span class="keyword">int</span> tag, MPI_Commcomm, MPI_Status *status)</span></span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>OUT buf 发送缓冲区的起始地址<br>count 发送信息的元素个数<br>datatype 数据类型<br>dest 目标进程的rank值<br>tag 消息标签<br>comm 通信组<br>OUT status  包含实际收到的信息的有关信息</p>
+<hr>
+</blockquote>
+<p>在消息传递中使用标签，是为了防止顺序混乱</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Parameter-Server/" rel="tag"># Parameter Server</a>
+          
+            <a href="/tags/Distributed-ML/" rel="tag"># Distributed ML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/29/DataParallelism/" rel="next" title="Build Your Code for Data Parallelism">
+                <i class="fa fa-chevron-left"></i> Build Your Code for Data Parallelism
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/miqianmimi || github" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/100002269882529 || facebook" target="_blank" title="FB Page">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  FB Page
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/time_liss.253 || instagram" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Instagram
+                </a>
+              </span>
+            
+  <!--以下是加入关于high一下的代码-->
+            <span class="links-of-author-item"><a title="小high一下~" style="underline: none;color:red" rel="alternate" class="mw-harlem_shake_slow wobble shake" href="javascript:shake()"><i class="fa fa-music"></i> &nbsp;&nbsp;High</a></span>
+  <!--以上是加入关于high一下的代码-->
+          
+        </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="YiqingMa" />
+            
+              <p class="site-author-name" itemprop="name">YiqingMa</p>
+              <p class="site-description motion-element" itemprop="description"><p style="color:MediumSeaGreen;font-size:15px;font-family:Comic Sans MS" > If life deals you lemons, make lemonade. </p></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/miqianmimi" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.facebook.com/100002269882529" target="_blank" title="FB Page">
+                      
+                        <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/time_liss.253" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://jacquelinewang.github.io/" title="Jacqueline Wang" target="_blank">Jacqueline Wang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MPI的实现有："><span class="nav-number">1.</span> <span class="nav-text">MPI的实现有：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单案例："><span class="nav-number">2.</span> <span class="nav-text">简单案例：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3种MPI参数："><span class="nav-number">2.1.</span> <span class="nav-text">3种MPI参数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MPI初始化与MPI结束"><span class="nav-number">2.2.</span> <span class="nav-text">MPI初始化与MPI结束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MPI程序的编译和运行"><span class="nav-number">2.3.</span> <span class="nav-text">MPI程序的编译和运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写MPI程序须知的两个问题："><span class="nav-number">2.4.</span> <span class="nav-text">写MPI程序须知的两个问题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有消息传递greetings："><span class="nav-number">2.5.</span> <span class="nav-text">有消息传递greetings：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6个最基本的MPI程序"><span class="nav-number">3.</span> <span class="nav-text">6个最基本的MPI程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Glossary"><span class="nav-number">3.1.</span> <span class="nav-text">Glossary</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YiqingMa</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 背景动画 
+  <script type="text/javascript" src="/js/src/particle.js"></script>-->
+</body>
+</html>
