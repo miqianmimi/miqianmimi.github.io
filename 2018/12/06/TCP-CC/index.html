@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Network,Transport,Congestion Control," />
 
 
 
@@ -79,16 +79,24 @@
 
 
 
-<meta name="description" content="If life deals you lemons, make lemonade.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="miqianmimi Ma">
-<meta property="og:url" content="http://yoursite.com/archives/2018/08/index.html">
+<meta name="description" content="here for website    Author: Yiqing Ma (Hongkong University of Science and Technology )  Congestion Control, Transport">
+<meta name="keywords" content="Network,Transport,Congestion Control">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP-CC">
+<meta property="og:url" content="http://yoursite.com/2018/12/06/TCP-CC/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="If life deals you lemons, make lemonade.">
+<meta property="og:description" content="here for website    Author: Yiqing Ma (Hongkong University of Science and Technology )  Congestion Control, Transport">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/TCP-CC/Reno.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/TCP-CC/cubic.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/TCP-CC/cubic2.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/TCP-CC/cubic_win.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/06/TCP-CC/BBRvsCubic.png">
+<meta property="og:updated_time" content="2018-12-06T09:24:02.216Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="miqianmimi Ma">
-<meta name="twitter:description" content="If life deals you lemons, make lemonade.">
+<meta name="twitter:title" content="TCP-CC">
+<meta name="twitter:description" content="here for website    Author: Yiqing Ma (Hongkong University of Science and Technology )  Congestion Control, Transport">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/06/TCP-CC/Reno.png">
 
 
 
@@ -120,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2018/08/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/12/06/TCP-CC/"/>
 
 
 
 
 
-  <title>Archive | miqianmimi Ma</title>
+  <title>TCP-CC | miqianmimi Ma</title>
   
 
 
@@ -145,7 +153,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -240,111 +248,240 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 12 posts in total. Keep on posting.
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/TCP-CC/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YiqingMa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="miqianmimi Ma">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/08/31/How to use two github accounts on Mac/" itemprop="url">
-              
-                <span itemprop="name">How to Use Two Github Accounts on Mac</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">TCP-CC</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-31T19:46:26+08:00"
-              content="2018-08-31" >
-          08-31
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-12-06T13:10:11+08:00">
+                2018-12-06
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/summary/" itemprop="url" rel="index">
+                    <span itemprop="name">summary</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/06/TCP-CC/" class="leancloud_visitors" data-flag-title="TCP-CC">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/08/30/Set Up in HKUST/" itemprop="url">
-              
-                <span itemprop="name">Set Up in HKUST</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-30T23:49:09+08:00"
-              content="2018-08-30" >
-          08-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
+      
+        <p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://juejin.im/entry/5b7fcd13f265da4372473199" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span>here for website</span></a> </p>
+
+<ul>
+<li>Author: <code>Yiqing Ma</code> (Hongkong University of Science and Technology )</li>
+<li><p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS"> Congestion Control, Transport </p>
+
+</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标:"></a>目标:</h2><h3 id="最初目标"><a href="#最初目标" class="headerlink" title="最初目标:"></a>最初目标:</h3><blockquote>
+<p>最初的TCP 通过维护一个cwnd来进行拥塞控制，只要网络中没出现拥塞，拥塞窗口的值就可以增大一些，把更多的包发送出去。但只要出现拥塞，拥塞窗口的值就应该减小一些，以减少注入到网络中的数据包数。</p>
+</blockquote>
+<hr>
+<h3 id="核心："><a href="#核心：" class="headerlink" title="核心："></a>核心：</h3><blockquote>
+<p> 选择一个有效的策略来控制拥塞窗口的变化</p>
+</blockquote>
+<blockquote>
+<hr>
+</blockquote>
+<h2 id="种类"><a href="#种类" class="headerlink" title="种类:"></a>种类:</h2><ul>
+<li>基于丢包的拥塞控制 - Reno and Cubic</li>
+<li>基于时延的拥塞控制 - Vegas and FastTCP</li>
+<li>基于链路容量的拥塞控制 - BBR</li>
+<li>基于学习的拥塞控制 - Remy</li>
+</ul>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍:"></a>介绍:</h2><h3 id="Vegas"><a href="#Vegas" class="headerlink" title="Vegas:"></a>Vegas:</h3><p>Vegas 将时延RTT的增加作为网络出现拥塞的信号，RTT增加，拥塞窗口减小，RTT减小，拥塞窗口增加。具体来说，Vegas通过比较实际吞吐量和期望吞吐量来调节拥塞窗口大小.</p>
+<p><code>缺点</code>:基于丢包的拥塞控制算法会尝试填满网络的缓冲区.Vegas 计算出来的RTT会偏大</p>
+<p><code>适用</code>:于网络中只存在Vegas一种拥塞控制算法，竞争公平的情况。</p>
+<hr>
+<h3 id="Reno"><a href="#Reno" class="headerlink" title="Reno:"></a>Reno:</h3><p>Reno 4个阶段:慢启动，拥塞控制，快速重传，快速恢复</p>
+<p><img src="/2018/12/06/TCP-CC/Reno.png" alt="Reno"></p>
+<p><code>缺点</code>：Reno 算法将收到 ACK 这一信号作为拥塞窗口增长的依据,在高带宽延时（High Bandwidth-Delay Product，BDP）网络中，RTT很大，导致拥塞窗口增长很慢，传输速度需要经过很长时间才能达到最大带宽.</p>
+<p><code>适用</code>：低延时、低带宽的网络。</p>
+<hr>
+<h3 id="Cubic"><a href="#Cubic" class="headerlink" title="Cubic:"></a>Cubic:</h3><p>Cubic 是Linux内核2.6之后的默认TCP拥塞控制算法，使用一个立方函数(cubic function)作为拥塞窗口的增长函数。</p>
+<p>公式表明：cwnd不跟RTT有关了，而仅仅取决于上次发生拥塞时的最大窗口和距离上次发生拥塞的时间间隔值。</p>
+<p><img src="/2018/12/06/TCP-CC/cubic.png" alt="cubic"></p>
+<p>Cubic拥塞窗口增长曲线如下，凸曲线部分为稳定增长阶段，凹曲线部分为最大带宽探测阶段。拥塞窗口增长很快，在接近Wmax口时，增长速度变的平缓，避免流量突增而导致丢包。在Wmax附近时，拥塞窗口不再增加。在远离Wmax后，增大窗口增长的速度，保证了带宽的利用率<br><img src="/2018/12/06/TCP-CC/cubic2.png" alt="cubic2"></p>
+<p><code>缺点</code>：无法区分拥塞丢包和传输错误丢包以及过于激进，填满拥塞窗口，出现Bufferbloat.<br><img src="/2018/12/06/TCP-CC/cubic_win.png" alt="cubic_win"></p>
+<p><code>适用</code>：高带宽，低丢包率网络，能够有效利用带宽。</p>
+<hr>
+<h3 id="BBR"><a href="#BBR" class="headerlink" title="BBR:"></a>BBR:</h3><p>BBR是谷歌在 2016 年提出的一种新的拥塞控制算法，已经在 Youtube 服务器和谷歌跨数据中心广域网上部署.</p>
+<p>BBR 算法不将出现丢包或时延增加作为拥塞的信号，而是认为当网络上的数据包总量大于瓶颈链路带宽和时延的乘积时才出现了拥塞，所以BBR也称为基于拥塞的拥塞控制算法（Congestion-Based Congestion Control）。BBR 算法周期性地探测网络的容量，交替测量一段时间内的带宽极大值和时延极小值，将其乘积作为作为拥塞窗口大小.由于 BBR算法不将丢包作为拥塞信号，所以在丢包率较高的网<br>络中，BBR依然有极高的吞吐量.</p>
+<p><img src="/2018/12/06/TCP-CC/BBRvsCubic.png" alt="BBRvsCubic"></p>
+<p><code>缺点</code>：设备队列缓存较大时，BBR 可能会竞争不过 Cubic 等比较激进算法，原因是 BBR 不主动去占据队列缓存.</p>
+<p><code>适用</code>：高带宽、高时延、有一定丢包率的网络，可以有效降低传输时延，并保证较高的吞吐量。</p>
+<hr>
+<h3 id="Remy"><a href="#Remy" class="headerlink" title="Remy:"></a>Remy:</h3><p>Remy也称为计算机生成的拥塞控制算法（computer-generated congestion-control algorithm），采用机器学习的方式生成拥塞控制算法模型。通过输入各种参数模型（如瓶颈链路速率、时延、瓶颈链路上的发送者数量等），使用一个目标函数定量判断算法的优劣程度.最终会生成一个网络状态到调节方式的映射表，在真实的网络中，根据特定的网络环境从映射表直接选取拥塞窗口的调节方式。</p>
+<p><code>缺点</code>：这种方式比较依赖输入的训练集（历史网络模型），如果训练集能够全面覆盖所有可能出现的网络环境及拥塞调节算法，Remy算法在应用到真实的网络环境中时能够表现的很好，但是如果真实网络与训练网络差异较大，Remy 算法的性能会比较差。</p>
+<p><code>适用</code>：网络环境为复杂的异构网络，希望计算机能够针对不同网络场景自动选择合适的拥塞控制方式，要求现有的网络模型能够覆盖所有可能出现情况。</p>
+<hr>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Network/" rel="tag"># Network</a>
+          
+            <a href="/tags/Transport/" rel="tag"># Transport</a>
+          
+            <a href="/tags/Congestion-Control/" rel="tag"># Congestion Control</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/03/PASE/" rel="next" title="PASE">
+                <i class="fa fa-chevron-left"></i> PASE
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -352,6 +489,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -407,8 +548,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -508,6 +658,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最初目标"><span class="nav-number">1.1.</span> <span class="nav-text">最初目标:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心："><span class="nav-number">1.2.</span> <span class="nav-text">核心：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#种类"><span class="nav-number">2.</span> <span class="nav-text">种类:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">3.</span> <span class="nav-text">介绍:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vegas"><span class="nav-number">3.1.</span> <span class="nav-text">Vegas:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reno"><span class="nav-number">3.2.</span> <span class="nav-text">Reno:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cubic"><span class="nav-number">3.3.</span> <span class="nav-text">Cubic:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BBR"><span class="nav-number">3.4.</span> <span class="nav-text">BBR:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Remy"><span class="nav-number">3.5.</span> <span class="nav-text">Remy:</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -668,6 +834,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
