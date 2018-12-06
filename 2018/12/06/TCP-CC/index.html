@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/06/TCP-CC/cubic2.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/TCP-CC/cubic_win.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/06/TCP-CC/BBRvsCubic.png">
-<meta property="og:updated_time" content="2018-12-06T09:24:02.216Z">
+<meta property="og:updated_time" content="2018-12-06T09:27:16.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP-CC">
 <meta name="twitter:description" content="here for website    Author: Yiqing Ma (Hongkong University of Science and Technology )  Congestion Control, Transport">
@@ -377,7 +377,7 @@
 </ul>
 <hr>
 <a id="more"></a>
-<h2 id="目标"><a href="#目标" class="headerlink" title="目标:"></a>目标:</h2><h3 id="最初目标"><a href="#最初目标" class="headerlink" title="最初目标:"></a>最初目标:</h3><blockquote>
+<h2 id="一-目标"><a href="#一-目标" class="headerlink" title="一,目标:"></a>一,目标:</h2><h3 id="最初目标"><a href="#最初目标" class="headerlink" title="最初目标:"></a>最初目标:</h3><blockquote>
 <p>最初的TCP 通过维护一个cwnd来进行拥塞控制，只要网络中没出现拥塞，拥塞窗口的值就可以增大一些，把更多的包发送出去。但只要出现拥塞，拥塞窗口的值就应该减小一些，以减少注入到网络中的数据包数。</p>
 </blockquote>
 <hr>
@@ -387,13 +387,13 @@
 <blockquote>
 <hr>
 </blockquote>
-<h2 id="种类"><a href="#种类" class="headerlink" title="种类:"></a>种类:</h2><ul>
+<h2 id="二，种类"><a href="#二，种类" class="headerlink" title="二，种类:"></a>二，种类:</h2><ul>
 <li>基于丢包的拥塞控制 - Reno and Cubic</li>
 <li>基于时延的拥塞控制 - Vegas and FastTCP</li>
 <li>基于链路容量的拥塞控制 - BBR</li>
 <li>基于学习的拥塞控制 - Remy</li>
 </ul>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍:"></a>介绍:</h2><h3 id="Vegas"><a href="#Vegas" class="headerlink" title="Vegas:"></a>Vegas:</h3><p>Vegas 将时延RTT的增加作为网络出现拥塞的信号，RTT增加，拥塞窗口减小，RTT减小，拥塞窗口增加。具体来说，Vegas通过比较实际吞吐量和期望吞吐量来调节拥塞窗口大小.</p>
+<h2 id="三，介绍"><a href="#三，介绍" class="headerlink" title="三，介绍:"></a>三，介绍:</h2><h3 id="Vegas"><a href="#Vegas" class="headerlink" title="Vegas:"></a>Vegas:</h3><p>Vegas 将时延RTT的增加作为网络出现拥塞的信号，RTT增加，拥塞窗口减小，RTT减小，拥塞窗口增加。具体来说，Vegas通过比较实际吞吐量和期望吞吐量来调节拥塞窗口大小.</p>
 <p><code>缺点</code>:基于丢包的拥塞控制算法会尝试填满网络的缓冲区.Vegas 计算出来的RTT会偏大</p>
 <p><code>适用</code>:于网络中只存在Vegas一种拥塞控制算法，竞争公平的情况。</p>
 <hr>
@@ -668,7 +668,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目标"><span class="nav-number">1.</span> <span class="nav-text">目标:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最初目标"><span class="nav-number">1.1.</span> <span class="nav-text">最初目标:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心："><span class="nav-number">1.2.</span> <span class="nav-text">核心：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#种类"><span class="nav-number">2.</span> <span class="nav-text">种类:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">3.</span> <span class="nav-text">介绍:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vegas"><span class="nav-number">3.1.</span> <span class="nav-text">Vegas:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reno"><span class="nav-number">3.2.</span> <span class="nav-text">Reno:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cubic"><span class="nav-number">3.3.</span> <span class="nav-text">Cubic:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BBR"><span class="nav-number">3.4.</span> <span class="nav-text">BBR:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Remy"><span class="nav-number">3.5.</span> <span class="nav-text">Remy:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-目标"><span class="nav-number">1.</span> <span class="nav-text">一,目标:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#最初目标"><span class="nav-number">1.1.</span> <span class="nav-text">最初目标:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心："><span class="nav-number">1.2.</span> <span class="nav-text">核心：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二，种类"><span class="nav-number">2.</span> <span class="nav-text">二，种类:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三，介绍"><span class="nav-number">3.</span> <span class="nav-text">三，介绍:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vegas"><span class="nav-number">3.1.</span> <span class="nav-text">Vegas:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reno"><span class="nav-number">3.2.</span> <span class="nav-text">Reno:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cubic"><span class="nav-number">3.3.</span> <span class="nav-text">Cubic:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BBR"><span class="nav-number">3.4.</span> <span class="nav-text">BBR:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Remy"><span class="nav-number">3.5.</span> <span class="nav-text">Remy:</span></a></li></ol></li></ol></div>
             
 
           </div>
