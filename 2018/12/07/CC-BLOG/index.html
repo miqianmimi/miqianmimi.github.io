@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/4.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/6.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/5.png">
-<meta property="og:updated_time" content="2018-12-07T16:37:25.235Z">
+<meta property="og:updated_time" content="2018-12-07T16:40:54.098Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CC-BLOG">
 <meta name="twitter:description" content="here for original website    Author: Sid Shanker (NYU coder)  Congestion Control">
@@ -402,7 +402,7 @@
 <h3 id="BBR"><a href="#BBR" class="headerlink" title="BBR"></a><code>BBR</code></h3><p>Google提出，且用delay拥塞作为指标</p>
 <h3 id="Fairness"><a href="#Fairness" class="headerlink" title="Fairness"></a><code>Fairness</code></h3><p>不同算法之间可能会产生公平问题。有些算法是贪心的，可能相比别的算法占据更多的带宽。</p>
 <hr>
-<h2 id="2-CC-Cubic"><a href="#2-CC-Cubic" class="headerlink" title="2. CC Cubic:"></a>2. CC Cubic:</h2><p></p><p style="color:LightPurple;font-size:16px;font-family:Comic Sans MS"> Cubic VS Tahoe </p><br><a href="http://squidarth.com/CUBIC-vs-TAHOE.html" target="_blank" rel="noopener">link</a><p></p>
+<h2 id="2-CC-Cubic"><a href="#2-CC-Cubic" class="headerlink" title="2. CC Cubic:"></a>2. CC Cubic:</h2><p></p><p style="color:Violet;font-size:16px;font-family:Comic Sans MS"> Cubic VS Tahoe </p><br><a href="http://squidarth.com/CUBIC-vs-TAHOE.html" target="_blank" rel="noopener">link</a><p></p>
 <p>现在大多数网络都是long,fat networks。需要更快达到一个更大的cwnd。</p>
 <p><strong>Cubic（三次函数）使得更快得收敛到更好的网络状况.].</strong></p>
 <p>CUBIC和另一种机制一起Send的时候会表现更好。看似奇怪，实际上是因为当有Multiple Sender的时候，link Queue 会更快的填满queue,导致packets 开始丢包。较早的更正阻止CUBIC进入窗口增长非常快的状态。除此之外，Tahoe比Cubic遇到拥塞时减少得更快，这意味着当丢失事件发生时，CUBIC有更多的队列空间可供使用。</p>
