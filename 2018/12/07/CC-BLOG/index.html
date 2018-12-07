@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/4.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/6.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/5.png">
-<meta property="og:updated_time" content="2018-12-07T16:18:43.113Z">
+<meta property="og:updated_time" content="2018-12-07T16:33:39.028Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CC-BLOG">
 <meta name="twitter:description" content="here for original website    Author: Sid Shanker (NYU coder)  Congestion Control">
@@ -422,17 +422,17 @@
 <li><a href="http://squidarth.com/Link-level-Congestion-Control.html" target="_blank" rel="noopener">:heart_decoration:</a></li>
 </ul>
 <p><strong>Red是一个router端的拥塞控制算法。</strong></p>
-<h3 id="【1】为什么仅用丢包来处理CC会有问题？"><a href="#【1】为什么仅用丢包来处理CC会有问题？" class="headerlink" title="【1】为什么仅用丢包来处理CC会有问题？"></a><code>【1】为什么仅用丢包来处理CC会有问题？</code></h3><blockquote>
+<h3 id="【1】为什么仅用丢包来处理CC会有问题？"><a href="#【1】为什么仅用丢包来处理CC会有问题？" class="headerlink" title="【1】为什么仅用丢包来处理CC会有问题？"></a>【1】为什么仅用丢包来处理CC会有问题？</h3><blockquote>
 <p>如Queue大，我仅用丢包作为拥塞指标。实际已经拥塞的情况，但是还没出现丢包，CWND仍旧在增加，未减少，如Cubic。它很难充分发挥其潜力，因为它太晚才得知拥堵发生。</p>
 <p>它有点像淋浴中的热水旋钮,在您移动旋钮后发生反馈，而您直到后来才意识到它是否过热。</p>
 <hr>
 </blockquote>
-<h3 id="【2】为什么不能减少队列？"><a href="#【2】为什么不能减少队列？" class="headerlink" title="【2】为什么不能减少队列？"></a><code>【2】为什么不能减少队列？</code></h3><blockquote>
+<h3 id="【2】为什么不能减少队列？"><a href="#【2】为什么不能减少队列？" class="headerlink" title="【2】为什么不能减少队列？"></a>【2】为什么不能减少队列？</h3><blockquote>
 <p>队列可以作为平滑功能，可以吸收突发的流量并在链接被清空时保留它们。</p>
 <p>使队列变小使得它们对交通爆发的抵抗力降低。</p>
 <hr>
 </blockquote>
-<h3 id="【3】我们怎么做？"><a href="#【3】我们怎么做？" class="headerlink" title="【3】我们怎么做？"></a><code>【3】我们怎么做？</code></h3><blockquote>
+<h3 id="【3】我们怎么做？"><a href="#【3】我们怎么做？" class="headerlink" title="【3】我们怎么做？"></a>【3】我们怎么做？</h3><blockquote>
 <p>采用<code>AQM(主动队列管理)算法</code></p>
 <p>处理此问题的传统直观方法称为droptail。队列不必等到它们全满就开始丢弃数据包。</p>
 <p>引入<code>RED(Random Early Detection)</code></p>
@@ -441,7 +441,7 @@
 <hr>
 </blockquote>
 <p><img src="/2018/12/07/CC-BLOG/4.png" alt="4"></p>
-<h3 id="【4】RED-算法的-Bug"><a href="#【4】RED-算法的-Bug" class="headerlink" title="【4】RED 算法的 Bug"></a><code>【4】RED 算法的 Bug</code></h3><blockquote>
+<h3 id="【4】RED-算法的-Bug"><a href="#【4】RED-算法的-Bug" class="headerlink" title="【4】RED 算法的 Bug"></a>【4】RED 算法的 Bug</h3><blockquote>
 <p>值得注意的是，在一些实验中，拥塞窗口将崩溃为零，而且永远不会恢复。我们会在拥塞窗口中看到这样的图形：</p>
 </blockquote>
 <p><img src="/2018/12/07/CC-BLOG/6.png" alt="6"></p>
@@ -477,7 +477,7 @@
 <ul>
 <li><code>Future work</code> 在我们的实验中，这个结果没有收敛，所以我们需要更长时间去跑到收敛。</li>
 </ul>
-<p><strong>同时我们也参考了Pantheon <p style="color:Pink;font-size:16px;font-family:Comic Sans MS"> Pantheon </p> <a href="https://pantheon.stanford.edu/" target="_blank" rel="noopener">:heart_decoration:</a></strong></p>
+<p><strong>同时我们也参考了Pantheon <p style="color:Pink;font-size:16px;font-family:Comic Sans MS"> <a href="https://pantheon.stanford.edu/" target="_blank" rel="noopener">Pantheon</a> </p></strong></p>
 <hr>
 
       
