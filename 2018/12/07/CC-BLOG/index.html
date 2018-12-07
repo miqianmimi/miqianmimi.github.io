@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/4.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/6.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/5.png">
-<meta property="og:updated_time" content="2018-12-07T16:03:56.039Z">
+<meta property="og:updated_time" content="2018-12-07T16:06:05.458Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CC-BLOG">
 <meta name="twitter:description" content="here for original website    Author: Sid Shanker (NYU coder)  Congestion Control">
@@ -377,35 +377,7 @@
 </ul>
 <hr>
 <a id="more"></a>
-<h2 id="0-Several-useful-tool"><a href="#0-Several-useful-tool" class="headerlink" title="0. Several useful tool:"></a>0. Several useful tool:</h2><p style="color:SkyBlue;font-size:16px;font-family:Comic Sans MS"> <a id="download" href="http://squidarth.com/demonstrating-congestion-control.html" target="_blank" rel="noopener">Notebook Tutorial </a></p>
-
-<p><a href="http://mahimahi.mit.edu/" target="_blank" rel="noopener">1.Mahimahi</a></p>
-<blockquote>
-<p>Network Simulatior </p>
-<p>它是一个和NS2;NS3并列的工具,允许开发者在单机测试不同网络情况的工具。</p>
-</blockquote>
-<p><a href="https://github.com/StanfordSNR/indigo/tree/master/env" target="_blank" rel="noopener">2.indigo</a></p>
-<blockquote>
-<p>斯坦福SNR(系统网络组)他们正在用RNN做Congestion Control. </p>
-<p>indigo is a reinforcement learning-based congestion control algorithM</p>
-</blockquote>
-<p><a href="https://www.vagrantup.com/" target="_blank" rel="noopener">3.Vagrant</a></p>
-<blockquote>
-<p>可以使得配置环境变得很容易，轻松起一个虚拟机，配置一个Ubuntu系统</p>
-<p>Single workflow to setup a virtual machine</p>
-</blockquote>
-<hr>
-<h2 id="1-Intro-to-CC"><a href="#1-Intro-to-CC" class="headerlink" title="1. Intro to CC:"></a>1. Intro to CC:</h2><p><img src="/2018/12/07/CC-BLOG/1.png" alt="1"><br><code>BDP</code> Link中重要的一个指标是BDP(宽带延迟乘积）是在任何给定时间点可以适合链路的字节数。</p>
-<p>这可以被认为是管道中管道的<strong>体积</strong>类比。</p>
-<p>当流经它的字节数等于BDP时，充分利用链路。</p>
-<p>如果发送者发送的字节数多于BDP，则链接的队列将填满并最终开始丢弃数据包。</p>
-<p><img src="/2018/12/07/CC-BLOG/2.png" alt="2"></p>
-<p><code>Tahoe</code> 惨遭淘汰的原因是在bandwidth较高的网络中，Tahoe 需要太长的时间才能收敛到高bandwidth。</p>
-<p><code>Cubic</code> Linux上标配算法,仍用Packet Loss作为拥塞指标</p>
-<p><code>BBR</code> Google提出，且用delay拥塞作为指标</p>
-<p><code>Fairness</code> 不同算法之间可能会产生公平问题。有些算法是贪心的，可能相比别的算法占据更多的带宽。</p>
-<hr>
-<h2 id="2-CC-Cubic"><a href="#2-CC-Cubic" class="headerlink" title="2. CC Cubic:"></a>2. CC Cubic:</h2><p style="color:LightPurple;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="http://squidarth.com/CUBIC-vs-TAHOE.html" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span>  Cubic VS Tahoe </span></a> </p>
+<h2 id="0-Several-useful-tool"><a href="#0-Several-useful-tool" class="headerlink" title="0. Several useful tool:"></a>0. Several useful tool:</h2><p style="color:SkyBlue;font-size:16px;font-family:Comic Sans MS"> Notebook Tutorial </p><br>* <a href="http://squidarth.com/demonstrating-congestion-control.html" target="_blank" rel="noopener">:heart_decoration: Read More</a><br><br><br><a href="http://mahimahi.mit.edu/" target="_blank" rel="noopener">1.Mahimahi</a><br>&gt; Network Simulatior<br>&gt;<br>&gt; 它是一个和NS2;NS3并列的工具,允许开发者在单机测试不同网络情况的工具。<br><br><br><a href="https://github.com/StanfordSNR/indigo/tree/master/env" target="_blank" rel="noopener">2.indigo</a><br>&gt; 斯坦福SNR(系统网络组)他们正在用RNN做Congestion Control.<br>&gt;<br>&gt; indigo is a reinforcement learning-based congestion control algorithM<br><br><a href="https://www.vagrantup.com/" target="_blank" rel="noopener">3.Vagrant</a><br>&gt; 可以使得配置环境变得很容易，轻松起一个虚拟机，配置一个Ubuntu系统<br>&gt;<br>&gt; Single workflow to setup a virtual machine<br><br>—<br><br>## 1. Intro to CC:<br><img src="/2018/12/07/CC-BLOG/1.png" alt="1"><br><code>BDP</code> Link中重要的一个指标是BDP(宽带延迟乘积）是在任何给定时间点可以适合链路的字节数。<br><br>这可以被认为是管道中管道的<strong>体积</strong>类比。<br><br>当流经它的字节数等于BDP时，充分利用链路。<br><br>如果发送者发送的字节数多于BDP，则链接的队列将填满并最终开始丢弃数据包。<br><br><img src="/2018/12/07/CC-BLOG/2.png" alt="2"><br><br><code>Tahoe</code> 惨遭淘汰的原因是在bandwidth较高的网络中，Tahoe 需要太长的时间才能收敛到高bandwidth。<br><br><code>Cubic</code> Linux上标配算法,仍用Packet Loss作为拥塞指标<br><br><code>BBR</code> Google提出，且用delay拥塞作为指标<br><br><code>Fairness</code> 不同算法之间可能会产生公平问题。有些算法是贪心的，可能相比别的算法占据更多的带宽。<br><br>—<br><br>## 2. CC Cubic:<br><br><p style="color:LightPurple;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="http://squidarth.com/CUBIC-vs-TAHOE.html" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span>  Cubic VS Tahoe </span></a> </p>
 
 <p>现在大多数网络都是long,fat networks。需要更快达到一个更大的cwnd。<br>Cubic（三次函数）使得更快得收敛到更好的网络状况。</p>
 <p>CUBIC和另一种机制一起Send的时候会表现更好。看似奇怪，实际上是因为当有Multiple Sender的时候，link Queue 会更快的填满queue,导致packets 开始丢包。较早的更正阻止CUBIC进入窗口增长非常快的状态。除此之外，Tahoe比Cubic遇到拥塞时减少得更快，这意味着当丢失事件发生时，CUBIC有更多的队列空间可供使用。</p>
@@ -695,7 +667,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-Several-useful-tool"><span class="nav-number">1.</span> <span class="nav-text">0. Several useful tool:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Intro-to-CC"><span class="nav-number">2.</span> <span class="nav-text">1. Intro to CC:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-CC-Cubic"><span class="nav-number">3.</span> <span class="nav-text">2. CC Cubic:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-CC-Red"><span class="nav-number">4.</span> <span class="nav-text">3. CC Red:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#它有点像淋浴中的热水旋钮-在您移动旋钮后发生反馈，而您直到后来才意识到它是否过热。"><span class="nav-number">5.</span> <span class="nav-text">它有点像淋浴中的热水旋钮,在您移动旋钮后发生反馈，而您直到后来才意识到它是否过热。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使队列变小使得它们对交通爆发的抵抗力降低。"><span class="nav-number">6.</span> <span class="nav-text">使队列变小使得它们对交通爆发的抵抗力降低。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#丢掉一个完好的包虽然有点违反直觉，但任意丢弃完全健康的数据包会带来更好的性能。直觉是，早先丢弃数据包为TCP发送者提供了一个指示，即他们应该减少拥塞窗口。这比完全填满队列，体验一系列丢弃，然后不得不Cut拥塞窗口要好很多。"><span class="nav-number">7.</span> <span class="nav-text">丢掉一个完好的包虽然有点违反直觉，但任意丢弃完全健康的数据包会带来更好的性能。直觉是，早先丢弃数据包为TCP发送者提供了一个指示，即他们应该减少拥塞窗口。这比完全填满队列，体验一系列丢弃，然后不得不Cut拥塞窗口要好很多。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-CC-Reinforcement-Learning"><span class="nav-number">8.</span> <span class="nav-text">4. CC Reinforcement Learning :</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-Several-useful-tool"><span class="nav-number">1.</span> <span class="nav-text">0. Several useful tool:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-CC-Red"><span class="nav-number">2.</span> <span class="nav-text">3. CC Red:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#它有点像淋浴中的热水旋钮-在您移动旋钮后发生反馈，而您直到后来才意识到它是否过热。"><span class="nav-number">3.</span> <span class="nav-text">它有点像淋浴中的热水旋钮,在您移动旋钮后发生反馈，而您直到后来才意识到它是否过热。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使队列变小使得它们对交通爆发的抵抗力降低。"><span class="nav-number">4.</span> <span class="nav-text">使队列变小使得它们对交通爆发的抵抗力降低。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#丢掉一个完好的包虽然有点违反直觉，但任意丢弃完全健康的数据包会带来更好的性能。直觉是，早先丢弃数据包为TCP发送者提供了一个指示，即他们应该减少拥塞窗口。这比完全填满队列，体验一系列丢弃，然后不得不Cut拥塞窗口要好很多。"><span class="nav-number">5.</span> <span class="nav-text">丢掉一个完好的包虽然有点违反直觉，但任意丢弃完全健康的数据包会带来更好的性能。直觉是，早先丢弃数据包为TCP发送者提供了一个指示，即他们应该减少拥塞窗口。这比完全填满队列，体验一系列丢弃，然后不得不Cut拥塞窗口要好很多。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-CC-Reinforcement-Learning"><span class="nav-number">6.</span> <span class="nav-text">4. CC Reinforcement Learning :</span></a></li></ol></div>
             
 
           </div>
