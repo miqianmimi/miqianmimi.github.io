@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/4.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/6.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/5.png">
-<meta property="og:updated_time" content="2018-12-07T16:33:39.028Z">
+<meta property="og:updated_time" content="2018-12-07T16:37:25.235Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CC-BLOG">
 <meta name="twitter:description" content="here for original website    Author: Sid Shanker (NYU coder)  Congestion Control">
@@ -377,11 +377,7 @@
 </ul>
 <hr>
 <a id="more"></a>
-<h2 id="0-Several-useful-tool"><a href="#0-Several-useful-tool" class="headerlink" title="0. Several useful tool:"></a>0. Several useful tool:</h2><p style="color:SkyBlue;font-size:16px;font-family:Comic Sans MS"> Notebook Tutorial </p> 
-
-<ul>
-<li><a href="http://squidarth.com/demonstrating-congestion-control.html" target="_blank" rel="noopener">:heart_decoration:</a></li>
-</ul>
+<h2 id="0-Several-useful-tool"><a href="#0-Several-useful-tool" class="headerlink" title="0. Several useful tool:"></a>0. Several useful tool:</h2><p></p><p style="color:SkyBlue;font-size:16px;font-family:Comic Sans MS"> Notebook Tutorial </p><br><a href="http://squidarth.com/demonstrating-congestion-control.html" target="_blank" rel="noopener">link</a><p></p>
 <h3 id="1-Mahimahi"><a href="#1-Mahimahi" class="headerlink" title="1.Mahimahi"></a><a href="http://mahimahi.mit.edu/" target="_blank" rel="noopener">1.Mahimahi</a></h3><blockquote>
 <p>Network Simulatior </p>
 <p>它是一个和NS2;NS3并列的工具,允许开发者在单机测试不同网络情况的工具。</p>
@@ -406,21 +402,13 @@
 <h3 id="BBR"><a href="#BBR" class="headerlink" title="BBR"></a><code>BBR</code></h3><p>Google提出，且用delay拥塞作为指标</p>
 <h3 id="Fairness"><a href="#Fairness" class="headerlink" title="Fairness"></a><code>Fairness</code></h3><p>不同算法之间可能会产生公平问题。有些算法是贪心的，可能相比别的算法占据更多的带宽。</p>
 <hr>
-<h2 id="2-CC-Cubic"><a href="#2-CC-Cubic" class="headerlink" title="2. CC Cubic:"></a>2. CC Cubic:</h2><p style="color:LightPurple;font-size:16px;font-family:Comic Sans MS"> Cubic VS Tahoe </p> 
-
-<ul>
-<li><a href="http://squidarth.com/CUBIC-vs-TAHOE.html" target="_blank" rel="noopener">:heart_decoration:</a></li>
-</ul>
+<h2 id="2-CC-Cubic"><a href="#2-CC-Cubic" class="headerlink" title="2. CC Cubic:"></a>2. CC Cubic:</h2><p></p><p style="color:LightPurple;font-size:16px;font-family:Comic Sans MS"> Cubic VS Tahoe </p><br><a href="http://squidarth.com/CUBIC-vs-TAHOE.html" target="_blank" rel="noopener">link</a><p></p>
 <p>现在大多数网络都是long,fat networks。需要更快达到一个更大的cwnd。</p>
 <p><strong>Cubic（三次函数）使得更快得收敛到更好的网络状况.].</strong></p>
 <p>CUBIC和另一种机制一起Send的时候会表现更好。看似奇怪，实际上是因为当有Multiple Sender的时候，link Queue 会更快的填满queue,导致packets 开始丢包。较早的更正阻止CUBIC进入窗口增长非常快的状态。除此之外，Tahoe比Cubic遇到拥塞时减少得更快，这意味着当丢失事件发生时，CUBIC有更多的队列空间可供使用。</p>
 <p><strong>缺点</strong>：高BDP时，大的Queue队列可能导致Cubic表现差。由于Cubic在发生数据包丢失之前不会减少窗口大小，因此较大的队列可能会掩盖发送方窗口太大的事实，其实已经拥塞出现，但Cubic不知道还在增加窗口，不断增长的队列会导致往返时间增加。</p>
 <hr>
-<h2 id="3-CC-Red"><a href="#3-CC-Red" class="headerlink" title="3. CC Red:"></a>3. CC Red:</h2><p style="color:Pink;font-size:16px;font-family:Comic Sans MS"> Red CC Algorithm </p> 
-
-<ul>
-<li><a href="http://squidarth.com/Link-level-Congestion-Control.html" target="_blank" rel="noopener">:heart_decoration:</a></li>
-</ul>
+<h2 id="3-CC-Red"><a href="#3-CC-Red" class="headerlink" title="3. CC Red:"></a>3. CC Red:</h2><p></p><p style="color:Pink;font-size:16px;font-family:Comic Sans MS"> Red CC Algorithm </p><br><a href="http://squidarth.com/Link-level-Congestion-Control.html" target="_blank" rel="noopener">link</a><p></p>
 <p><strong>Red是一个router端的拥塞控制算法。</strong></p>
 <h3 id="【1】为什么仅用丢包来处理CC会有问题？"><a href="#【1】为什么仅用丢包来处理CC会有问题？" class="headerlink" title="【1】为什么仅用丢包来处理CC会有问题？"></a>【1】为什么仅用丢包来处理CC会有问题？</h3><blockquote>
 <p>如Queue大，我仅用丢包作为拥塞指标。实际已经拥塞的情况，但是还没出现丢包，CWND仍旧在增加，未减少，如Cubic。它很难充分发挥其潜力，因为它太晚才得知拥堵发生。</p>
@@ -477,7 +465,7 @@
 <ul>
 <li><code>Future work</code> 在我们的实验中，这个结果没有收敛，所以我们需要更长时间去跑到收敛。</li>
 </ul>
-<p><strong>同时我们也参考了Pantheon <p style="color:Pink;font-size:16px;font-family:Comic Sans MS"> <a href="https://pantheon.stanford.edu/" target="_blank" rel="noopener">Pantheon</a> </p></strong></p>
+<p><strong>同时我们也参考了Pantheon <p style="color:Pink;font-size:16px;font-family:Comic Sans MS"> Pantheon </p> <a href="https://pantheon.stanford.edu/" target="_blank" rel="noopener">link</a></strong></p>
 <hr>
 
       
