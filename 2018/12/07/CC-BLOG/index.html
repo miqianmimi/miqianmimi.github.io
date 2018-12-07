@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/4.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/6.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/07/CC-BLOG/5.png">
-<meta property="og:updated_time" content="2018-12-07T16:06:05.458Z">
+<meta property="og:updated_time" content="2018-12-07T16:18:43.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CC-BLOG">
 <meta name="twitter:description" content="here for original website    Author: Sid Shanker (NYU coder)  Congestion Control">
@@ -377,46 +377,107 @@
 </ul>
 <hr>
 <a id="more"></a>
-<h2 id="0-Several-useful-tool"><a href="#0-Several-useful-tool" class="headerlink" title="0. Several useful tool:"></a>0. Several useful tool:</h2><p style="color:SkyBlue;font-size:16px;font-family:Comic Sans MS"> Notebook Tutorial </p><br>* <a href="http://squidarth.com/demonstrating-congestion-control.html" target="_blank" rel="noopener">:heart_decoration: Read More</a><br><br><br><a href="http://mahimahi.mit.edu/" target="_blank" rel="noopener">1.Mahimahi</a><br>&gt; Network Simulatior<br>&gt;<br>&gt; 它是一个和NS2;NS3并列的工具,允许开发者在单机测试不同网络情况的工具。<br><br><br><a href="https://github.com/StanfordSNR/indigo/tree/master/env" target="_blank" rel="noopener">2.indigo</a><br>&gt; 斯坦福SNR(系统网络组)他们正在用RNN做Congestion Control.<br>&gt;<br>&gt; indigo is a reinforcement learning-based congestion control algorithM<br><br><a href="https://www.vagrantup.com/" target="_blank" rel="noopener">3.Vagrant</a><br>&gt; 可以使得配置环境变得很容易，轻松起一个虚拟机，配置一个Ubuntu系统<br>&gt;<br>&gt; Single workflow to setup a virtual machine<br><br>—<br><br>## 1. Intro to CC:<br><img src="/2018/12/07/CC-BLOG/1.png" alt="1"><br><code>BDP</code> Link中重要的一个指标是BDP(宽带延迟乘积）是在任何给定时间点可以适合链路的字节数。<br><br>这可以被认为是管道中管道的<strong>体积</strong>类比。<br><br>当流经它的字节数等于BDP时，充分利用链路。<br><br>如果发送者发送的字节数多于BDP，则链接的队列将填满并最终开始丢弃数据包。<br><br><img src="/2018/12/07/CC-BLOG/2.png" alt="2"><br><br><code>Tahoe</code> 惨遭淘汰的原因是在bandwidth较高的网络中，Tahoe 需要太长的时间才能收敛到高bandwidth。<br><br><code>Cubic</code> Linux上标配算法,仍用Packet Loss作为拥塞指标<br><br><code>BBR</code> Google提出，且用delay拥塞作为指标<br><br><code>Fairness</code> 不同算法之间可能会产生公平问题。有些算法是贪心的，可能相比别的算法占据更多的带宽。<br><br>—<br><br>## 2. CC Cubic:<br><br><p style="color:LightPurple;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="http://squidarth.com/CUBIC-vs-TAHOE.html" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span>  Cubic VS Tahoe </span></a> </p>
+<h2 id="0-Several-useful-tool"><a href="#0-Several-useful-tool" class="headerlink" title="0. Several useful tool:"></a>0. Several useful tool:</h2><p style="color:SkyBlue;font-size:16px;font-family:Comic Sans MS"> Notebook Tutorial </p> 
 
-<p>现在大多数网络都是long,fat networks。需要更快达到一个更大的cwnd。<br>Cubic（三次函数）使得更快得收敛到更好的网络状况。</p>
-<p>CUBIC和另一种机制一起Send的时候会表现更好。看似奇怪，实际上是因为当有Multiple Sender的时候，link Queue 会更快的填满queue,导致packets 开始丢包。较早的更正阻止CUBIC进入窗口增长非常快的状态。除此之外，Tahoe比Cubic遇到拥塞时减少得更快，这意味着当丢失事件发生时，CUBIC有更多的队列空间可供使用。</p>
-<p><code>缺点</code>：高BDP时，大的Queue队列可能导致Cubic表现差。由于Cubic在发生数据包丢失之前不会减少窗口大小，因此较大的队列可能会掩盖发送方窗口太大的事实，其实已经拥塞出现，但Cubic不知道还在增加窗口，不断增长的队列会导致往返时间增加。</p>
-<hr>
-<h2 id="3-CC-Red"><a href="#3-CC-Red" class="headerlink" title="3. CC Red:"></a>3. CC Red:</h2><p style="color:Pink;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="http://squidarth.com/Link-level-Congestion-Control.html" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> Red CC Algorithm </span></a> </p>
-
-<p><code>RED</code>:是一个router端的拥塞控制算法。</p>
-<p><code>【1】为什么仅用丢包来处理CC会有问题？</code></p>
-<blockquote>
-<p>如Queue大，我仅用丢包作为拥塞指标。实际已经拥塞的情况，但是还没出现丢包，CWND仍旧在增加，未减少，如Cubic。它很难充分发挥其潜力，因为它太晚才得知拥堵发生。</p>
-<h2 id="它有点像淋浴中的热水旋钮-在您移动旋钮后发生反馈，而您直到后来才意识到它是否过热。"><a href="#它有点像淋浴中的热水旋钮-在您移动旋钮后发生反馈，而您直到后来才意识到它是否过热。" class="headerlink" title="它有点像淋浴中的热水旋钮,在您移动旋钮后发生反馈，而您直到后来才意识到它是否过热。"></a>它有点像淋浴中的热水旋钮,在您移动旋钮后发生反馈，而您直到后来才意识到它是否过热。</h2></blockquote>
-<p><code>【2】为什么不能减少队列？</code></p>
-<blockquote>
-<p>队列可以作为平滑功能，可以吸收突发的流量并在链接被清空时保留它们。</p>
-<h2 id="使队列变小使得它们对交通爆发的抵抗力降低。"><a href="#使队列变小使得它们对交通爆发的抵抗力降低。" class="headerlink" title="使队列变小使得它们对交通爆发的抵抗力降低。"></a>使队列变小使得它们对交通爆发的抵抗力降低。</h2></blockquote>
-<p><code>【3】我们怎么做？</code></p>
-<blockquote>
-<p>采用<code>AQM(主动队列管理)算法</code><br>处理此问题的传统直观方法称为droptail。队列不必等到它们全满就开始丢弃数据包。<br>引入<code>RED(Random Early Detection)</code><br>随机早期检测（RED）是一种排队规则，可以按概率从队列中丢弃数据包，其中该概率与队列的满载程度成正比。队列越满，丢弃的概率就越高。</p>
-<h2 id="丢掉一个完好的包虽然有点违反直觉，但任意丢弃完全健康的数据包会带来更好的性能。直觉是，早先丢弃数据包为TCP发送者提供了一个指示，即他们应该减少拥塞窗口。这比完全填满队列，体验一系列丢弃，然后不得不Cut拥塞窗口要好很多。"><a href="#丢掉一个完好的包虽然有点违反直觉，但任意丢弃完全健康的数据包会带来更好的性能。直觉是，早先丢弃数据包为TCP发送者提供了一个指示，即他们应该减少拥塞窗口。这比完全填满队列，体验一系列丢弃，然后不得不Cut拥塞窗口要好很多。" class="headerlink" title="丢掉一个完好的包虽然有点违反直觉，但任意丢弃完全健康的数据包会带来更好的性能。直觉是，早先丢弃数据包为TCP发送者提供了一个指示，即他们应该减少拥塞窗口。这比完全填满队列，体验一系列丢弃，然后不得不Cut拥塞窗口要好很多。"></a>丢掉一个完好的包虽然有点违反直觉，但任意丢弃完全健康的数据包会带来更好的性能。直觉是，早先丢弃数据包为TCP发送者提供了一个指示，即他们应该减少拥塞窗口。这比完全填满队列，体验一系列丢弃，然后不得不Cut拥塞窗口要好很多。</h2><p><img src="/2018/12/07/CC-BLOG/4.png" alt="4"></p>
+<ul>
+<li><a href="http://squidarth.com/demonstrating-congestion-control.html" target="_blank" rel="noopener">:heart_decoration:</a></li>
+</ul>
+<h3 id="1-Mahimahi"><a href="#1-Mahimahi" class="headerlink" title="1.Mahimahi"></a><a href="http://mahimahi.mit.edu/" target="_blank" rel="noopener">1.Mahimahi</a></h3><blockquote>
+<p>Network Simulatior </p>
+<p>它是一个和NS2;NS3并列的工具,允许开发者在单机测试不同网络情况的工具。</p>
 </blockquote>
-<p><code>【4】RED 算法的 Bug</code><br>值得注意的是，在一些实验中，拥塞窗口将崩溃为零，而且永远不会恢复。我们会在拥塞窗口中看到这样的图形：</p>
+<h3 id="2-indigo"><a href="#2-indigo" class="headerlink" title="2.indigo"></a><a href="https://github.com/StanfordSNR/indigo/tree/master/env" target="_blank" rel="noopener">2.indigo</a></h3><blockquote>
+<p>斯坦福SNR(系统网络组)他们正在用RNN做Congestion Control. </p>
+<p>indigo is a reinforcement learning-based congestion control algorithM</p>
+</blockquote>
+<h3 id="3-Vagrant"><a href="#3-Vagrant" class="headerlink" title="3.Vagrant"></a><a href="https://www.vagrantup.com/" target="_blank" rel="noopener">3.Vagrant</a></h3><blockquote>
+<p>可以使得配置环境变得很容易，轻松起一个虚拟机，配置一个Ubuntu系统</p>
+<p>Single workflow to setup a virtual machine</p>
+</blockquote>
+<hr>
+<h2 id="1-Intro-to-CC"><a href="#1-Intro-to-CC" class="headerlink" title="1. Intro to CC:"></a>1. Intro to CC:</h2><p><img src="/2018/12/07/CC-BLOG/1.png" alt="1"></p>
+<h3 id="BDP"><a href="#BDP" class="headerlink" title="BDP"></a><code>BDP</code></h3><p>Link中重要的一个指标是BDP(宽带延迟乘积）是在任何给定时间点可以适合链路的字节数。</p>
+<p>这可以被认为是管道中管道的<strong>体积</strong>类比。</p>
+<p>当流经它的字节数等于BDP时，充分利用链路。</p>
+<p>如果发送者发送的字节数多于BDP，则链接的队列将填满并最终开始丢弃数据包。</p>
+<p><img src="/2018/12/07/CC-BLOG/2.png" alt="2"></p>
+<h3 id="Tahoe"><a href="#Tahoe" class="headerlink" title="Tahoe"></a><code>Tahoe</code></h3><p>惨遭淘汰的原因是在bandwidth较高的网络中，Tahoe 需要太长的时间才能收敛到高bandwidth。</p>
+<h3 id="Cubic"><a href="#Cubic" class="headerlink" title="Cubic"></a><code>Cubic</code></h3><p>Linux上标配算法,仍用Packet Loss作为拥塞指标</p>
+<h3 id="BBR"><a href="#BBR" class="headerlink" title="BBR"></a><code>BBR</code></h3><p>Google提出，且用delay拥塞作为指标</p>
+<h3 id="Fairness"><a href="#Fairness" class="headerlink" title="Fairness"></a><code>Fairness</code></h3><p>不同算法之间可能会产生公平问题。有些算法是贪心的，可能相比别的算法占据更多的带宽。</p>
+<hr>
+<h2 id="2-CC-Cubic"><a href="#2-CC-Cubic" class="headerlink" title="2. CC Cubic:"></a>2. CC Cubic:</h2><p style="color:LightPurple;font-size:16px;font-family:Comic Sans MS"> Cubic VS Tahoe </p> 
+
+<ul>
+<li><a href="http://squidarth.com/CUBIC-vs-TAHOE.html" target="_blank" rel="noopener">:heart_decoration:</a></li>
+</ul>
+<p>现在大多数网络都是long,fat networks。需要更快达到一个更大的cwnd。</p>
+<p><strong>Cubic（三次函数）使得更快得收敛到更好的网络状况.].</strong></p>
+<p>CUBIC和另一种机制一起Send的时候会表现更好。看似奇怪，实际上是因为当有Multiple Sender的时候，link Queue 会更快的填满queue,导致packets 开始丢包。较早的更正阻止CUBIC进入窗口增长非常快的状态。除此之外，Tahoe比Cubic遇到拥塞时减少得更快，这意味着当丢失事件发生时，CUBIC有更多的队列空间可供使用。</p>
+<p><strong>缺点</strong>：高BDP时，大的Queue队列可能导致Cubic表现差。由于Cubic在发生数据包丢失之前不会减少窗口大小，因此较大的队列可能会掩盖发送方窗口太大的事实，其实已经拥塞出现，但Cubic不知道还在增加窗口，不断增长的队列会导致往返时间增加。</p>
+<hr>
+<h2 id="3-CC-Red"><a href="#3-CC-Red" class="headerlink" title="3. CC Red:"></a>3. CC Red:</h2><p style="color:Pink;font-size:16px;font-family:Comic Sans MS"> Red CC Algorithm </p> 
+
+<ul>
+<li><a href="http://squidarth.com/Link-level-Congestion-Control.html" target="_blank" rel="noopener">:heart_decoration:</a></li>
+</ul>
+<p><strong>Red是一个router端的拥塞控制算法。</strong></p>
+<h3 id="【1】为什么仅用丢包来处理CC会有问题？"><a href="#【1】为什么仅用丢包来处理CC会有问题？" class="headerlink" title="【1】为什么仅用丢包来处理CC会有问题？"></a><code>【1】为什么仅用丢包来处理CC会有问题？</code></h3><blockquote>
+<p>如Queue大，我仅用丢包作为拥塞指标。实际已经拥塞的情况，但是还没出现丢包，CWND仍旧在增加，未减少，如Cubic。它很难充分发挥其潜力，因为它太晚才得知拥堵发生。</p>
+<p>它有点像淋浴中的热水旋钮,在您移动旋钮后发生反馈，而您直到后来才意识到它是否过热。</p>
+<hr>
+</blockquote>
+<h3 id="【2】为什么不能减少队列？"><a href="#【2】为什么不能减少队列？" class="headerlink" title="【2】为什么不能减少队列？"></a><code>【2】为什么不能减少队列？</code></h3><blockquote>
+<p>队列可以作为平滑功能，可以吸收突发的流量并在链接被清空时保留它们。</p>
+<p>使队列变小使得它们对交通爆发的抵抗力降低。</p>
+<hr>
+</blockquote>
+<h3 id="【3】我们怎么做？"><a href="#【3】我们怎么做？" class="headerlink" title="【3】我们怎么做？"></a><code>【3】我们怎么做？</code></h3><blockquote>
+<p>采用<code>AQM(主动队列管理)算法</code></p>
+<p>处理此问题的传统直观方法称为droptail。队列不必等到它们全满就开始丢弃数据包。</p>
+<p>引入<code>RED(Random Early Detection)</code></p>
+<p>随机早期检测（RED）是一种排队规则，可以按概率从队列中丢弃数据包，其中该概率与队列的满载程度成正比。队列越满，丢弃的概率就越高。</p>
+<p>丢掉一个完好的包虽然有点违反直觉，但任意丢弃完全健康的数据包会带来更好的性能。直觉是，早先丢弃数据包为TCP发送者提供了一个指示，即他们应该减少拥塞窗口。这比完全填满队列，体验一系列丢弃，然后不得不Cut拥塞窗口要好很多。</p>
+<hr>
+</blockquote>
+<p><img src="/2018/12/07/CC-BLOG/4.png" alt="4"></p>
+<h3 id="【4】RED-算法的-Bug"><a href="#【4】RED-算法的-Bug" class="headerlink" title="【4】RED 算法的 Bug"></a><code>【4】RED 算法的 Bug</code></h3><blockquote>
+<p>值得注意的是，在一些实验中，拥塞窗口将崩溃为零，而且永远不会恢复。我们会在拥塞窗口中看到这样的图形：</p>
+</blockquote>
 <p><img src="/2018/12/07/CC-BLOG/6.png" alt="6"></p>
 <blockquote>
 <hr>
 </blockquote>
-<h2 id="4-CC-Reinforcement-Learning"><a href="#4-CC-Reinforcement-Learning" class="headerlink" title="4. CC Reinforcement Learning :"></a>4. CC Reinforcement Learning :</h2><p><code>State</code>  使用per packet RTT 的历史作为state.</p>
-<p><code>Action</code> increase the cwnd // decrease the cwnd // keep same</p>
-<p><code>Reward</code> function sender increases the window and that 同时也增加了 RTT =&gt; negative reward . 如果没有增加RTT =&gt; Positive reward.</p>
-<p><code>Train</code><br>我们的state是连续的历史性的，所以用了LSTM。我们跑了一系列的episode,每个episode跑一分钟，每次ack已收到，就选择一个action，并且追踪RTT给agent一个相应的reward。</p>
-<p><code>Transition</code> </p>
-<ul>
-<li>the current state </li>
-<li>action </li>
-<li>the resulting state</li>
-<li>reward</li>
+<h2 id="4-CC-Reinforcement-Learning"><a href="#4-CC-Reinforcement-Learning" class="headerlink" title="4. CC Reinforcement Learning :"></a>4. CC Reinforcement Learning :</h2><ul>
+<li><p><code>State</code>  使用per packet RTT 的历史作为state.</p>
+</li>
+<li><p><code>Action</code> increase the cwnd // decrease the cwnd // keep same</p>
+</li>
+<li><p><code>Reward</code> function sender increases the window and that 同时也增加了 RTT =&gt; negative reward . 如果没有增加RTT =&gt; Positive reward.</p>
+</li>
+<li><p><code>Train</code><br>我们的state是连续的历史性的，所以用了LSTM。我们跑了一系列的episode,每个episode跑一分钟，每次ack已收到，就选择一个action，并且追踪RTT给agent一个相应的reward。</p>
+</li>
+<li><p><code>Transition</code> </p>
+<blockquote>
+<p>the current state  </p>
+<blockquote>
+<p>action </p>
+<blockquote>
+<p>the resulting state</p>
+<blockquote>
+<p>reward</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
 </ul>
-<p><img src="/2018/12/07/CC-BLOG/5.png" alt="5"><br>随着更新迭代，结果一直在提升，变得更好。<br><code>Future work</code> 在我们的实验中，这个结果没有收敛，所以我们需要更长时间去跑到收敛。</p>
-<p>同时我们也参考了<a href="https://pantheon.stanford.edu/" target="_blank" rel="noopener">Pantheon</a></p>
+<p><img src="/2018/12/07/CC-BLOG/5.png" alt="5"></p>
+<p>随着更新迭代，结果一直在提升，变得更好。</p>
+<ul>
+<li><code>Future work</code> 在我们的实验中，这个结果没有收敛，所以我们需要更长时间去跑到收敛。</li>
+</ul>
+<p><strong>同时我们也参考了Pantheon <p style="color:Pink;font-size:16px;font-family:Comic Sans MS"> Pantheon </p> <a href="https://pantheon.stanford.edu/" target="_blank" rel="noopener">:heart_decoration:</a></strong></p>
 <hr>
 
       
@@ -667,7 +728,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-Several-useful-tool"><span class="nav-number">1.</span> <span class="nav-text">0. Several useful tool:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-CC-Red"><span class="nav-number">2.</span> <span class="nav-text">3. CC Red:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#它有点像淋浴中的热水旋钮-在您移动旋钮后发生反馈，而您直到后来才意识到它是否过热。"><span class="nav-number">3.</span> <span class="nav-text">它有点像淋浴中的热水旋钮,在您移动旋钮后发生反馈，而您直到后来才意识到它是否过热。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使队列变小使得它们对交通爆发的抵抗力降低。"><span class="nav-number">4.</span> <span class="nav-text">使队列变小使得它们对交通爆发的抵抗力降低。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#丢掉一个完好的包虽然有点违反直觉，但任意丢弃完全健康的数据包会带来更好的性能。直觉是，早先丢弃数据包为TCP发送者提供了一个指示，即他们应该减少拥塞窗口。这比完全填满队列，体验一系列丢弃，然后不得不Cut拥塞窗口要好很多。"><span class="nav-number">5.</span> <span class="nav-text">丢掉一个完好的包虽然有点违反直觉，但任意丢弃完全健康的数据包会带来更好的性能。直觉是，早先丢弃数据包为TCP发送者提供了一个指示，即他们应该减少拥塞窗口。这比完全填满队列，体验一系列丢弃，然后不得不Cut拥塞窗口要好很多。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-CC-Reinforcement-Learning"><span class="nav-number">6.</span> <span class="nav-text">4. CC Reinforcement Learning :</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-Several-useful-tool"><span class="nav-number">1.</span> <span class="nav-text">0. Several useful tool:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Mahimahi"><span class="nav-number">1.1.</span> <span class="nav-text">1.Mahimahi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-indigo"><span class="nav-number">1.2.</span> <span class="nav-text">2.indigo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Vagrant"><span class="nav-number">1.3.</span> <span class="nav-text">3.Vagrant</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Intro-to-CC"><span class="nav-number">2.</span> <span class="nav-text">1. Intro to CC:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#BDP"><span class="nav-number">2.1.</span> <span class="nav-text">BDP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tahoe"><span class="nav-number">2.2.</span> <span class="nav-text">Tahoe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cubic"><span class="nav-number">2.3.</span> <span class="nav-text">Cubic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BBR"><span class="nav-number">2.4.</span> <span class="nav-text">BBR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fairness"><span class="nav-number">2.5.</span> <span class="nav-text">Fairness</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-CC-Cubic"><span class="nav-number">3.</span> <span class="nav-text">2. CC Cubic:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-CC-Red"><span class="nav-number">4.</span> <span class="nav-text">3. CC Red:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#【1】为什么仅用丢包来处理CC会有问题？"><span class="nav-number">4.1.</span> <span class="nav-text">【1】为什么仅用丢包来处理CC会有问题？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【2】为什么不能减少队列？"><span class="nav-number">4.2.</span> <span class="nav-text">【2】为什么不能减少队列？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【3】我们怎么做？"><span class="nav-number">4.3.</span> <span class="nav-text">【3】我们怎么做？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#【4】RED-算法的-Bug"><span class="nav-number">4.4.</span> <span class="nav-text">【4】RED 算法的 Bug</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-CC-Reinforcement-Learning"><span class="nav-number">5.</span> <span class="nav-text">4. CC Reinforcement Learning :</span></a></li></ol></div>
             
 
           </div>
