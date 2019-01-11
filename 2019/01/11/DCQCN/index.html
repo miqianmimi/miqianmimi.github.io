@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="miqianmimi Ma">
 <meta property="og:description" content="here for paper    Author: Yibo Zhu (Microsoft ByteDance)  Congestion Control,Data Center Transport">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-11T12:12:57.108Z">
+<meta property="og:updated_time" content="2019-01-11T12:22:30.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DCQCN">
 <meta name="twitter:description" content="here for paper    Author: Yibo Zhu (Microsoft ByteDance)  Congestion Control,Data Center Transport">
@@ -381,8 +381,11 @@
 <p>##引入<br><code>在引入(introduction)部分</code>：大型数据中心需要更高带宽&gt;40Gbps以满足用户日益增加的需求，例如分布式内存缓存和大规模机器学习应用，然而传统的TCP/IP协议不能以这样的速度运行，因为会具有非常高的CPU开销。CPU过高的使用率，会降低数据中心的经济效益。使用RDMA技术可以使CPU开销非常低。但是，为了简化RDMA的设计和实现，实现RDMA的协议采用无损网络结构。虽然RDMA在HPC(高性能领域)长期被使用，但在现代IP-routed的数据中心网络中部署RDMA存在诸多挑战，其中最为显著的问题就是需要设计一种拥塞控制协议，该协议可以在高速无损环境中高效运行，并且可以在NIC上实现。因此，作者开发了DCQCN，该协议建立在RoCEv2的协议之上，在Mellanox的NIC中实现，并且在Microsoft的数据中心部署。</p>
 <p>然后，作者具体阐述了DCQCN的需求，因为最早RDMA的部署使用的是IB(InfiniBand)技术。然而IB网络堆栈无法轻松部署在现代数据中心。现代数据中心采用IP和以太网(Ethernet)技术构建，IB堆栈与这些技术不兼容。为了在以太网和IP网络上启用RDMA，已经定义了RDMA over Converged Ethernet（RoCE）标准及其第二版RoCEv2 。为了实现高效操作，IB和RoCEv2都需要在无损链路层上部署。为此，大部分都使用基于优先级的流量控制（PFC）部署RoCE。 PFC允许以太网交换机通过强制暂停数据传输来避免缓冲区溢出。但是，PFC是一种粗粒度机制。它在端口级别运行，对flow不进行区分。这可能导致拥挤扩散，性能不佳。</p>
 <p>PFC限制的根本解决方案是针对Flow的拥塞控制协议。在DC环境中，协议必须满足以下三个要求</p>
-<p><em>（1）无损，支持L3数据中心网络？
-</em>（2）终端主机上要求低CPU开销<br>*（3）提供超快速(hyper-fast)启动</p>
+<ul>
+<li>1.无损，支持L3数据中心网络？</li>
+<li>2.终端主机上要求低CPU开销 </li>
+<li>3.提供超快速(hyper-fast)启动</li>
+</ul>
 <p>目前，没有DC网络拥塞控制协议能同时满足所有上述要求。例如，QCN 不支持L3网络；DCTCP 和iWarp包括慢启动阶段，这会导致突发网络负载情况下表现不佳；DCTCP和TCP-Bolt可能具有高CPU开销。</p>
 <p>由于目前的方案均未达成所有要求，因此作者设计了DCQCN。 DCQCN是RoCEv2的端到端拥塞控制协议，用在大型IP路由数据中心网络中部署RDMA。 DCQCN仅需要数据中心交换机的标准RED和ECN 支持。其余功能都可在NIC上实现。 DCQCN提供快速收敛到公平的带宽共享路径，实现高链路利用率，确保较低的队列堆积和振荡。</p>
 <hr>
