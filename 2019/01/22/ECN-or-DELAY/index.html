@@ -93,7 +93,11 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图3.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图4.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图5.png">
-<meta property="og:updated_time" content="2019-01-23T07:46:05.552Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图6.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/算法1.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图7.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/表2.png">
+<meta property="og:updated_time" content="2019-01-23T08:24:15.547Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ECN-or-DELAY">
 <meta name="twitter:description" content="here for paper    Author: YiboZhu  (Microsoft, ByteDance)     datacenter transport,delay-based congestion control; ECN ; RDMA">
@@ -472,6 +476,22 @@
 </ol>
 </blockquote>
 <hr>
+<p>作者在RP处构建速率调整的离散模型。DCQCN速率更新的过程类似于TCP-AIMD 如图6所示。流的峰值速率是Tk。为简单起见，作者假设所有流都是同步的，并且同时达到峰值。这是数据中心的常见假设，尤其适用于分布式存储系统和MapReduce框架的工作负载。</p>
+<p><img src="/2019/01/22/ECN-or-DELAY/图6.png" alt=""></p>
+<h4 id="公式-2-DCQCN的收敛性"><a href="#公式-2-DCQCN的收敛性" class="headerlink" title="公式 2. DCQCN的收敛性"></a>公式 2. DCQCN的收敛性</h4><blockquote>
+<p>理论证明：在DCQCN控制下，任何两个流的速率差异随着时间的推移呈指数级别下降</p>
+</blockquote>
+<hr>
+<h3 id="3-4-总结"><a href="#3-4-总结" class="headerlink" title="3.4 总结"></a>3.4 总结</h3><p>作者证明了，DCQCN有唯一的固定点，所有流都可以获得瓶颈带宽的公平份额。且流量指数地收敛到该固定点。 DCQCN通常在该固定点附近稳定，如有需要，可以调节RAI和Kmax。但是，基于PI控制器的方法可能是确保稳定性和固定队列长度的更本质的方法。</p>
+<h2 id="TIMELY-1"><a href="#TIMELY-1" class="headerlink" title="TIMELY"></a>TIMELY</h2><p>TIMELY是一种端到端，基于速率的拥塞控制算法，使用RTT的变化作为拥塞信号。依靠NIC硬件来获得细粒度的RTT测量。每次完成16-64KB的段的传输后，计算一次RTT，TIMELY根据这个RTT计算流的新速率，如算法1所示。<br><img src="/2019/01/22/ECN-or-DELAY/算法1.png" alt=""></p>
+<p>如果RTT小于Tlow，则TIMELY会加性递增发送速率。如果RTT大于Thigh，则发送速率乘性递。如果RTT介于Tlow和Thigh之间，则速率变化取决于RTT梯度。如果梯度为正（即RTT增加），则发送速率会与RTT梯度成比例地，乘性递减。如果梯度为负（即RTT减少），则它会以固定值，加性递增。</p>
+<p><img src="/2019/01/22/ECN-or-DELAY/图7.png" alt=""><br><img src="/2019/01/22/ECN-or-DELAY/表2.png" alt=""></p>
+<p>图7和表2显示了TIMELY的流模型：</p>
+<ol>
+<li>我们对N个流进行建模，这些流都经过单一的瓶颈链路</li>
+<li>忽略PFC的影响</li>
+</ol>
+<p>流模型（就其本质而言）假定数据的平滑和连续传输。但TIMELY自身的实现机制，较为bursty，因为通过调整16或64KB块传输之间的间隙来调整速率;而大块本身是以近线率发送的[21]。 TIMELY设计师出于工程原因做出了这个决定 - 他们希望避免依赖硬件速率限制器。我们稍后会回到这一点。</p>
 
       
     </div>
@@ -510,8 +530,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/20/TIMELY/" rel="next" title="TIMELY">
-                <i class="fa fa-chevron-left"></i> TIMELY
+              <a href="/2019/01/20/Reproducing-Network/" rel="next" title="Reproducing-Network">
+                <i class="fa fa-chevron-left"></i> Reproducing-Network
               </a>
             
           </div>
@@ -634,7 +654,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -656,7 +676,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -725,7 +745,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DCQCN："><span class="nav-number">2.1.</span> <span class="nav-text">DCQCN：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIMELY"><span class="nav-number">2.2.</span> <span class="nav-text">TIMELY:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECN-or-DELAY"><span class="nav-number">2.3.</span> <span class="nav-text">ECN or DELAY:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景："><span class="nav-number">3.</span> <span class="nav-text">背景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCQCN"><span class="nav-number">4.</span> <span class="nav-text">DCQCN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-模型"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型验证"><span class="nav-number">4.1.1.</span> <span class="nav-text">模型验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-稳定性"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 稳定性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公式-1-DCQCN的固定点"><span class="nav-number">4.2.1.</span> <span class="nav-text">公式 1. DCQCN的固定点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#稳定性分析"><span class="nav-number">4.2.2.</span> <span class="nav-text">稳定性分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-收敛"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 收敛</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DCQCN："><span class="nav-number">2.1.</span> <span class="nav-text">DCQCN：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIMELY"><span class="nav-number">2.2.</span> <span class="nav-text">TIMELY:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECN-or-DELAY"><span class="nav-number">2.3.</span> <span class="nav-text">ECN or DELAY:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景："><span class="nav-number">3.</span> <span class="nav-text">背景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCQCN"><span class="nav-number">4.</span> <span class="nav-text">DCQCN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-模型"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型验证"><span class="nav-number">4.1.1.</span> <span class="nav-text">模型验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-稳定性"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 稳定性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公式-1-DCQCN的固定点"><span class="nav-number">4.2.1.</span> <span class="nav-text">公式 1. DCQCN的固定点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#稳定性分析"><span class="nav-number">4.2.2.</span> <span class="nav-text">稳定性分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-收敛"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 收敛</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公式-2-DCQCN的收敛性"><span class="nav-number">4.3.1.</span> <span class="nav-text">公式 2. DCQCN的收敛性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-总结"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIMELY-1"><span class="nav-number">5.</span> <span class="nav-text">TIMELY</span></a></li></ol></div>
             
 
           </div>

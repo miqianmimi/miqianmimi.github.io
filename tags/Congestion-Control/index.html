@@ -82,7 +82,7 @@
 <meta name="description" content="If life deals you lemons, make lemonade.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="miqianmimi Ma">
-<meta property="og:url" content="http://yoursite.com/tags/Congestion-Control/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/congestion-control/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
 <meta property="og:description" content="If life deals you lemons, make lemonade.">
 <meta property="og:locale" content="en">
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/Congestion-Control/"/>
+  <link rel="canonical" href="http://yoursite.com/tags/congestion-control/"/>
 
 
 
 
 
-  <title>Tag: Congestion Control | miqianmimi Ma</title>
+  <title>Tag: congestion control | miqianmimi Ma</title>
   
 
 
@@ -247,7 +247,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>Congestion Control<small>Tag</small>
+        <h1>congestion control<small>Tag</small>
         </h1>
       </div>
 
@@ -259,37 +259,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2019/01/11/DCQCN/" itemprop="url">
+            <a class="post-title-link" href="/2019/01/22/ECN-or-DELAY/" itemprop="url">
               
-                <span itemprop="name">DCQCN</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-01-11T20:00:57+08:00"
-              content="2019-01-11" >
-          01-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/07/CC-BLOG/" itemprop="url">
-              
-                <span itemprop="name">CC-BLOG</span>
+                <span itemprop="name">ECN-or-DELAY</span>
               
             </a>
         
@@ -297,65 +269,9 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-07T01:24:15+08:00"
-              content="2018-12-07" >
-          12-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/06/TCP-CC/" itemprop="url">
-              
-                <span itemprop="name">TCP-CC</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-06T13:10:11+08:00"
-              content="2018-12-06" >
-          12-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/03/PASE/" itemprop="url">
-              
-                <span itemprop="name">PASE</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-03T21:00:27+08:00"
-              content="2018-12-03" >
-          12-03
+              datetime="2019-01-22T20:18:44+08:00"
+              content="2019-01-22" >
+          01-22
         </time>
       </div>
 
@@ -454,7 +370,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -476,7 +392,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -807,6 +723,76 @@
             var counter = results[0];
             counter.fetchWhenSave(true);
             counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 背景动画 
+  <script type="text/javascript" src="/js/src/particle.js"></script>-->
+</body>
+</html>
+counter.increment("time");
             counter.save(null, {
               success: function(counter) {
                 var $element = $(document.getElementById(url));
