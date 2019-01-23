@@ -79,18 +79,25 @@
 
 
 
-<meta name="description" content="here for paper    Author: YiboZhu  (Microsoft and Bytedance)     datacenter transport,delay-based congestion control; ECN ; RDMA">
+<meta name="description" content="here for paper    Author: YiboZhu  (Microsoft, ByteDance)     datacenter transport,delay-based congestion control; ECN ; RDMA">
 <meta name="keywords" content="DC transport,ECN,delay-based,RDMA,congestion control">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ECN-or-DELAY">
 <meta property="og:url" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="here for paper    Author: YiboZhu  (Microsoft and Bytedance)     datacenter transport,delay-based congestion control; ECN ; RDMA">
+<meta property="og:description" content="here for paper    Author: YiboZhu  (Microsoft, ByteDance)     datacenter transport,delay-based congestion control; ECN ; RDMA">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-22T12:26:36.468Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图1.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/表1.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图2.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图3.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图4.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图5.png">
+<meta property="og:updated_time" content="2019-01-23T07:46:05.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ECN-or-DELAY">
-<meta name="twitter:description" content="here for paper    Author: YiboZhu  (Microsoft and Bytedance)     datacenter transport,delay-based congestion control; ECN ; RDMA">
+<meta name="twitter:description" content="here for paper    Author: YiboZhu  (Microsoft, ByteDance)     datacenter transport,delay-based congestion control; ECN ; RDMA">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图1.png">
 
 
 
@@ -365,13 +372,107 @@
         <p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="http://yibozhu.com/doc/ecndelay-conext16.pdf" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span>here for paper</span></a> </p>
 
 <ul>
-<li>Author: <code>YiboZhu</code>  (Microsoft and Bytedance)</li>
+<li>Author: <code>YiboZhu</code>  (Microsoft, ByteDance)</li>
 <li><p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">    datacenter transport,delay-based congestion control; ECN ; RDMA </p>
 
 </li>
 </ul>
 <hr>
 <a id="more"></a>
+<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>数据中心网络，尤其是无损RoCEv2网络需要有效的拥塞控制协议。DCQCN（基于ECN）和TIMELY（基于延迟）是两种新型有效策略。在本文中，作者使用流体模型和模拟来分析DCQCN和TIMELY，在<code>稳定性，收敛性，公平性和流完成时间</code>。作者发现了这些协议的一些令人惊讶的行为。例如，</p>
+<ul>
+<li>DCQCN表现出稳定函数非单调</li>
+<li>而TIMELY可能会收敛到不公平的稳定态</li>
+</ul>
+<p>作者在文章中提出简单的修复的方案，来确保两个协议收敛到公平的稳定态。最后，利用从分析中汲取的经验教训，作者解决了更广泛的问题：是否有更本质的理由，证明ECN或者端到端的延迟是一种更好的数据中心拥塞控制信号。基于现代交换机标记数据包的方式，以及由作者推导出的基于端到端延迟的协议的限制，作者认为ECN是一种更好的拥塞信号表征。</p>
+<p><strong>关键词：DC,Transport,RDMA,ECN,delay-based,CC</strong></p>
+<p>(引入可不要)</p>
+<h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>超大的云服务提供商,调整RDMA技术来支持他们最重要的应用。RDMA最重要的是，提供高吞吐量和低延迟，减小CPU的负载量。RDMA使用RoCEv2标准，来确保有效的操作。RoCEv2使用PFC来防止缓存移除的丢包。</p>
+<p>近年，有两个很重要的协议，一个是<code>DCQCN</code>，另一个是<code>TIMELY</code>尽管它们都是为数据中心RDMA网络设计的，数据中心基于商用Ethernet硬件，并且没有因为拥塞导致的丢包、它们之间的区别是</p>
+<ul>
+<li>DCQCN使用ECN作为拥塞标志</li>
+<li>TIMELY使用端到端的delay的变化作为拥塞标志</li>
+</ul>
+<p>在这篇文章中，作者分析了两者的<code>稳定性，收敛性，公平性和流完成时间</code>。</p>
+<p>作者写这份文章有两个<code>动机</code>：</p>
+<ul>
+<li>第一，要仔细理解DCQCN和TIMELY的表现，对它们是否能广泛部署到潜能做出评估，并对两者给出调参的建议。</li>
+<li>第二，使用分析中提取出的洞察力，我们想要知道，是否有更本质的理由，来决定选择ECN或者延迟作为数据中心的拥塞控制。</li>
+</ul>
+<p>在这个意义下，我们分析了DCQCN，TIMELY，使用流模型(fluid model)以及NS3的模拟。Fluid模型对于分析稳定性，以及参数空间的迅速探索是十分有效的。然而，流模型不能追踪(例如DCQCN和TIMELY)之类复杂模型的所有特征。流模型也不能测量流的完成时间。所以还用细节化的，包级别的NS3的模拟。这一NS3的模拟对比了所有的特征。并且给出了<strong>代码</strong></p>
+<p>作者说明了两件事：</p>
+<ol>
+<li>限制以ECN或者delay作为拥塞控制，基于流的控制。因此，它们由商用以太网交换机和NIC硬件。需要硬件做更多，或者需要一个中央控制器的协议不在讨论范围内。</li>
+<li>并不是想直接分析DCQCN和TIMELY的结果好坏,这样的对比并没有意义,因为两个协议都有各自的调整旋钮，给定特定的情形，两者都可以通过调参来使得表现变好。关注于两个协议的更高宽广的洞察力。</li>
+</ol>
+<h3 id="DCQCN："><a href="#DCQCN：" class="headerlink" title="DCQCN："></a>DCQCN：</h3><ol>
+<li>拓展了fluid model来证明，DCQCN有一个所有流都公平共享流量的固定稳固点。使用离散模型，收敛速度是指数级别的。</li>
+<li>只要反馈延迟很低，就表明DCQCN在这个固定点附近是稳定的，稳定性与竞争流的数量之间的关系是非单调的，这与TCP的行为非常不同。DCQCN在流的数量偏中等的情况，是不稳定的。</li>
+</ol>
+<h3 id="TIMELY"><a href="#TIMELY" class="headerlink" title="TIMELY:"></a>TIMELY:</h3><ol>
+<li>首先设计了一个TIMELY的流模型，且通过模拟证明了它有无数个稳定点，在这些稳定点上，带宽的共享是不公平的。</li>
+<li>作者提出了一个简单的解决方案，称作为补丁TIMELY，并证明修改过的版本是稳定的，且收敛到唯一的稳定点。</li>
+</ol>
+<h3 id="ECN-or-DELAY"><a href="#ECN-or-DELAY" class="headerlink" title="ECN or DELAY:"></a>ECN or DELAY:</h3><ol>
+<li><p>TIMELY和DCQCN在相同的网络情况下运行，DCQCN在公平性，稳定性，以及对队列长度的控制上都比TIMELY更优异。</p>
+</li>
+<li><p>从DCQCN和TIMELY分析，作者得出ECN是传递拥塞信息的更好信号：</p>
+<ul>
+<li><p>首先，现代交换机在出口处标记具有ECN的包裹，能做到将队列延迟与反馈延迟解耦，这提高了系统稳定性。</p>
+</li>
+<li><p>其次，对于使用延迟作为反馈信号的协议，可以实现公平性或保证稳态延迟，但不能同时实现两者，对ECN的协议，可使用类似PI的标记方案来同时实现两者。</p>
+</li>
+<li><p>最后，ECN信号对反向路径上的震荡更具弹性。因为震荡仅在ECN的反馈信息中引入延迟，而不影响ECN策略下的核心指标。相反的，对于基于延迟的协议，震荡会在反馈信号中引入延迟，从而导致误差。</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h2><p>RDMA技术提供高带宽，低延迟，较低CPU负载。不再使用主机端内核来进行数据传输，而是采用NIC来将数据传入预先注册的缓存区。</p>
+<p>传统数据中心网络，应用RDMA使用RoCEv2标准，RoCEv2需要无损的L2层。以太网使用PFC来达到无损，但PFC会引起HoL队头拥塞问题。这个问题可以通过针对流的拥塞控制来解决。ECN指标或者RTT的增减是两种端到端的拥塞标志。DCQCN，TIMELY分别依赖于ECN和RTT的变化，且这两者都是为数据中心网络设计的。</p>
+<hr>
+<h2 id="DCQCN"><a href="#DCQCN" class="headerlink" title="DCQCN"></a>DCQCN</h2><p>DCQCN是一个端到端，基于速率控制，使用ECN做指标的拥塞控制协议。它结合了DCTCP和QCN。该算法分为三段：发送端（RP)，交换机（CP)，接收端（NP）</p>
+<blockquote>
+<ul>
+<li>CP：在每个出口队列中，如果队列超过阈值，则使用类似RED的算法对包裹进行ECN标记。</li>
+<li>NP：NP接收ECN标记的数据包并使用拥塞通知数据包（CNP）以一定的速率通知RP。</li>
+<li>RP：RP会根据接收到CNP的频率，来调整发送率。RP使用定时器和字节计数器增加其发送速率。</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="3-1-模型"><a href="#3-1-模型" class="headerlink" title="3.1 模型"></a>3.1 模型</h3><p>DCQCN的fluid模型，在DCQCN这篇paper中的fluid模型考虑了N个流以相同速率发包，通过同一条瓶颈链路的情形。这篇文章中，将fluid模型拓展至不同流，不同速率，且作者单独为每个流建模。<br><img src="/2019/01/22/ECN-or-DELAY/图1.png" alt=""><br><img src="/2019/01/22/ECN-or-DELAY/表1.png" alt=""></p>
+<h4 id="模型验证"><a href="#模型验证" class="headerlink" title="模型验证"></a>模型验证</h4><p>在DCQCN原文中，显示流模型与实际硬件实现相匹配。这里我们只显示NS3仿真与模型结果一致。为此，我们模拟并建模一个简单的拓扑结构，N个发送器发同时连接到交换机的单个接收器。图2显示流模型和模拟器非常一致。<br><img src="/2019/01/22/ECN-or-DELAY/图2.png" alt=""></p>
+<h3 id="3-2-稳定性"><a href="#3-2-稳定性" class="headerlink" title="3.2 稳定性"></a>3.2 稳定性</h3><p>首先作者计算模型的稳定点，并围绕稳定点，线性化模型，使用标准frequency domain技术分析线性化模型的稳定性。</p>
+<h4 id="公式-1-DCQCN的固定点"><a href="#公式-1-DCQCN的固定点" class="headerlink" title="公式 1. DCQCN的固定点"></a>公式 1. DCQCN的固定点</h4><blockquote>
+<p>理论证明：DCQCN有唯一的队列长度和流速率确定的稳定点。</p>
+<p>由数学公式推知：稳定的队列长度q<em>，由流的个数N决定。以ECN为标志的拥塞控制算法，也可以通过PI-like的机制使得q</em>，与流的个数N无关</p>
+</blockquote>
+<hr>
+<h4 id="稳定性分析"><a href="#稳定性分析" class="headerlink" title="稳定性分析"></a>稳定性分析</h4><p>作者根据Bode Stability Criteria 测试系统。稳定度显示为Phase Margin。当固定点存在小的振荡时，稳定的系统必须具有负增益，以便它接受扰动后，回复到固定点。Phase Margin定义为系统距离0dB Gain状态的距离。当Phase Margin大于0时，系统稳定，Phase Margin越大意味着系统越稳定。数值结果如图3所示。</p>
+<p><img src="/2019/01/22/ECN-or-DELAY/图3.png" alt=""></p>
+<p>分析了不同条件下的DCQCN稳定性，例如选择不同的控制信号延迟，以及不同个数的流。理想的协议应该能接受控制信号延迟的不同，并且可以扩展到任意数量的流。实际上，由于ECN标记不受拥塞点的队列延迟的影响，因此传播延迟占主导地位。在数据中心环境中，传播延迟通常远低于100秒。可能有数十个流竞争单一瓶颈。如图3所示，具有默认参数的DCQCN在这种环境中下是基本稳定的。</p>
+<p>然而，类似TCP，流的个数和Phase-Margin之间的关系不是线性单调的。当延迟很高，对于一定数量的流量，Phase Margin下降到零以后，然后再次上升。对于我们选择的参数集，系统可能在高反馈延迟时具有10个流不稳定。流个数越来越多，DCQCN越来越稳定，这意味着该系统具有良好的可扩展性。在图4所示的流模型结果中进一步说明了这一点。</p>
+<p><img src="/2019/01/22/ECN-or-DELAY/图4.png" alt=""><img src="/2019/01/22/ECN-or-DELAY/图5.png" alt=""></p>
+<ul>
+<li>当反馈延迟很小（4us）时，不管流的个数如何变化，DCQCN都是稳定的。</li>
+<li>当反馈延迟很大（85us）时，DCQCN对于10个流的情况不稳定。但是，对于2个和64个流的情况，它是稳定的。这一结果在图5中显示。</li>
+</ul>
+<p>作者发现，这个问题可以通过调整RAI和Kmax的值来轻松修复。</p>
+<ul>
+<li>较小的RAI意味着流更温和地增加其速率，因而能使系统稳定。</li>
+<li>类似地，较大的Kmax-Kmin，使得速率降低更缓慢，因为队列长度的扰动导致标记概率的较小扰动。在图3（b）和3（c）中显示了这一结果。</li>
+<li>因此使用小的RAI和大的Kmax，即使延迟达到100us（这个延迟时间足够大，在现代数据中心网络中也是很稀少），DCQCN也可以始终稳定。</li>
+</ul>
+<p>注意到，RAI和Kmax是稳定性和延迟之间的权衡。较小的RAI导致较慢的上升，而较大的Kmax导致较大的队列长度。在大多数情况下，参数在稳定性和延迟之间取得了较好的权衡。</p>
+<h3 id="3-3-收敛"><a href="#3-3-收敛" class="headerlink" title="3.3 收敛"></a>3.3 收敛</h3><p>在3.2中，作者证明了DCQCN在流量收敛到唯一的固定点后是稳定的。还证明了，在固定点，流量公平分配带宽。然而，有两个问题仍然没有答案：</p>
+<blockquote>
+<ol>
+<li>流是否始终收敛到这个固定点？</li>
+<li>流收敛的速度有多快？</li>
+</ol>
+</blockquote>
+<hr>
+
       
     </div>
     
@@ -504,8 +605,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -605,6 +715,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DCQCN："><span class="nav-number">2.1.</span> <span class="nav-text">DCQCN：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIMELY"><span class="nav-number">2.2.</span> <span class="nav-text">TIMELY:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECN-or-DELAY"><span class="nav-number">2.3.</span> <span class="nav-text">ECN or DELAY:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景："><span class="nav-number">3.</span> <span class="nav-text">背景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCQCN"><span class="nav-number">4.</span> <span class="nav-text">DCQCN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-模型"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型验证"><span class="nav-number">4.1.1.</span> <span class="nav-text">模型验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-稳定性"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 稳定性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公式-1-DCQCN的固定点"><span class="nav-number">4.2.1.</span> <span class="nav-text">公式 1. DCQCN的固定点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#稳定性分析"><span class="nav-number">4.2.2.</span> <span class="nav-text">稳定性分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-收敛"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 收敛</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
