@@ -97,7 +97,24 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/算法1.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图7.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/表2.png">
-<meta property="og:updated_time" content="2019-01-23T08:24:15.547Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图8.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图9.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图10.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/算法2.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图12.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图11.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图13.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图14.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图15.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图16.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图11.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图3a.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图17.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图18.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图19.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图20.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/22/ECN-or-DELAY/图21.png">
+<meta property="og:updated_time" content="2019-01-24T11:09:30.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ECN-or-DELAY">
 <meta name="twitter:description" content="here for paper    Author: YiboZhu  (Microsoft, ByteDance)     datacenter transport,delay-based congestion control; ECN ; RDMA">
@@ -486,12 +503,116 @@
 <h2 id="TIMELY-1"><a href="#TIMELY-1" class="headerlink" title="TIMELY"></a>TIMELY</h2><p>TIMELY是一种端到端，基于速率的拥塞控制算法，使用RTT的变化作为拥塞信号。依靠NIC硬件来获得细粒度的RTT测量。每次完成16-64KB的段的传输后，计算一次RTT，TIMELY根据这个RTT计算流的新速率，如算法1所示。<br><img src="/2019/01/22/ECN-or-DELAY/算法1.png" alt=""></p>
 <p>如果RTT小于Tlow，则TIMELY会加性递增发送速率。如果RTT大于Thigh，则发送速率乘性递。如果RTT介于Tlow和Thigh之间，则速率变化取决于RTT梯度。如果梯度为正（即RTT增加），则发送速率会与RTT梯度成比例地，乘性递减。如果梯度为负（即RTT减少），则它会以固定值，加性递增。</p>
 <p><img src="/2019/01/22/ECN-or-DELAY/图7.png" alt=""><br><img src="/2019/01/22/ECN-or-DELAY/表2.png" alt=""></p>
-<p>图7和表2显示了TIMELY的流模型：</p>
+<h3 id="4-1-模型"><a href="#4-1-模型" class="headerlink" title="4.1 模型"></a>4.1 模型</h3><p>图7和表2显示了TIMELY的流模型：</p>
 <ol>
 <li>我们对N个流进行建模，这些流都经过单一的瓶颈链路</li>
 <li>忽略PFC的影响</li>
 </ol>
-<p>流模型（就其本质而言）假定数据的平滑和连续传输。但TIMELY自身的实现机制，较为bursty，因为通过调整16或64KB块传输之间的间隙来调整速率;而大块本身是以近线率发送的[21]。 TIMELY设计师出于工程原因做出了这个决定 - 他们希望避免依赖硬件速率限制器。我们稍后会回到这一点。</p>
+<p>（流模型（就其本质而言）假定数据的平滑和连续传输。但TIMELY自身的实现机制比较bursty，它是通过调整16或64KB段传输之间的pacing delay来调整发送速率;而段数据本身是以近线率发送的。<br>TIMELY这么做是为了避免依赖硬件速率限制器。）</p>
+<h4 id="模型验证-1"><a href="#模型验证-1" class="headerlink" title="模型验证"></a>模型验证</h4><p>图8将TIMELY流模型与NS3模拟进行了比较，模拟器可以模拟每个数据包的pacing，以及TIMELY的burst行为;这里对包进行pacing。每个流的起始速率设置为链路带宽的1/N。可以看到流模型和模拟器的结果非常一致。</p>
+<p><img src="/2019/01/22/ECN-or-DELAY/图8.png" alt=""></p>
+<h3 id="4-2-分析"><a href="#4-2-分析" class="headerlink" title="4.2 分析"></a>4.2 分析</h3><p>现在证明TIMELY模型没有固定点，这意味着队列长度永远不会收敛，流的发送速率也不会收敛。该系统会在极限循环中运行，始终振荡。</p>
+<p>在系统振荡的同时，流的发送速率存在无限的解决方案。因此，即使可以通过挑选参数，来限制极限周期的大小，但系统仍可在任何稳定点下运行，因此不能宣称TIMELY协议满足了公平性。</p>
+<h4 id="公式-3-TIMELY不存在稳定点"><a href="#公式-3-TIMELY不存在稳定点" class="headerlink" title="公式 3. TIMELY不存在稳定点"></a>公式 3. TIMELY不存在稳定点</h4><blockquote>
+<p>理论证明：图7中描述的TIMELY系统，没有稳定点。</p>
+</blockquote>
+<hr>
+<h4 id="公式4-无限稳定点"><a href="#公式4-无限稳定点" class="headerlink" title="公式4. 无限稳定点"></a>公式4. 无限稳定点</h4><blockquote>
+<p>理论证明：图7中描述的TIMELY系统，有无限个稳定点。</p>
+<p>TIMELY的固定点完全不可预测。如图9的模拟结果所示，其中仅改变两个流的开始时间和初始速率，</p>
+</blockquote>
+<h2 id="其他一切保持不变，系统最终会采用完全不同的运作方式。"><a href="#其他一切保持不变，系统最终会采用完全不同的运作方式。" class="headerlink" title="其他一切保持不变，系统最终会采用完全不同的运作方式。"></a>其他一切保持不变，系统最终会采用完全不同的运作方式。</h2><p><img src="/2019/01/22/ECN-or-DELAY/图9.png" alt=""></p>
+<h4 id="per-burst做pacing的影响"><a href="#per-burst做pacing的影响" class="headerlink" title="per-burst做pacing的影响"></a>per-burst做pacing的影响</h4><p>这里的分析是为了说明<code>为什么TIMELY在实践中运作良好？</code></p>
+<p>表面上来看，是因为TIMELY不使用硬件速率限制器。实际上，TIMELY在实际操作中，通过对两个十分大的（64KB）的数据段间的传输间隔做调整，来控制速率。每个数据段，几乎以链路速率或接近链路速率发送。</p>
+<p>图9中显示了针对每个burst做pacing的结果。如果用户按每次burst做pacing，则TIMELY则显示出收敛的效果，如图10（a）所示。burst引入了足够的“噪声”以使流之间不相关，这似乎导致系统达到相对稳定的固定点。</p>
+<p><img src="/2019/01/22/ECN-or-DELAY/图10.png" alt=""></p>
+<p>但是在任何情况下，根据burst做pacing的情况都不是最理想的，因为它可能导致队列长度的大振荡，导致利用率低。在图10（b）中显示出来，我们使用64KB的段，两个发送者几乎同时将包发送到交换机，这两个流都接收到非常大的RTT，这会使TIMELY大幅降低其速率，并且随后的速率将以微小幅度增长，流回升到其公平额度，需要很长时间。</p>
+<p>通过一些方法可以一定程度上减轻这些问题，例如以低于链路速率的速度发送burst，或调整Tmin阈值。然而，这种调整是脆弱的，因为这些参数的值不仅取决于链路速度，还取决于竞争流的数量，在配置时，这些是未知的。</p>
+<p>因此，作者提出了对TIMELY算法的简单修复，而不是依靠burst带来的”噪声”来确保收敛性和稳定性。</p>
+<h3 id="4-3-修复版TIMELY"><a href="#4-3-修复版TIMELY" class="headerlink" title="4.3 修复版TIMELY"></a>4.3 修复版TIMELY</h3><p>为了确保TIMELY存在唯一的固定点，所有流都得到公平共享的带宽，并且在固定点处达到稳定，作者对TIMELY进行两次小修改，如算法2所示。我们只修改算法1的最后四行。</p>
+<p><img src="/2019/01/22/ECN-or-DELAY/算法2.png" alt=""></p>
+<p>首先，作者使速率降低的依赖于RTT的绝对值，而不是RTT的梯度。这意味着所有流都知道瓶颈队列长度。这确保了两件事。</p>
+<ul>
+<li>首先，系统可以具有由RTT确定的唯一固定点。</li>
+<li>其次，所有流量都可以收敛到相同的速率，因为它们共享瓶颈RTT的值。</li>
+<li>当然，副作用是，对于不同数量的流，队列的固定点是不同的。我们将在§5中解决这个问题。</li>
+</ul>
+<p>其次，作者使用连续加权函数w（g）来使速率增加和速率减小之间的过渡平滑,这可以避免了振荡。这类似于使用概率ECN标记来稳定TCP，DCTCP，QCN和DCQCN的事实。</p>
+<h4 id="公式5-修复版TIMELY具有固定点"><a href="#公式5-修复版TIMELY具有固定点" class="headerlink" title="公式5. 修复版TIMELY具有固定点"></a>公式5. 修复版TIMELY具有固定点</h4><blockquote>
+<p>理论证明：修复版TIMELY系统具有唯一的固定点,所有流在此固定点具有相同的速率，队列长度可表示。</p>
+<p>且系统总是以指数方式收敛到唯一的固定点。</p>
+</blockquote>
+<hr>
+<p>使用模拟进一步验证修补版TIMELY收敛和稳定性。图12（a）和12（b）显示，与图9（c）相反，具有不同初始速率的流会聚到固定点并且在没有振荡的情况下是稳定的。<br><img src="/2019/01/22/ECN-or-DELAY/图12.png" alt=""></p>
+<h4 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h4><p>继续对DCQCN进行，拉普拉斯变换，以及计算其特征方程的Phase margin。结果表明该系统在流的个数小于40之前是稳定的（图11）。这再次由NS-3模拟证实（图12）。在流个数超过40之后，Phase margin迅速降至0以下，因为更多的流会导致更大的队列，从而导致更大的反馈延迟，这导致系统不稳定。通常，通过一些微调，TIMELY可以在一定数量的流范围内保持稳定。</p>
+<p><img src="/2019/01/22/ECN-or-DELAY/图11.png" alt=""></p>
+<h3 id="4-4-总结"><a href="#4-4-总结" class="headerlink" title="4.4 总结"></a>4.4 总结</h3><p>作者证明了TIMELY协议可以有无限的固定点。提出了一个解决方案来解决这个问题，并表明修改后的协议会收敛到一个固定点，其中所有流均等地共享瓶颈带宽。只要流量个数不是太大，系统在这个固定点附近是稳定的。</p>
+<h2 id="ECN-VS-Delay"><a href="#ECN-VS-Delay" class="headerlink" title="ECN VS Delay:"></a>ECN VS Delay:</h2><p>如果针对给定场景进行适当调整，DCQCN和TIMELY修改后都可以实现期望的属性，如公平性，稳定性和指数收敛。因此，<strong>是否可以得出结论，在拥塞控制方面，ECN和Delay是“等效”的信号?</strong></p>
+<p><strong>作者认为答案是否定的</strong>。通过比较DCQCN（基于ECN）和TIMELY（基于延迟）的性能，发现DCQCN优于TIMELY。<strong>作者解释了基于ECN的协议优于基于延迟的协议的基本原因。</strong></p>
+<h3 id="5-1-案例研究：DCQCN与TIMELY的流完成时间"><a href="#5-1-案例研究：DCQCN与TIMELY的流完成时间" class="headerlink" title="5.1 案例研究：DCQCN与TIMELY的流完成时间"></a>5.1 案例研究：DCQCN与TIMELY的流完成时间</h3><p>作者表明，经过适当调整，基于ECN的DCQCN和基于delay的TIMELY都可以保持稳定和公平，但可能在其他性能指标上有所不同。例如，用户经常关心流完成时间，特别是对于短流量。作者使用图13中所示的经典哑铃拓扑结构，将DCQCN和TIMELY的流完成时间进行比较。该拓扑由20个节点组成–10个发送器和10个接收器。所有流量都流过两个交换机SW1和SW2之间的瓶颈链路。所有链路均为10Gbps，延迟为1秒。</p>
+<p><img src="/2019/01/22/ECN-or-DELAY/图13.png" alt=""> <img src="/2019/01/22/ECN-or-DELAY/图14.png" alt=""></p>
+<p>流由长期流和短期流组成，流大小分布来自报告中的流量分布。可以从指数分布中选取流到达的间隔时间，通过改变分布的平均值来改变瓶颈链路上的负载，这个交通生成模型也用于最近的几项研究，包括pFabric和ProjecToR。DCQCN和TIMELY使用推荐的参数设置。感兴趣的度量是小流的完成时间。在pFabric之后，将小流定义为发送少于<strong>100KB</strong>的流量。作者还调整、测试不同协议参数和最小流的阈值设置。</p>
+<p>图14显示了当网络负载量变化时，在DCQCN,TIMELY以及修改版TIMELY下，FCT(流完成时间)的中位数和第90百分位数。X轴显示负载，负载因子=1,对应于瓶颈链路上8Gbps流量的平均值。可以看到，在更高的负载下，TIMTY和修补版TIMELY的FCT都很高，且变化很大。这在图15中详细说明，其示出了负载系数为0.8的流完成时间的CDF。<br><img src="/2019/01/22/ECN-or-DELAY/图15.png" alt=""><img src="/2019/01/22/ECN-or-DELAY/图16.png" alt=""></p>
+<p>从图16中可以看到，TIMELY性能不佳的原因，图16显示了SW1和SW2之间链路的队列长度，负载系数为0.8。TIMELY框架下，队列长度会增长到非常高的值，并且变化很大。相反，DCQCN队列在RED阈值之间具有固定点，队列长度也始终保持在一定范围内。修补版TIMELY效果介于DCQCN和原版TIMELY之间，是因为修改版确保了唯一的固定点，从而保证了公平性，但不改变TIMELY队列的建立。</p>
+<p>注意到，DCQCN和TIMELY的链路利用率大致相同，表明对于长流，两种方案表现基本相似。</p>
+<h3 id="5-2-ECN优势"><a href="#5-2-ECN优势" class="headerlink" title="5.2 ECN优势"></a>5.2 ECN优势</h3><p>如上图所示，尽管两种协议都是公平和稳定的，但TIMELY比DCQCN的队列更容易震荡，这会影响短流的完成时间。作者认为这是由以下原因造成的:</p>
+<h4 id="ECN标记是在数据包出口处完成的，因此具有更快的响应："><a href="#ECN标记是在数据包出口处完成的，因此具有更快的响应：" class="headerlink" title="ECN标记是在数据包出口处完成的，因此具有更快的响应："></a>ECN标记是在数据包出口处完成的，因此具有更快的响应：</h4><p>现代的共享缓存的交换机，尤其是那些使用Broadcom商用芯片的交换机，在数据包出口处进行ECN标记。当包准备发出时，控制器会检查该端口的出口队列，并标记该包。因此，该标记总是在包离开时传达关于当前队列状态的信息，即使出口队列很长。</p>
+<p>而RTT测量是不同的：数据包经历的延迟反映了数据包<strong>到达</strong>队列时的状态。这意味着由ECN标记仅反应传播延迟，但RTT信号包含了队列延迟，传播延迟两者。这边的区别表明,ECN信号能将传播延迟与队列延迟更好的分离。</p>
+<p>（这就是DCQCN流模型，控制回路延迟恒定的原因。DCTCP流模型做出了相同的假设，不能对TIMELY做出相同的假设，因此对TIMELY流模型做出了相应的调整。）</p>
+<p>这意味着随着队列长度的增加（当存在更多流时），依赖于RTT的拥塞控制算法在其控制环路中遇到更多的滞后，得基于RTT的控制更不精确。这种情况在TIMELY上发生（如图11）。 DCQCN受这种影响影响较小（图3（a））。为了进一步确认这种分析，作者还设计了如下实验，来证明<strong>出口处的ECN标记对于稳定性是重要的</strong>，将在入口处运行带有ECN标记的DCQCN和在出口处运行带有ECN标记的DCQCN做比较。图17显示入口处的标记导致队列长度震荡十分严重。<br><img src="/2019/01/22/ECN-or-DELAY/图11.png" alt=""><img src="/2019/01/22/ECN-or-DELAY/图3a.png" alt=""><img src="/2019/01/22/ECN-or-DELAY/图17.png" alt=""></p>
+<p>研究人员在解决方案中观察到类似的“缓冲区”的问题，例如LEDBAT。类似地，在现代数据中心网络中，队列延迟往往是导致延迟的最主要的原因。例如，Arista 7050QX32具有40Gbps端口，并且交换机的总共享缓冲区具有12MB​​。即使在出口端只有1MB的队列，也需要200us才能处理完。相比之下，单跳传播延迟大约为1-2us。典型的直流网络直径为6跳，因此总传播延迟小于25us。 </p>
+<h4 id="对于基于延迟的控制，固定队列是以公平为代价的："><a href="#对于基于延迟的控制，固定队列是以公平为代价的：" class="headerlink" title="对于基于延迟的控制，固定队列是以公平为代价的："></a>对于基于延迟的控制，固定队列是以公平为代价的：</h4><p>构建保证延迟固定的一种方法是，使用具有积分控制的控制器，控制器背后的想法是查看差值信号，比如实际队列长度与期望队列长度的差异，并将此差异减小到0。</p>
+<ul>
+<li>对于DCQCN，可以实现PI控制器来标记交换机处的数据包，并使用该p来实现乘法减少。</li>
+<li>对于修补版的TIMELY，可以测量终端主机的延迟来实现PI控制器，用这个值作为指标来控制速率。</li>
+</ul>
+<p><img src="/2019/01/22/ECN-or-DELAY/图18.png" alt=""> <img src="/2019/01/22/ECN-or-DELAY/图19.png" alt=""> </p>
+<p>为DCQCN和修补版TIMELY模型使用了PI控制器，并进行了模拟。</p>
+<ul>
+<li><p>对于DCQCN，实验结果如图18所示。所有流都收敛到相同的速率，并且队列长度稳定到预先配置的值。这一点确保了，短流的完成时间不会受到过多队列延迟的影响。</p>
+</li>
+<li><p>对于修补版TIMELY，添加PI控制器后，可以看到尽管队列长度都被控制在指定值（300 KB），但无法实现公平性（图19）。</p>
+</li>
+</ul>
+<p>接下来，作者证明了一个定理。该定理规范了依赖于端点延迟测量的协议，在公平性和稳态延迟之间的基本权衡，以实现拥塞控制的目的。定理如下：</p>
+<h4 id="公式-6-公平性和延迟的权衡："><a href="#公式-6-公平性和延迟的权衡：" class="headerlink" title="公式 6. 公平性和延迟的权衡："></a>公式 6. 公平性和延迟的权衡：</h4><blockquote>
+<p>对于拥有稳定带宽的拥塞控制机制，吞吐量R是延迟d和差值反馈p的函数，R=f(d,p)，如果p基于端到端的延迟测量，那再公平性和固定的延迟之间，两者只能选择一个。</p>
+<p>备注：该定理的结果对于使用延迟或ECN作为差值反馈p的拥塞控制协议是通用的。</p>
+</blockquote>
+<hr>
+<h4 id="ECN信号对于变化的反馈传输延迟具有弹性："><a href="#ECN信号对于变化的反馈传输延迟具有弹性：" class="headerlink" title="ECN信号对于变化的反馈传输延迟具有弹性："></a>ECN信号对于变化的反馈传输延迟具有弹性：</h4><p>最后一点，ECN在回传反馈的时候，对延迟的震动极具弹性。拥塞信号在网络的瓶颈处生成之后，必须被传送回发送方。此过程中的任何抖动或拥塞都可能延迟ECN信号的到达，或影响RTT的测量。尽管DCQCN和TIMELY都试图减轻这种情况。但实际上不能完全消除硬件抖动或反向路径的拥塞。</p>
+<p>ECN标记对瓶颈处的队列进行长度测量，因此反馈信号不受影响。然而，这一现象会直接在TIMELY反馈信号中注入噪声。这加剧了反向路径上的拥塞或延迟变化问题。模拟证实了这一假设。在图20中，我们将随机抖动注入DCQCN和TIMELY模型的反馈延迟。抖动为[0,100us]时，TIMELY变得不稳定。相反而言，同级别的抖动，不会过于影响DCQCN。</p>
+<p><img src="/2019/01/22/ECN-or-DELAY/图20.png" alt=""> <img src="/2019/01/22/ECN-or-DELAY/图21.png" alt=""> </p>
+<h3 id="5-3-总结"><a href="#5-3-总结" class="headerlink" title="5.3 总结"></a>5.3 总结</h3><p>基于上述三个因素：</p>
+<ul>
+<li>更快的响应速度，</li>
+<li>同时实现公平性和延迟不越界</li>
+<li>对可变的反馈传输延迟的恢复能力</li>
+</ul>
+<p>主张使用ECN而不是延迟来实现数据中心的拥塞控制，在图21中说明了这一点。</p>
+<hr>
+<h2 id="相关工作："><a href="#相关工作：" class="headerlink" title="相关工作："></a>相关工作：</h2><p>关于拥塞信号(drop，ECN，delay)拥塞控制算法及其相关的文献很多。下面，作者只讨论代表文章：<br>现有许多拥塞控制协议，其中瓶颈交换机或中央控制器发挥更积极的作用。例如，RCP和XCP要求交换机发送更详细的反馈，像这样的提议使用中央控制器，进行细粒度调度，而pFabric则是基于超时的拥塞控制，需要交换机对数据包进行排序。</p>
+<hr>
+<h2 id="结论与未来工作："><a href="#结论与未来工作：" class="headerlink" title="结论与未来工作："></a>结论与未来工作：</h2><ul>
+<li><p>分析了最近提出的两种数据中心网络拥塞控制协议的行为;DCQCN（基于ECN）和TIMELY（基于延迟）</p>
+</li>
+<li><p>使用流模型和控制理论分析，得到了DCQCN的稳定区域，并且表明了DCQCN的稳定性随着流的个数增加，并不是单调的。</p>
+</li>
+<li><p>通过数据包级别仿真验证了这种行为。发现DCQCN以指数方式收敛到一个独特的固定点。</p>
+</li>
+<li><p>在对TIMELY进行类似的分析时，TIMELY协议具有无限的固定点，这可能导致不可预测的行为和不公平。</p>
+</li>
+<li><p>作者对TIMELY提供了，一个简单的解决方案来解决这个问题。修改后的协议稳定，收敛速度快。</p>
+</li>
+</ul>
+<blockquote>
+<p>但是，对于这两种协议，队列长度随着竞争流的数量而增加，这会引入显着的延迟。使用交换机上的PI控制器来标记数据包，可以保证DCQCN的有限延迟和公平性。</p>
+<p>然而，如果使用延迟作为拥塞控制的唯一反馈信号，那么可以保证公平性或固定的有界延迟，但不能同时保证两者。</p>
+<p>基于这个原因，现代共享缓冲交换机上的ECN标记过程有效地排除了反馈环路的队列延迟，并且ECN对反馈中的抖动更加鲁棒，我们得出结论，ECN是数据中心环境中更好的拥塞信号。</p>
+</blockquote>
+<hr>
+<h3 id="未来工作："><a href="#未来工作：" class="headerlink" title="未来工作："></a>未来工作：</h3><p>对数据中心的RDMA，拥塞控制协议进行全面的PI控制，包括硬件实现。分析还表明，可以通过修改DCQCN，消除单调稳定行为中的异常点。</p>
+<p>作者还计划分析由于时间和空间限制，未在文件中涉及的问题。包括多瓶颈情景，更大更现实的拓扑网络，以及PFC导致的PAUSES对这两种协议的影响。为了捕捉这些复杂的行为，需要开发更多的分析工具并提高DCQCN / TIMELY NS3模拟器的性能。</p>
 
       
     </div>
@@ -745,7 +866,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DCQCN："><span class="nav-number">2.1.</span> <span class="nav-text">DCQCN：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIMELY"><span class="nav-number">2.2.</span> <span class="nav-text">TIMELY:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECN-or-DELAY"><span class="nav-number">2.3.</span> <span class="nav-text">ECN or DELAY:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景："><span class="nav-number">3.</span> <span class="nav-text">背景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCQCN"><span class="nav-number">4.</span> <span class="nav-text">DCQCN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-模型"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型验证"><span class="nav-number">4.1.1.</span> <span class="nav-text">模型验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-稳定性"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 稳定性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公式-1-DCQCN的固定点"><span class="nav-number">4.2.1.</span> <span class="nav-text">公式 1. DCQCN的固定点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#稳定性分析"><span class="nav-number">4.2.2.</span> <span class="nav-text">稳定性分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-收敛"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 收敛</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公式-2-DCQCN的收敛性"><span class="nav-number">4.3.1.</span> <span class="nav-text">公式 2. DCQCN的收敛性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-总结"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIMELY-1"><span class="nav-number">5.</span> <span class="nav-text">TIMELY</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DCQCN："><span class="nav-number">2.1.</span> <span class="nav-text">DCQCN：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TIMELY"><span class="nav-number">2.2.</span> <span class="nav-text">TIMELY:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ECN-or-DELAY"><span class="nav-number">2.3.</span> <span class="nav-text">ECN or DELAY:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背景："><span class="nav-number">3.</span> <span class="nav-text">背景：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCQCN"><span class="nav-number">4.</span> <span class="nav-text">DCQCN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-模型"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型验证"><span class="nav-number">4.1.1.</span> <span class="nav-text">模型验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-稳定性"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 稳定性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公式-1-DCQCN的固定点"><span class="nav-number">4.2.1.</span> <span class="nav-text">公式 1. DCQCN的固定点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#稳定性分析"><span class="nav-number">4.2.2.</span> <span class="nav-text">稳定性分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-收敛"><span class="nav-number">4.3.</span> <span class="nav-text">3.3 收敛</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公式-2-DCQCN的收敛性"><span class="nav-number">4.3.1.</span> <span class="nav-text">公式 2. DCQCN的收敛性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-总结"><span class="nav-number">4.4.</span> <span class="nav-text">3.4 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIMELY-1"><span class="nav-number">5.</span> <span class="nav-text">TIMELY</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-模型"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型验证-1"><span class="nav-number">5.1.1.</span> <span class="nav-text">模型验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-分析"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公式-3-TIMELY不存在稳定点"><span class="nav-number">5.2.1.</span> <span class="nav-text">公式 3. TIMELY不存在稳定点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公式4-无限稳定点"><span class="nav-number">5.2.2.</span> <span class="nav-text">公式4. 无限稳定点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他一切保持不变，系统最终会采用完全不同的运作方式。"><span class="nav-number">6.</span> <span class="nav-text">其他一切保持不变，系统最终会采用完全不同的运作方式。</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#per-burst做pacing的影响"><span class="nav-number">6.0.1.</span> <span class="nav-text">per-burst做pacing的影响</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-修复版TIMELY"><span class="nav-number">6.1.</span> <span class="nav-text">4.3 修复版TIMELY</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#公式5-修复版TIMELY具有固定点"><span class="nav-number">6.1.1.</span> <span class="nav-text">公式5. 修复版TIMELY具有固定点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#稳定性"><span class="nav-number">6.1.2.</span> <span class="nav-text">稳定性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-总结"><span class="nav-number">6.2.</span> <span class="nav-text">4.4 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ECN-VS-Delay"><span class="nav-number">7.</span> <span class="nav-text">ECN VS Delay:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-案例研究：DCQCN与TIMELY的流完成时间"><span class="nav-number">7.1.</span> <span class="nav-text">5.1 案例研究：DCQCN与TIMELY的流完成时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-ECN优势"><span class="nav-number">7.2.</span> <span class="nav-text">5.2 ECN优势</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ECN标记是在数据包出口处完成的，因此具有更快的响应："><span class="nav-number">7.2.1.</span> <span class="nav-text">ECN标记是在数据包出口处完成的，因此具有更快的响应：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于基于延迟的控制，固定队列是以公平为代价的："><span class="nav-number">7.2.2.</span> <span class="nav-text">对于基于延迟的控制，固定队列是以公平为代价的：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#公式-6-公平性和延迟的权衡："><span class="nav-number">7.2.3.</span> <span class="nav-text">公式 6. 公平性和延迟的权衡：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ECN信号对于变化的反馈传输延迟具有弹性："><span class="nav-number">7.2.4.</span> <span class="nav-text">ECN信号对于变化的反馈传输延迟具有弹性：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-总结"><span class="nav-number">7.3.</span> <span class="nav-text">5.3 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关工作："><span class="nav-number">8.</span> <span class="nav-text">相关工作：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论与未来工作："><span class="nav-number">9.</span> <span class="nav-text">结论与未来工作：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#未来工作："><span class="nav-number">9.1.</span> <span class="nav-text">未来工作：</span></a></li></ol></li></ol></div>
             
 
           </div>
