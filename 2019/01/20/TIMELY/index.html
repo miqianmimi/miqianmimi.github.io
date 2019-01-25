@@ -115,7 +115,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/图21.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/图22.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/图23.png">
-<meta property="og:updated_time" content="2019-01-25T14:35:22.639Z">
+<meta property="og:updated_time" content="2019-01-25T15:46:38.425Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TIMELY">
 <meta name="twitter:description" content="here for paper    Author: Radhika Mittal  (UC Berkeley)     datacenter transport,delay-based congestion control; os-bypass; RDMA">
@@ -536,7 +536,7 @@
 <p>注意到，在TIMELY设计中，NIC硬件pacing不是绝对的要求;但更确切地说，可以实现在较低的网络尾端延迟和由于软件pacing引起的较高的CPU开销之间权衡。</p>
 <h4 id="变化的Thigh"><a href="#变化的Thigh" class="headerlink" title="变化的Thigh"></a>变化的Thigh</h4><p>TIMELY使用一个高阈值，来对更大的RTT来做出更快的反应。这一阈值没有低阈值重要，因为仅对于超大的RTTs起作用。但随着连接变得复杂，RTT突增的可能性变大，这一阈值变得愈发有用。<br><img src="/2019/01/20/TIMELY/图17.png" alt=""><br>​图17显示了不同数量的链路竞争下，这一阈值对吞吐量的影响。在一对四的结构中，99百分位RTT稳定接近200μs。那么，若将Thigh到100us或者更低，RTT会有下降，且吞吐量也非常优异。</p>
 <h4 id="激进增量（HAI）"><a href="#激进增量（HAI）" class="headerlink" title="激进增量（HAI）"></a>激进增量（HAI）</h4><p>HAI有助于更快地获取可用带宽。通过多次不同load的incast实验，来证明这一点。incast从10个客户端和每个客户端10个连接开始。在收敛的初始阶段之后，每个客户端同时关闭其10个连接中的9个，从而将剩余连接的公平分享率提高10倍。图18显示了HAI如何在50ms内，将连接吞吐量从初始公平速率200Mbps提升到1.5Gbps，并在100ms内达到2 Gbps的新公平份额。相反，使用固定的加法增量，在140 ms后吞吐量仅仅到1.5 Gbps。发现选择五个连续RTT攻击作为使用HAI的阈值，这一决定，在模型收敛性和稳定性之间取得了良好的平衡。</p>
-<h3 id="大规模实验"><a href="#大规模实验" class="headerlink" title="大规模实验"></a>大规模实验</h3><p>通过经典Clos拓扑中的几百台机器上的实验，来研究TIMELY的大规模试验。表明TIMELY能够在大型的拥塞网络场景中保持可预测和低延迟。该实验在客户端和服务器对之间生成RPCs。为了测试TIMELY，并且增加burst，我们使用64-KB的段大小和RPC。</p>
+<h3 id="大规模实验"><a href="#大规模实验" class="headerlink" title="大规模实验"></a>大规模实验</h3><p>通过经典Clos拓扑中的几百台机器上的实验，来研究TIMELY大规模试验。来证明TIMELY能在大型的拥塞网络场景中保持可预测和低延迟。</p>
 <h4 id="最长路径均匀随机"><a href="#最长路径均匀随机" class="headerlink" title="最长路径均匀随机"></a>最长路径均匀随机</h4><p>在此流模式中，客户端从具有网络最长路径的一组服务器中选择服务器。客户端发出64 KB请求。服务器回复相应大小的有效负载。客户端计算了RPC延迟（记录了请求发送到服务器到收到服务器响应的时间）。<br><img src="/2019/01/20/TIMELY/图19.png" alt=""><br>图19显示了应用程序在负载增加的情况下，观察到的标准化吞吐量。网络的饱和点（接受负载小于提供的负载的点）对于TIMELY来说更高，因为它能够通过最小化队列，从而也可以每秒暂停帧，来发送更多流量。<br><img src="/2019/01/20/TIMELY/图20.png" alt=""><br>【<br>图20显示了RTT与负载的关系。与PFC相比，TIMELY将RTT的中位数和99百分位数，分别降低了2倍和5倍。这导致RPC中值相应减少约2倍（如图21所示）。如果没有TIMELY，网络队列会增加，以尝试达到提供的负载。有TIMELY，通过将队列从共享网络移到终端主机，来维持低网络队列。因此，随着提供的负载增加超过饱和点，99％的RPC延迟降低效果会减弱。<br>？？？】<br><img src="/2019/01/20/TIMELY/图21.png" alt=""></p>
 <h4 id="网络不平衡-incast"><a href="#网络不平衡-incast" class="headerlink" title="网络不平衡(incast)"></a>网络不平衡(incast)</h4><p>为了强调TIMELY缓解拥塞的能力，设计了一个实验，背景负载是最长路径均匀随机流量，使用三个级别的后台负载：低（0.167），中（0.3）和高（0.5）。图22显示了该实验的正常吞吐量和99百分位的RTT。从图19中可知，在网络达到饱和之前，TIMELY和PFC吞吐量对于均匀随机流量是相同的。当添加一个incast，没有TIMELY，吞吐量下降13％至54％，主要原因是由于PFC产生的线路阻塞。用图22中的RTT测量结果也证实了这一观察结果，TIMELY能够保持队列相对较短，并且防止拥塞扩散，且整体吞吐量保持不变。<br><img src="/2019/01/20/TIMELY/图22.png" alt=""></p>
 <h4 id="应用级别的标准"><a href="#应用级别的标准" class="headerlink" title="应用级别的标准"></a>应用级别的标准</h4><p>图23显示了数据中心存储的基准测试，RPC延迟（y轴是对数刻度）。有TIMELY的话，该应用程序能够以更高的利用率行动，应用程序数据延迟的下降，这实际上反映了应用程序在查询执行期间能够维持吞吐量的增加。<br><img src="/2019/01/20/TIMELY/图23.png" alt=""></p>
