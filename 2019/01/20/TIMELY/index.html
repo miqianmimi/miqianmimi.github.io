@@ -95,6 +95,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/图6.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/图7.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/公式1.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/算式1.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/算法1.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/图8.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/公式2.png">
@@ -114,7 +115,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/图21.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/图22.png">
 <meta property="og:image" content="http://yoursite.com/2019/01/20/TIMELY/图23.png">
-<meta property="og:updated_time" content="2019-01-22T12:34:17.983Z">
+<meta property="og:updated_time" content="2019-01-25T14:35:22.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TIMELY">
 <meta name="twitter:description" content="here for paper    Author: Radhika Mittal  (UC Berkeley)     datacenter transport,delay-based congestion control; os-bypass; RDMA">
@@ -400,88 +401,69 @@
 </ul>
 <hr>
 <a id="more"></a>
-<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>数据中心的传输协议希望尽可能降低网络延迟，并且提升网络带宽。在本文中，作者展示了数据包延迟最简单的测量方式，是在端上测量RTT时间，不需要任何交换机的反馈，这是一个最有效的拥塞信号。</p>
-<ul>
-<li>第一，作者展示了NIC硬件的进步，使得RTT微秒精度的测量成为可能，并且用这些RTT足以用来评估交换机队列占用。</li>
-<li>然后，作者描述了TIMELY，怎样使用RTT梯度来调整传输速率，来确保在提供高带宽的同时保持较低的数据包延迟<br>在具有OS-bypass功能的NIC上运行的，主机端软件中实现我们的设计。作者在Clos网络拓扑上，使用多达数百台计算机做实验，证明了它的出色性能：打开TIMELY，在带有PFC结构上，进行OS-bypass消息传递，降低了99％的尾端延迟，并且维持了接近线性的吞吐量，相比原来，这一延迟指标提升了9倍。</li>
-</ul>
-<p>不仅如此，系统远超在，优化内核中运行的DCTCP，将尾部延迟减少了13倍。据我们所知，TIMELY是第一个用于数据中心的基于延迟的拥塞控制协议，它能达到很好的效果，尽管它相比，早期基于延迟的方案，例如Vegas，少了一个有序震级的RTT信号（由于NICoffload的原因）。</p>
+<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>数据中心协议要求降低网络延迟，提升带宽。在本文中，作者选择了最简单的测量方式——RTT作为拥塞控制的指标。首先，作者表明新一代NIC，可以做到微妙精度的RTT测量，并且，作者证明了RTT信号与网络队列的强相关性。然后作者提出了<strong>TIMELY(Transport Informed by MEasurement of LatencY)</strong>，描述了如何通过RTT梯度来控制数据包传输速率，确保在提供高带宽的同时保证较低的延迟。作者在具有OS-bypass功能的NIC上运行的主机端软件中实现这一设计。也在Clos网络拓扑上，使用数百台计算机做实验，证明了其出色性能。TIMELY是第一个用于数据中心的基于延迟的拥塞控制协议，相比早起基于延迟的方案Vegas，TIMELY的RTT信号少一个级别，但是它能达到更好的效果。</p>
 <blockquote>
 <p>关键词：数据中心传输协议，基于延迟的拥塞控制，OS-bypass(操作系统旁路），RDMA</p>
 </blockquote>
 <hr>
-<h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>( 数据中心网络运行的计算任务，必须对用户的需求做出足够快的响应，<em>（例如，数千个端计算机需要对用户的这一请求做出反应，必须保证所有传输足够快地完成，才能在100毫秒内满完成这一用户需求)。</em>为了满足这些要求，数据中心传输必须同时提供高带宽（“Gbps”）和低延迟（“msec”）的利用率。其中，低延迟尤其重要，因为即使是一小短时间的延迟，也可能造成涟漪效应，极大降低应用程序性能。因此，数据中心传输必须严格限制延迟和数据包丢失。）</p>
-<p>由于传统传输协议不能满足数据中心的严格要求。新的数据中心传输协议，通常选择利用网络的一些信息，提供拥塞的程度表示（例如，DCTCP使用ECN），或者引入流的抽象，来最小化延迟时间，或者将调度交给中央控制器，等等。而作者试图寻找一种更简单，可立即部署的设计。</p>
-<p>我们搜索的关键是拥塞信号，理想的拥塞信号有以下几个属性。(1).能够快速通知发件人，拥堵程度的信息。(2).它必须有足够的辨识力，能在具有多个流量类的复杂环境中运行。(3).它部署起来很容易。</p>
-<p>（ 惊讶的是，对一些众所周知的网络信号参数做适当调整，就可以满足所有需求，这就是<code>RTT延迟指标</code>。 RTT是一种高细粒度的拥塞测量方法，并且，RTT容易获得，伴随着每次ACK的到来而来。它有效地支持多个流量类别，为排队排在高优先级传输之后的低优先级传输，提供了一种测量方式。此外，它不需要交换机的支持。）</p>
-<p>从TCP Vegas开始，延迟就开始成为研究的焦点，一些现代的TCP变量使用延迟指标来估计。但这种延迟的使用有一些问题，</p>
-<ul>
-<li>基于延迟的方案，在与一些更积极的基于丢失的方案做竞争时，表现不佳。</li>
-<li>由于主机和网络问题，延迟估计可能非常不准确<br>因此，延迟经常经常和其他指标（例如丢包）一起使用，采取混合方案中。</li>
-</ul>
-<p>此外，延迟尚未用作数据中心的拥塞信号，是因为数据中心的RTT，难以用微秒粒度进行测量。在DCTCP中，就避开了基于延迟的测量，并且声称“准确测量队列延迟的小幅度增额是一项艰巨的任务。”</p>
-<p>作者观察到，最新的NIC已经能够允许足够的精细度测量数据中心RTT。具体表现在以下几点</p>
-<ul>
-<li>最新的NIC可以高精度地标出时间戳。</li>
-<li>硬件生成的ACK也支持自动消除，不可预测的主机响应延迟时间。</li>
-<li>同时，数据中心软件可以做到避免与不同传输协议之间的竞争，多个路径具有类似的，较小的传播延迟。</li>
-</ul>
-<p>在这篇文章中，作者提出了基于延迟的拥塞控制，这一机制在数据中心中显示出了优异的性能。文章最重要的贡献包括：</p>
-<ul>
-<li>（1）通过实验，论证了NIC测量的多位RTT信号与网络队列的强相关性。</li>
-<li>（2）提出了TIMELY(Transport Informed by MEasurement of LatencY)：一个基于RTT的拥塞控制机制。TIMELY使用速率控制，设计用于多数据包段的NICoffload，以获得高性能。不像早期的一些机制（给队列的RTT设定一个固定阈值）。这边使用RTT速率的变化（梯度）来预测拥塞的程度，以此保证数据中心的高带宽，低延迟。</li>
-<li>（3）评估了TIMELY以及OS-bypass的消息操作，使用Clos拓扑结构网络上的数百台机器。在具有PFC（优先级流控制）的结构上及时打开RDMA传输，可将99%的尾部延迟降低9倍。此尾部延迟比在优化内核中运行的DCTCP低13倍。</li>
-</ul>
+<h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>在数据中心网络中，理想的拥塞信号有以下的属性:</p>
+<ol>
+<li>将拥塞程度的信息，迅速通知发件器</li>
+<li>具有足够辨识力，在多流的复杂环境中运行</li>
+<li>部署起来相对容易</li>
+</ol>
+<p>现有的以延迟作为指标的系统有以下问题：</p>
+<ol>
+<li>基于延迟的方案，与某些基于丢包的方案竞争带宽时，表现不佳。</li>
+<li>由于主机和网络原因，延迟估计可能不准确，难以用微妙精度测量。</li>
+</ol>
+<p>作者观察到最新的NIC允许RTT精细度的测量：</p>
+<ol>
+<li>最新的NIC可以高精度地标出时间戳</li>
+<li>硬件生成ACK支持自动消除主机响应时间</li>
+<li>数据中心软件可避免不同传输协议的流竞争</li>
+</ol>
+<p>因此，在这样的大环境下，作者提出了基于延迟的拥塞控制TIMELY。TIMELY这一机制在数据中心显示出优异的性能。</p>
 <hr>
-<h2 id="数据中心拥塞指标RTT的值："><a href="#数据中心拥塞指标RTT的值：" class="headerlink" title="数据中心拥塞指标RTT的值："></a>数据中心拥塞指标RTT的值：</h2><p>现有的数据中心协议，使用交换机得到的信息指标，来观察拥塞的程度，并且以低延迟，低损耗运行。作者认为，基于RTT测量的网络队列延迟，可以不需要交换机的指标，是一个更优越的拥塞指标。</p>
-<h3 id="RTT直接反应延迟"><a href="#RTT直接反应延迟" class="headerlink" title="RTT直接反应延迟"></a>RTT直接反应延迟</h3><p>RTTs非常有价值因为它直接测量了最为重要的指标：因为网络队列堆积引起的端到端延迟时间。来自队列的一些别的指标（例如ECN）无法直接得到这个延迟时间。包上的ECN标记，仅表示对应于该包的队列占用超过了阈值。【在数据中心中丰富地使用QoS，意味着无法将此阈值转换为单个对应的阈值。？？？】</p>
-<p>具有不同优先级的多个队列共享同一个输出链路，但ECN标记，仅仅提供超过阈值的那些信息。<code>低优先级流量可能经历较大的队列延迟时间，但它的队列占用并不一定很大（不达到ECN标记的阈值）。因为在这种情况下，队列延迟时间反映了网络中的拥塞状态，但低优先级流量的队列占用并不能反映这种拥塞。</code></p>
-<p><code>更进一步，ECN标记仅仅描述了一个单一交换机的行为。在高度利用的网络中。拥塞发生在多个交换机上，ECN标记并不能很好地分清楚他们。RTT积累端到端路径的全部信息。包括NIC在内，也可能成为拥塞的源头，但这种情况基本被所有机制所忽略。</code></p>
-<p>最后，RTT甚至适用于支持FCoE的无损网络结构。在这些结构中，由于用于确保零丢包的PFC优先流控制机制，仅仅队列占用可能无法反映拥塞。<code></code></p>
-<h3 id="RTT可以被精确测量"><a href="#RTT可以被精确测量" class="headerlink" title="RTT可以被精确测量"></a>RTT可以被精确测量</h3><p>一个最重要的实践障碍是，<code>RTT是否可以在数据中心准确测量</code>，因为通常数据中心中的RTT，比其他网络中的延小1000倍。而且许多因素阻碍了确测量：</p>
-<ul>
-<li>由于内核调度引起的可变性; </li>
-<li>NIC性能技术，包括offload（GSO / TSO，GRO / LRO）;</li>
-<li>协议处理，如TCP晚到的ACK。<br>在数据中心，这些问题每一个都非常严重，其中每个因素都大到覆盖该传播和排队延迟时间。</li>
-</ul>
-<p>幸运的是，最近NICs从硬件上提供了这些问题的解决方案，可以准确地记录包传输和接收的时间，而不受软件引起的影响。必须小心使用这些方法，以免对NIC过度征税。我们在本文后面描述了NIC的支持。这些NICs也提供了硬件支持的ACK。</p>
-<p>综上，这些特征的结合让我们能够准确测量RTT，并且精确地追踪端到端网络队列。</p>
-<p>以下的实验结果证明了这些行为：我们用10-Gbps的链路将两台主机连接到同一网络，并发送16KB的ping-pong消息，在静止网络上没有任何交叉流量。由于没有拥塞，我们希望RTT测量值低且稳定。图1比较了使用NIC硬件时间戳，测量的RTT的CDF，以及通过OS TCP协议栈测量的RTT。使用NIC时间戳的RTT的CDF几乎是一条直线，方差很小。相比之下，由内核TCP测量的RTT的值和方差均偏大。</p>
+<h2 id="数据中心拥塞指标RTT的值："><a href="#数据中心拥塞指标RTT的值：" class="headerlink" title="数据中心拥塞指标RTT的值："></a>数据中心拥塞指标RTT的值：</h2><p>现有数据中心协议，大多使用交换机上的信息作为拥塞程度的指标，作者认为RTT延迟时间，是一个更优越的拥塞指标，可以不需要交换机信息。</p>
+<h3 id="RTT直接反应延迟"><a href="#RTT直接反应延迟" class="headerlink" title="RTT直接反应延迟"></a>RTT直接反应延迟</h3><p>作者将RTT与ECN标记做了简单的对比，描述了RTT作为拥塞控制指标的优势：</p>
+<p>（一）RTT直接测量了因为队列堆积引起的端到端延迟时间，而ECN无法直接得到这个延迟时间。</p>
+<p>（二）ECN标记仅表示包的队列占用超过了一定的阈值。在以下情况下，ECN不能很好的反应拥塞情况——具有不同优先级的多个流共享同一个链路，低优先级流可能经历较大的队列延迟时间，但它的队列占用并不一定很大（不满足ECN标记的条件）</p>
+<p>（三）ECN标记描述单一交换机的行为，但拥塞可能发生在多个交换机上，ECN标记并不能很好地分清楚他们。</p>
+<p>（四）RTT甚至适用于支持FCoE的无损网络结构。在这种结构下，由于确保零丢包的PFC机制，使得队列占用无法反映拥塞情况。</p>
+<h3 id="RTT可以被精确测量"><a href="#RTT可以被精确测量" class="headerlink" title="RTT可以被精确测量"></a>RTT可以被精确测量</h3><p>一个最重要的问题是：RTT在数据中心中，是否能够被准确测量？因为数据中心的RTT，相比其他网络延迟，要小1000倍。</p>
+<p>新一代NIC从硬件上保证了，可以准确记录包传输和接收时间，且不受软件的影响，这使得精确地追踪端到端网络延迟成为可能。</p>
+<p>以下是一组对比实验，证明NIC相比TCP内核能够更精确地测量RTT的值。作者使用10Gbps的链路将两台主机连接到同一网络，并且发送16KB的消息。由于网络中没有拥塞，希望RTT测量值较低且较稳定。</p>
+<p>图1比较了使用NIC的时间戳，测量到的RTT的CDF，以及通过OS的TCP协议栈，测量到的RTT的CDF。使用NIC时间戳测得的RTT的CDF（概率累积分布函数）几乎是一条直线，这说明方差很小。而由内核TCP测得的RTT的CDF，方差偏大。</p>
 <p><img src="/2019/01/20/TIMELY/图1.png" alt=""></p>
 <blockquote>
 <p>说明NIC上测量的RTT相比自带的TCP测量的要精准许多；</p>
 </blockquote>
-<h3 id="RTT-是一个快速、多位信号："><a href="#RTT-是一个快速、多位信号：" class="headerlink" title="RTT 是一个快速、多位信号："></a>RTT 是一个快速、多位信号：</h3><p>网络队列延迟，可以通过从RTT中减掉已知的传播延迟和序列化延迟求得。奇怪的是，作者发现这个方法，相比ECN，提供更多、更快的关于网络中交换机的信息，ECN作为一个二进制数值（非0即1）, ECN标记传达单个比特的信息，而RTT传达多个比特的信息，并获得多个交换机上，端到端队列延迟。由于每个包都可以携带ECN标记，因此一串ECN标记的序列，可以间接传达，关于拥塞级别的多比特信息是合理的，正如DCTCP中所做的那样。【但是，64KB分段offload？？？】等做法会破坏标记的独立性，因为主机端会突发性的burst。巨大的burst倾向于看到大多数数据包，同时高于或低于标记阈值。</p>
-<p>假设它是准确的，测量得到一个较高的RTT，立即表明网络的拥塞程度。对于一个网络链路中的burst，测量它的RTT的方式如下，在burst中的最后一个包的RTT，是整个burst中最大的RTT值。为了显示RTT网络队列延迟的程度，我们模拟了一个incast的环境如下：10台客户端同时产生传输到单个服务器的100个流。为了整合NIC【的offloadoffload？？？】，我们发送64KB消息，并在客户端只收集一个单独的RTT。瓶颈链接是10台机器到服务器的，那一条10Gbps的链接。我们每隔一微秒对交换机上的队列进行采样。</p>
-<p>在图2中，展现了测量所得的RTT的CDF，以及在交换机上测量的队列占用的CDF，从图中可以看出，这两个CDF非常匹配。<br><img src="/2019/01/20/TIMELY/图2.png" alt=""></p>
-<p>其实，ECN信号与RTT并不强相关，因此与队列占用无关。设计了和前者类似的incast实验，除了现在TCP发送器执行长传输到单个接收器。瓶颈处是每台端发送器到接收器的10Gbps的网络链路，具有80KB交换机ECN标记阈值。使用SND_UNA的推进标记RTT回合的结束，检测发送者，在RTT时间内，给包打上ECN标记的比率大小。我们还测量了每一轮中的最小RTT样本，因为之前的工作都认为这个指标很强大，不受延迟的ACK和发送/接收offload的影响。图3中的散点图和方框图，显示了ECN标记和RTT之间的弱相关性。</p>
-<p><img src="/2019/01/20/TIMELY/图3.png" alt=""></p>
-<h3 id="RTT-的限制："><a href="#RTT-的限制：" class="headerlink" title="RTT 的限制："></a>RTT 的限制：</h3><p>作者发现RTT有价值，但有效的设计是必须的。RTT测量可能是沿着网络中的两条路径。ACK并不能辨别它经历的是反向路径拥塞，还是前向路径拥塞。一个简单的解决方法是发送具有更高优先级的ACK，以便它们不会因为排队而延迟。该方法适用于主要在一个方向上发送数据的流的常见情况。</p>
-<p>我们进行了一项实验来验证给ACK设置优先级的效果：我们启动了两个incast（主要和次要），使得主要的与次要的incast共享相同的拥塞队列，如图4所示。</p>
-<p><img src="/2019/01/20/TIMELY/图4.png" alt=""></p>
-<p>【图5主要分析了三种情况：？？？<em>这一段都不懂</em>】</p>
-<ul>
-<li>1）在ACK的路径中没有拥塞（没有第二次incast）;</li>
-<li>2）在ACK路径中存在拥塞; </li>
-<li>3）来自主要incast的ACK优先于更高的反向拥塞的QoS队列<br>我们发现反向拥塞，在RTT测量中，产生噪声并延长尾端延迟。主要incast的吞吐量也受到影响（因此较低百分位数的RTT较小）。通过给ACK划分优先级的做法，无法区分在主要incast下测量到的RTT，与没有反向路径拥塞的RTT。<br><img src="/2019/01/20/TIMELY/图5.png" alt=""><br>未来的工作可以是，通过在包中加入时间戳（例如，TCP时间戳）来计算两个包之间的单向延迟的变化。然后，队列延迟时间的变化是到达时间的变化减去每个包的发送时间。这种方法只需要以相同速率运行的时钟，这个比同步时钟的要求松许多，因而也比较好实现。</li>
-</ul>
-<p>RTT的另一个经典缺点，是改变网络路径会面临不同的网络延迟。但它在数据中心中并不成为问题，因为所有路径都具有较小的传播延迟。</p>
+<h3 id="RTT-是一个快速、多位信号："><a href="#RTT-是一个快速、多位信号：" class="headerlink" title="RTT 是一个快速、多位信号："></a>RTT 是一个快速、多位信号：</h3><p>作者先说明了，网络中的队列延迟的具体计算方式，通过从总的RTT中减掉固定的传播延迟和序列化延迟，可以得到。</p>
+<p>【RTT VS ECN】:<br>ECN作为一个二进制数值（非0即1），因此ECN标记传达的是单个比特的信息，而RTT传达多个比特的信息。（由于每个包都可以携带ECN标记，因此一串ECN标记的序列可以间接表达，多比特的拥塞信息，这是合理的。e.g. DCTCP。）</p>
+<p>但ECN这种做法，会破坏标记的独立性，e.g.主机端发生burst时，会使得绝大部分数据包，同时高于或低于标记阈值。</p>
+<p>对于RTT而言，测得一个较高的RTT即刻表明网络的拥塞程度。对于网络中burst的情形，测得的延迟是最后那个包的RTT时间，也是整个burst中最大的RTT值。<br><img src="/2019/01/20/TIMELY/图2.png" alt=""><br>作者模拟了incast的实验，图2测得的RTT的CDF，以及在交换机上测量的队列占用的CDF，从实验结果看出，这两个概率累积函数非常匹配。</p>
+<p>其实，ECN信号与RTT并不强相关。通过类似的实验，作者得到图3所示的散点图和方框图，其显示了ECN标记和RTT之间的弱相关性。<br><img src="/2019/01/20/TIMELY/图3.png" alt=""></p>
+<h3 id="RTT-的限制："><a href="#RTT-的限制：" class="headerlink" title="RTT 的限制："></a>RTT 的限制：</h3><p>作者发现RTT在有一定的局限性：——RTT测量可以分为两部分，正向路径和反向路径。ACK并不能辨别，其经历的是反向路径拥塞，还是正向路径拥塞。一个简单的解决方法是发送具有更高优先级的ACK，以便ACK不会遭遇排队延迟。该方法适用于在同一个方向上发送数据流。</p>
+<p>作者进行了一项实验来验证，给ACK设置优先级的效果：作者启动了两个incast（主要和次要），使得主要的与次要的incast共享相同的拥塞队列，如图4所示。<br><img src="/2019/01/20/TIMELY/图4.png" alt=""><br>作者在图5的对比实验中，分析了给ACK设置优先级的情况下延迟的累积分布函数。作者得出的结论是，对ACK划分优先级时，在主要incast下测量的情况，与没有反向拥塞时的情况无法区分。<br><img src="/2019/01/20/TIMELY/图5.png" alt=""></p>
+<p>RTT的另一个缺点是，网络路径改变会造成不同的网络延迟。但这一点在数据中心中并不成问题，因为几乎所有路径的传播延迟都很小。</p>
 <hr>
-<h2 id="TIMELY-结构"><a href="#TIMELY-结构" class="headerlink" title="TIMELY 结构"></a>TIMELY 结构</h2><p>TIMELY提供速率控制框架，（该框架独立于可靠性传输协议）。图6显示了它的三个组成部分</p>
+<h2 id="TIMELY-结构"><a href="#TIMELY-结构" class="headerlink" title="TIMELY 结构"></a>TIMELY 结构</h2><p>TIMELY的速率控制框架主要由三部分组成，如图6所示。</p>
 <ul>
-<li>1）用于监控网络拥塞的RTT测量; </li>
-<li>2）将RTT信号转换为目标发送速率的计算引擎; </li>
-<li>3）控制引擎，在包之间插入延迟以实现目标速率。<br>我们在具有NIC硬件支持的主机软件中实现TIMELY，并独立运行每个流的实例。<br><img src="/2019/01/20/TIMELY/图6.png" alt=""></li>
+<li>1）用于监控网络拥塞的RTT测量引擎</li>
+<li>2）将RTT信号转换为目标发送速率的计算引擎</li>
+<li>3）在数据段（包）之间插入延迟间隔，从而实现目标速率的控制引擎<br><img src="/2019/01/20/TIMELY/图6.png" alt=""></li>
 </ul>
-<h3 id="RTT的测量"><a href="#RTT的测量" class="headerlink" title="RTT的测量"></a>RTT的测量</h3><p>作者根据图7定义了RTT，图7显示了发送包裹的时间线图：由多个数据包组成的busrt，将其作为一个完整的单位，来计算ACK，具体算法是，从发送第一个数据包（tsend）到接收到ACK（tcompletion）的时间被定义为整个burst的完成时间，这与TCP的算法（每一个数据包就计算一个RTT）有所不同。</p>
-<p>此外，延迟由以下几部分组成：</p>
+<h3 id="RTT的测量"><a href="#RTT的测量" class="headerlink" title="RTT的测量"></a>RTT的测量</h3><p>根据图7，作者定义了RTT的测量方式——将多个数据包组成的busrt，作为一个完整的单位，从发送第一个数据包tsend至接收到ACK tcompletion的时间被定义为整个burst的完成时间。</p>
+<p>总延迟，通常由以下几部分组成：</p>
 <ul>
 <li>1）传输中所有数据包段的序列化延迟，通常高达64 KB。</li>
 <li>2）传输数据的RTT时间，以及其ACK在数据中心传播的时间。</li>
 <li>3）接收器生成ACK的时间。</li>
-<li>4）正反两个方向上的交换机队延迟时间。<br><img src="/2019/01/20/TIMELY/图7.png" alt=""></li>
+<li>4）正反两个方向上的交换机队列延迟时间<br><img src="/2019/01/20/TIMELY/图7.png" alt=""><br>这几部分的时间分别可以通过以下方式处理：</li>
 </ul>
-<p>第一部分，可以由段的大小和NIC的线速率决定，可以从总时间中减去。<br>第二部分，传播延迟时间，它又被称作最小RTT，并且对于给定流，数值是固定的，也可以减去。<br>第三部分，因为采用基于NIC的ACK，所以这个值足够接近零，可以忽略。<br><code>第四部分</code>，队列延迟时间，也是导致了RTT变化的原因，这是我们检测拥塞的重点对象。<br>总之，TIMELY将RTT，如下定义：<br><img src="/2019/01/20/TIMELY/公式1.png" alt=""></p>
+<p>第一部分，可以由段的大小和NIC的线速率决定，可以从总时间中减去。<br>第二部分，传播延迟时间，它又被称作最小RTT，并且对于给定流，数值是固定的，也可以减去。<br>第三部分，因为采用基于NIC的ACK，所以这个值足够接近零，可以忽略。<br><code>第四部分</code>，队列延迟时间，也是导致了RTT变化的原因，这是我们检测拥塞的重点对象。</p>
+<p>TIMELY将RTT，如下定义：<br><img src="/2019/01/20/TIMELY/公式1.png" alt=""></p>
 <blockquote>
 <p>此外，还需注意以下指标：<br>（1）<code>ACK的时间戳</code>，由NIC提供，这一完成时间戳指标 <code>tcompletion</code>。因为由OS提供的时间戳受到诸如调度和中断之类的变化的影响不精确，所以采用了NIC提供的时间戳指标。</p>
 </blockquote>
@@ -492,49 +474,43 @@
 <p>（3）<code>ACK的生成</code> 采用基于NIC生成ACK，以便我们可以忽略接收器的周转时间。</p>
 </blockquote>
 <h3 id="速率计算引擎"><a href="#速率计算引擎" class="headerlink" title="速率计算引擎"></a>速率计算引擎</h3><p>该组件实现了基于RTT的拥塞控制算法，详见§4。速率计算引擎的接口很简单。RTT测量引擎以微秒为单位向速率计算引擎提供RTT，这是仅有的输入，附加的一些时间信息也可能有一定用处。</p>
-<h3 id="速率控制引擎"><a href="#速率控制引擎" class="headerlink" title="速率控制引擎"></a>速率控制引擎</h3><p>当准备发送消息时，速率控制引擎将其分成若干段以进行传输，并依次将每个段发送到调度程序。为了提高运行效率，作者实现了一个处理所有流的调度程序。调度器使用段大小，流速（由速率计算引擎提供）和最后一个包的传输时间，来计算当前段的发送时间，并将该段放入调度程序中的优先级队列中。首先将数据批处理为64 KB段，然后调度程序会计算在两个这样的批处理段之间，插入多少【调步延迟（pacing delay）??？】。</p>
-<p><code>段落总结</code>：TIMELY是基于速率而不是基于窗口的，它可以更好地控制流burst，因为广泛使用NIC-offload。数据中心的少量包裹burst的情况下，窗口不能够提供对数据包传输的细粒度控制。但是通过指定目标速率，可以很容易地控制burst之间的时间间隔。</p>
+<h3 id="速率控制引擎"><a href="#速率控制引擎" class="headerlink" title="速率控制引擎"></a>速率控制引擎</h3><p>​速率控制引擎将消息分成若干段后进行传输，并依次将每个段发送到调度程序。调度程序通过段大小，流速（由速率计算引擎提供）和最后一个包的传输时间，来计算当前段的发送时间，并将该段放入调度程序中的优先级队列中。调度程序会计算在两个这样的段之间，插入多少调步延迟（pacing delay）。</p>
+<p><code>段落总结</code>：TIMELY是基于速率而不是基于窗口的，它可以更好地控制burst的情形。因为，在数据中心，少量包裹burst的情况下，调整发送窗口不能够提供对数据包传输的细粒度控制。但通过指定目标速率，可以很容易控制burst的时间间隔。</p>
 <hr>
-<h2 id="TIMELY-拥塞控制"><a href="#TIMELY-拥塞控制" class="headerlink" title="TIMELY 拥塞控制:"></a>TIMELY 拥塞控制:</h2><p>拥塞控制算法在速率计算引擎中实现。在本节中，将描述<strong>实验环境和关键性能指标，以及基于梯度的拥塞控制算法。</strong></p>
-<h3 id="度量和设置"><a href="#度量和设置" class="headerlink" title="度量和设置"></a>度量和设置</h3><p>基于经常出现的burst网络负载，数据中心网络环境的需求是高带宽，低延迟。这与传统的广域互联网在很多方面都不同。    在带宽充足的情况下，流的完成时间是最重要的考虑因素，以远程过程调用(Remote Procedure Call)为例。</p>
+<h2 id="TIMELY-拥塞控制"><a href="#TIMELY-拥塞控制" class="headerlink" title="TIMELY 拥塞控制:"></a>TIMELY 拥塞控制:</h2><p>拥塞控制算法主要在速率计算引擎中实现。本节中，作者<strong>描述实验环境和关键性能指标，以及基于梯度的拥塞控制算法.</strong></p>
+<h3 id="度量和设置"><a href="#度量和设置" class="headerlink" title="度量和设置"></a>度量和设置</h3><p>​数据中心网络环境带宽充足，基于经常出现的burst情形，流的完成时间是最重要的考虑因素，以远程过程调用(Remote Procedure Call)为例。</p>
 <ul>
 <li>对于较短的RPC，最小完成时间由传播延迟和序列化延迟共同决定。因此，我们尝试最小化队列延迟，来保证较低的RTT。（尾端延迟这一个指标，尤其重要，因为即使一小部分数据包迟到，应用程序的性能也会下降。）这意味，需要满足，低队列延迟和接近零丢包，这两个需求。</li>
 <li>对于较长的RPC,由于传输更多数据所需时间更长，所以较长的RPC将具有更长的完成时间，必须保持较高的总吞吐量，以使所有流受益，并保证流之间的公平性。</li>
 </ul>
 <p>我们评估的主要指标是<code>尾端(第99百分位处)RTT</code>和<code>聚合吞吐量</code>，因为它们共同决定了完成短期和长期RPC的速度快慢。当吞吐量和数据包RTT之间存在冲突时，我们倾向于以牺牲少量带宽来保持较低的RTT。这是因为带宽充足，RTT的增加将直接影响，短RPC的完成时间。次要指标是<code>公平</code>和<code>损失</code>。最后，为了实现可预测的性能，更倾向于稳定的设计，所以更关注于震荡速率，而不是高平均值。</p>
-<h3 id="基于延迟梯度的策略"><a href="#基于延迟梯度的策略" class="headerlink" title="基于延迟梯度的策略"></a>基于延迟梯度的策略</h3><h4 id="相关算法"><a href="#相关算法" class="headerlink" title="相关算法"></a><code>相关算法</code></h4><p>【基于延迟的拥塞控制算法，如FAST TCP和Compound TCP，受到TCP Vegas的开创性工作的启发。它们均以RTT增加超过基线作为拥塞的指标，如果延迟进一步增加则减少发送速率，尝试将瓶颈队列处的缓冲器占用，保持在某个阈值附近。然而，Kelly等人认为当时间比控制环路延迟更短时，不可能控制队列大小。在数据中心中就存在这种情况，其中通过10 Gbps链路的64 KB消息控制环路，延迟至少为51μs，并且可能由于竞争，而显得更高。一个处在队列延迟中的数据包，持续1μs。在这类情况下，大多数算法都选择来，控制队列占用的分布。即使可以控制队列大小，在多个队列成为瓶颈的数据中心网络中选择一个阈值，也是一个难以解决的问题。<br>？？？】</p>
-<p>TIMELY的拥塞控制器，采取的指标是，延迟的梯度(或者是队列的时间相关的信息)，而不是维持一个【站立队列？？】。因为可以准确测量RTT的变化，用来表征队列延迟的变化。正延迟梯度表示RTT增加，队列长度上升；而负梯度表示队列在减少。这种策略可以帮助我们实现低延迟。</p>
-<p><code>延迟的梯度是瓶颈队列中速率不匹配的代表</code>。我们受到RCP，XCP，PI和QCN的启发，<code>他们发现速率不匹配的显式反馈比，仅基于队列大小的显式反馈，且具有更好的稳定性和收敛性</code>。关键的区别在于所有这些先前的控制器都在网络中的【点队列？？？】中运行，而TIMEL实现了同样的效果，通过使用端到端延迟梯度。</p>
-<p>假设模型是，N台主机同时以y(t)速率给同一条瓶颈链路发送数据，瓶颈链路的处理速率是C，发出的速率是&lt;=C，注意到在瓶颈链路处的队列延迟是q(t)。如果y(t)&gt;C,那么队列堆积的速度就是y(t)-C。那么队列延迟的梯度就是y(t)-C/C。梯度没有量纲。因此，通过RTT信号测量的延迟梯度可以充当瓶颈链路处的速率不匹配的指标。只要网络中存在一些非零队列，这种推理就成立。当零排队或队列的大小没有变化时，测量的梯度也为零。TIMELY做的就是希望将流入速率y(t)和处理速率C匹配起来。</p>
-<h3 id="核心算法"><a href="#核心算法" class="headerlink" title="核心算法"></a>核心算法</h3><p>算法1中，显示了拥塞控制算法的核心伪代码。TIMELY对于每个链接，维持了一个单独的速率R(t)，并且使用RTT样本，在每次任务完成后，进行一次更新。它采用梯度追踪，使用平滑的延迟梯度作为误差信号，来调整速率，以使吞吐量接近可用带宽。此外，使用了阈值，对带宽利用率低或数据包延迟过高，等特殊的情况作出响应。<br><img src="/2019/01/20/TIMELY/算法1.png" alt=""></p>
+<h3 id="基于延迟梯度的策略"><a href="#基于延迟梯度的策略" class="headerlink" title="基于延迟梯度的策略"></a>基于延迟梯度的策略</h3><p>受到基于延迟的拥塞控制算法，如FAST TCP和Compound和TCP Vegas等开创性工作的启发。<br>TIMELY使用延迟的梯度作为指标，实现拥塞控制。正延迟梯度表示RTT增加，队列堆积；而负梯度表示队列在减少。</p>
+<p>作者假设了以下的情形，N台主机同时以y(t)速率给同一条瓶颈链路发送数据，瓶颈链路的处理速率是C，如果主机的发出速率y(t)≤C，作者假定瓶颈链路处的队列延迟是q(t)。如果y(t)&gt;C，那么队列堆积的速度就是(y(t)-C)。那么队列延迟的梯度就是：<br><img src="/2019/01/20/TIMELY/算式1.png" alt=""><br>梯度没有量纲。因此，通过RTT信号测量的延迟梯度可以作为瓶颈链路处的速率不匹配的指标。当队列的大小没有变化时，梯度也为零。TIMELY做的就是希望将流入速率y(t)和处理速率C匹配起来。</p>
+<h3 id="核心算法"><a href="#核心算法" class="headerlink" title="核心算法"></a>核心算法</h3><p>下图显示了拥塞控制算法的核心伪代码。TIMELY对于每个链接，维持了一个单独的速率R(t)，并且使用RTT样本，在每次任务完成后，进行一次更新。它采用梯度追踪，使用平滑的延迟梯度作为误差信号调整速率，以使吞吐量接近可用带宽。此外，使用了阈值，对带宽利用率低或数据包延迟过高，等特殊的情况作出响应。<br><img src="/2019/01/20/TIMELY/算法1.png" alt=""></p>
 <p>图8显示了梯度策略以及两个阈值的关系。当RTT处于标准工作范围时，通过梯度跟踪算法来调整发送速率。<br><img src="/2019/01/20/TIMELY/图8.png" alt=""></p>
-<h4 id="计算延迟的梯度"><a href="#计算延迟的梯度" class="headerlink" title="计算延迟的梯度"></a><strong>计算延迟的梯度</strong></h4><p>依赖于NIC上的时间戳来计算RTT，并且根据两个连续的RTT样本的差值，来计算延迟梯度。用最小的RTT来做标准化。在实际操作中，最小RTT的值是否精确并不影响最后效果，因为最主要的事确定队列在堆积还是消失。因此，采用固定值来表示数据中心的传播延迟。最终，把结果输入EWMA过滤器。这个过滤器的作用是可以观察到队列的上升或者下降趋势，同时忽略一些与拥塞无关的小的队列长度波动。</p>
-<h4 id="计算发送速率"><a href="#计算发送速率" class="headerlink" title="计算发送速率"></a><strong>计算发送速率</strong></h4><p>然后，TIMELY使用标准化后的梯度来计算连接目标速率R(t)。</p>
-<ul>
-<li>如果梯度是负值，或者接近于0，这说明，网络可以应付总的传入速率，因此速率有提升的空间。TIMELY在这种情况下，对链接速率做出如下改变R=R+△，其中△是带宽的additive增量常数。</li>
-<li>如果梯度是正值，这表明发送速率当过网络的能力，因此TIMELY会采用multiplicative乘法率递减量B，并且用梯度来调整目标速率如下：<br><img src="/2019/01/20/TIMELY/公式2.png" alt=""></li>
-</ul>
-<p>基于总输入和输出速率的延迟梯度信号，对于同一条拥塞路径的所有连接是相同的。众所周知的AIMD 性质保证了算法能获得各链接之间的公平性。根据如上算法，以较高速率发送的连接，其速率的降低也较强，而所有连接的速率增量保持相同。</p>
-<h4 id="RTT低阈值-Tlow"><a href="#RTT低阈值-Tlow" class="headerlink" title="RTT低阈值-Tlow-"></a><strong>RTT低阈值-Tlow-</strong></h4><p>【最为理想的实验环境，包裹发送的节奏是完美的。？？？】然而，在实际操作中，TIMELY的速率控制策略在&lt;=64KB的段上执行，较大的段会导致burst，产生短暂的队列堆积，并接连导致RTT突然增加到峰值。如果没有Tlow这个RTT的低阈值的话，核心算法会检测到一个个RTT的峰值，较大的正延迟梯度，并指示拥塞，来极大减少发送速率。而这种行为其实是不必要的。因此，可以通过设置一个TlowRTT低阈值，来过滤这种RTT的突增情况。对于大于这个阈值的RTT样本，才开始使用延迟梯度调整速率的策略。</p>
-<h4 id="RTT高阈值-Thigh"><a href="#RTT高阈值-Thigh" class="headerlink" title="RTT高阈值-Thigh-"></a><strong>RTT高阈值-Thigh-</strong></h4><p>梯度算法的预期是能够在，保持接近瓶颈链路吞吐量的情况下，构建很低的队列。然而理论上存在一种情况，队列占用很大，但是维持不变，在这种情况下，梯度也保持为零。为了避免这种情况，Thigh作为一个端到端网络队列延迟的可容忍的上限，它通过一种与梯度无关的方式来降低速率，这是一种保护操作。如果测出的RTT高于Thigh，则按照如下公式降低速率：<br><img src="/2019/01/20/TIMELY/公式3.png" alt=""><br>注意到，公式中使用的是瞬时而不是平滑的RTT。虽然这看起来很不寻常，但这么做，可以减缓对单个过大的RTT的响应速度，因为它最后会发出拥塞信号，优先是保持低延迟并且避免包丢失。（作者也尝试过将平均RTT作为拥塞指标进行响应，并发现这么做会损害数据包延迟时间，当平均RTT上升，拥塞控制降低速率时，网络中的排队延迟已经增加了)。我们在§6中展示了Thigh与吞吐量-延迟权衡曲线的关系。</p>
-<h4 id="激进增加HAI-Hyperactive-increase-为了更快的收敛"><a href="#激进增加HAI-Hyperactive-increase-为了更快的收敛" class="headerlink" title="激进增加HAI(Hyperactive increase)为了更快的收敛"></a><strong>激进增加HAI(Hyperactive increase)为了更快的收敛</strong></h4><p>因为受到TCP BIC中的最大探测阶段所启发，CUBIC拥塞控制算法以及QCN，我们包括一个HAI选项，以实现更快的收敛。下面是它操作的流程：如果TIMELY在经过一段缓慢增长后没有达到新的公平共享的平衡点，那么梯度在几个连续完成时间内均为负值，则HAI会启动，速率可以更快的增加，其中rate增加N△而不是△。</p>
-<h3 id="梯度-VS-队列大小"><a href="#梯度-VS-队列大小" class="headerlink" title="梯度 VS 队列大小"></a>梯度 VS 队列大小</h3><p>在实验中，具体分析了基于梯度的策略和基于队列大小策略的不同。如果将Tlow和Thigh的值大小设置为相同的，那么TIMELY的拥塞控制将退化成为基于队列大小的策略（类似TCP FAST 算法），将Ttarget设置成唯一的RTT阈值，这一数值加性增加，乘性递减（additively increased, multiplicately decreased）。</p>
-<p>图9中比较了基于梯度和基于队列大小，这两种不通过策略下，处理incast流时的带宽和延迟的性能好坏。可以看到，基于队列大小的方法可以维持低延迟，或者高带宽，但很难同时满足两者。（建立一个RTT阈值较高的standing queue，带宽可以达到最大化，然而延迟就会受损；相反的，建立一个RTT阈值较低的standing queue，延迟可以最优，但带宽就不能得到保证，因为队列经常是空的）；<code>而基于延迟梯度的算法</code>可以侦测到队列的变化，从而提前预测了拥塞的情况，因此使得这种策略可以在保持网络高带宽利用率的同时，达到较低的尾端延迟水平。<br><img src="/2019/01/20/TIMELY/图9.png" alt=""><br>更进一步来说，如图10中所示，在基于队列大小的策略中，速率的抖动较为严重，因为这种算法要求，根据队列大小，来微调RTT的升降。而基于梯度的算法，在公平保持公平分享带宽的同时，维持了一个较为稳定的速率。<br><img src="/2019/01/20/TIMELY/图10.png" alt=""><br>Tlow以及Thigh的阈值限制，有效地使延迟维持在一个目标范围内，并且间接地实现了，类似AQM机制中的目标队列占用量的方法。总之，使用延迟梯度的策略增强了稳定性，并且使得延迟维持在目标范围内。</p>
+<h4 id="计算延迟的梯度"><a href="#计算延迟的梯度" class="headerlink" title="计算延迟的梯度"></a><strong>计算延迟的梯度</strong></h4><p>依赖于NIC上的时间戳来计算RTT，并且根据两个连续的RTT样本的差值，来计算延迟梯度。用最小的RTT来做标准化。在实际操作中，最小RTT的值是否精确并不影响最后效果。因此，采用固定值来表示数据中心的传播延迟。最终，把结果输入EWMA过滤器。这个过滤器的作用是可以观察到队列的上升或者下降趋势，同时忽略一些与拥塞无关的队列长度波动。</p>
+<h4 id="计算发送速率"><a href="#计算发送速率" class="headerlink" title="计算发送速率"></a><strong>计算发送速率</strong></h4><p>然后，TIMELY使用标准化后的梯度来计算连接目标速率R(t)。如果梯度是负值，这说明网络可以应付总的传入速率，速率有提升的空间。TIMELY在这种情况下，对链接速率做出如下改变R=R+△，其中△是带宽的additive增量常数。如果梯度是正值，这表明发送速率过大，因此TIMELY会采用multiplicative乘法递减，并且用梯度来调整目标速率如下：<br>  <img src="/2019/01/20/TIMELY/公式2.png" alt=""><br>众所周知的AIMD性质保证了算法能获得各链接之间的公平性。</p>
+<h4 id="RTT低阈值-Tlow"><a href="#RTT低阈值-Tlow" class="headerlink" title="RTT低阈值-Tlow-"></a><strong>RTT低阈值-Tlow-</strong></h4><p>​在实际操作中，TIMELY的速率控制策略在&lt;=64KB的段上执行，较大的段会导致burst，产生短暂的队列堆积，并导致RTT突然增加到峰值，核心算法检测到后，较大的正延迟梯度会指示拥塞，极大得减少发送速率。而这种行为没有必要。因此，可通过设置一个Tlow，RTT低阈值，来过滤RTT的突增情况。对于大于这个阈值的RTT样本，才开始使用延迟梯度调整速率的策略。</p>
+<h4 id="RTT高阈值-Thigh"><a href="#RTT高阈值-Thigh" class="headerlink" title="RTT高阈值-Thigh-"></a><strong>RTT高阈值-Thigh-</strong></h4><p>梯度算法的预期是能够在，保持接近瓶颈链路吞吐量的情况下，构建很低的队列。然而理论上存在一种情况，队列占用很大，但是维持不变，在这种情况下，梯度也保持为零。为了避免这种情况，Thigh作为一个端到端网络队列延迟的可容忍的上限，它通过一种与梯度无关的方式来降低速率，这是一种保护操作。如果测出的RTT高于Thigh，则按照如下公式降低速率：<br><img src="/2019/01/20/TIMELY/公式3.png" alt=""><br>注意到，公式中使用的是瞬时而不是平滑的RTT。这么做，可以减缓对单个过大的RTT的响应速度，因为它优先是要保证低延迟和避免包丢失。</p>
+<h4 id="激进增加HAI-Hyperactive-increase-为了更快的收敛"><a href="#激进增加HAI-Hyperactive-increase-为了更快的收敛" class="headerlink" title="激进增加HAI(Hyperactive increase)为了更快的收敛"></a><strong>激进增加HAI(Hyperactive increase)为了更快的收敛</strong></h4><p>因为受到TCP BIC，CUBIC以及QCN启发，作者在TIMELY中，实现了HAI选项，为了更快的收敛。它的功能如下：如果TIMELY计算得梯度在几个连续完成时间内均为负值，则HAI启动，速率可以更快的增加，其中rate增加N△而不是△.</p>
+<h3 id="梯度-VS-队列大小"><a href="#梯度-VS-队列大小" class="headerlink" title="梯度 VS 队列大小"></a>梯度 VS 队列大小</h3><p>实验具体分析了，基于梯度的策略和基于队列大小的策略不同。如果将Tlow和Thigh的值大小设置为相同的，那么TIMELY的拥塞控制将退化为基于队列大小的策略，类似TCP FAST 算法。Ttarget是唯一的RTT阈值，这一数值加性增加，乘性递减。（additively increased, multiplicately decreased）</p>
 <hr>
-<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><p>实际操作中，使用基于10Gbps的支持OS-bypass功能的NIC，该NIC支持多包分段，并且反馈基于硬件的ACKs以及时间戳。我们运用TIMELY支持RDMA。（利用RDMA特性将操作的负载转移到NIC上，具体操作如下：使用RDMA的读写操作将消息从主机端内存，以数据包形式发送到网络中。在远程主机上，NIC接收到发送来的消息，并且将它放在远端主机内存中，可供远端应用直接使用。当传输完成后，主机端会接受到通知。）以下，描述操作中一些值得注意的细节。</p>
-<h3 id="传输界面"><a href="#传输界面" class="headerlink" title="传输界面"></a>传输界面</h3><p>TIMELY只关注传输协议的拥塞控制部分;它不关心应用程序的可靠性或高级别的接口，这允许协议处理的接口端十分简单：只需要提供消息发送和接收。当发送端提供一个大消息包时，TIMELY将其分解成很多小部分的段。一个大消息包可以被分解成一组有顺序的序列包，并且被传输到NIC，通过burst的形式发送到网络中。在远端主机上，NIC承认收到完整的数据段信息，在接收端处，一个数据段被接受，并且传输到传输组的其他部分被处理时，这个简单的模型支持从RPC到TCP字节流等的传输。</p>
-<h3 id="使用NIC完成进行RTT的测量"><a href="#使用NIC完成进行RTT的测量" class="headerlink" title="使用NIC完成进行RTT的测量"></a>使用NIC完成进行RTT的测量</h3><p>实际操作中，使用NIC时间戳是十分具有挑战性的事情。NIC只记录绝对时间戳，换句话说它只负责记录多宝传输的操作完成的时间，因此需要用户软件自己记录操作被发送到NIC上的时间点。这需要一个机制，用作把主机端的时钟映射到NIC上的时钟，还要实现校准操作。除了记录CPU主机端，将job发送到NIC的时间，并建立一个校准机制把主机端的时钟映射到NIC上的时钟。简单的线性映射就已经足够满足要求了。图11中对比了根据NIC HW的时间戳和校准机制获得的RTTs，以及单纯的应用时间戳算出的RTTs的效果。<br>从图中看出，使用NIC端的时间戳以及校准机制，测得的结果都十分精确。而使用应用端算出的RTTs具有较大的方差，并且这种计算会增加主机端的复杂。<br><img src="/2019/01/20/TIMELY/图11.png" alt=""></p>
-<p>作者认为任何产生NIC队列，也可以当成部分的RTT信号。这很重要，因为NIC队列也是网络拥塞的一种表现，并且也可以通过速率控制的机制来处理。</p>
-<h3 id="RDMA速率控制"><a href="#RDMA速率控制" class="headerlink" title="RDMA速率控制"></a>RDMA速率控制</h3><p>对于RDMA写入操作，发送端的TIMELY直接控制了段的发送间隔。对于RDMA读的操作，接收器处理读的请求，并且对远端主机执行一个数据段的DMA操作。在这种情况下，TIMELY不需要直接的控制数据的发送间隔，而是在控制Read操作的间隔。因此，计算引擎会考虑远程读取操作。</p>
-<h3 id="应用限制行为"><a href="#应用限制行为" class="headerlink" title="应用限制行为"></a>应用限制行为</h3><p>应用通常没有足够的数据来使得当前流的传输达到目标速率。当这种情况发生的时候，因为网络没有拥塞，因此不希望不受限制得增加目标速率。为了防止这种问题。在只有应用发送的速率达到超过80%的情况下，才使得目标速率增加，还将最高目标速率限制在10 Gbps。这种预留一些空间的做法，目的是，为了让应用在有足够数据发送的时候，可以增加它的速率，但不发生延迟。</p>
-<h3 id="速率更新频率"><a href="#速率更新频率" class="headerlink" title="速率更新频率"></a>速率更新频率</h3><p>TIMELY的发送速率更新公式确保了在每个RTT间隔中，最多有一个完成的事件。（这个64KB的传输延迟消息在一个10Gbps的链路上是51us，而最小的RTT延迟时间是20us，因而确保了上述条件）然而，对于很小的数据段，在一个RTT的时间间隔中，可能会有很多个完成的事件。在这种情况下，希望根据最新的信息来更新速率。因此，这时采取的是，对每个完成的事件，更新一次速率。</p>
-<p>为了提高调度的效率，速率控制引擎不激进地执行速率更新。当之前的计算当前段的发送时间过去后，调度器会检测当前的速率。如果速率降低了，则会重新计算发送时间，合适的话，还可能对数据包重新排序。</p>
-<h3 id="额外的【发送-pacing-？？？】机会"><a href="#额外的【发送-pacing-？？？】机会" class="headerlink" title="额外的【发送 pacing ？？？】机会"></a>额外的【发送 pacing ？？？】机会</h3><p>默认来说，NIC是以链路的线速度，通过burst形式发送一段数据，在这里探索了另一种可能性：使用NIC速率限制器以低于链路线速度的速度来传输这一组数据包。基本原理是补充【pacing引擎？？？】，使用硬件速率限制器，可以将部分pacing的负荷转移到NIC上。但是因为硬件限制，每间隔几个RTT时间，就重新配置发送速率基本不可行。使用一种混合方法：<code>软件端处理大型的段数据pacing以及硬件端以固定速率(小于线速率）处理pacing</code>。 在这样的高速率情况下，NIC做pacing的目的是在两个burst之间插入一些间隙，以此解决多重的burst在交换机处重合导致的延迟突增的问题。在这种情况下，速率控制引擎通过把它当做较低的传输线速率，来补偿NICpacing延迟。</p>
+<p>图9中比较了基于梯度和基于队列大小，这两种不通过策略下，处理incast流时的带宽和延迟的性能好坏。可以看到，基于队列大小的方法可以维持低延迟，或者高带宽，但很难同时满足两者。（建立一个RTT阈值较高的standing queue，带宽可以达到最大化，然而延迟就会受损；相反的，建立一个RTT阈值较低的standing queue，延迟可以最优，但带宽就不能得到保证，因为队列经常是空的）；<code>而基于延迟梯度的算法</code>可以侦测到队列的变化，从而提前预测了拥塞的情况，因此使得这种策略可以在保持网络高带宽利用率的同时，达到较低的尾端延迟水平。<br><img src="/2019/01/20/TIMELY/图9.png" alt=""><br>更进一步来说，如图10中所示，在基于队列大小的策略中，速率的抖动较为严重，因为这种算法要求，根据队列大小，来微调RTT的升降。而基于梯度的算法，在公平保持公平分享带宽的同时，维持了一个较为稳定的速率。<br><img src="/2019/01/20/TIMELY/图10.png" alt=""></p>
 <hr>
-<h2 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h2><p>作者在主机端的两种不同规模下，评估了TIMELY的效果：</p>
+<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><p>实际操作中，作者使用10Gbps的支持OS-bypass功能的NIC。该NIC支持多包分段，反馈基于硬件的ACKs以及时间戳，作者运用TIMELY来支持RDMA。下面作者简要描述了，操作中一些值得注意的细节。 </p>
+<h3 id="传输界面"><a href="#传输界面" class="headerlink" title="传输界面"></a>传输界面</h3><p>TIMELY只关心传输协议的拥塞控制部分，而不关心应用程序更高级别的接口，这允许协议接口端的设计十分简单：只需要提供消息发送和接收。</p>
+<h3 id="使用NIC完成进行RTT的测量"><a href="#使用NIC完成进行RTT的测量" class="headerlink" title="使用NIC完成进行RTT的测量"></a>使用NIC完成进行RTT的测量</h3><p>使用NIC时间戳是十分具有挑战性的事情。NIC只记录绝对时间戳，换句话说，它只记录传输操作的完成时间，需要用户自己记录操作发送到NIC上的时间点。这需要一个机制把主机端的时钟映射到NIC上的时钟，并实现校准。图11对比根据NIC时间戳以及校准机制共同获得的RTTs，以及单纯应用时间戳算出的RTTs的效果。</p>
+<p><img src="/2019/01/20/TIMELY/图11.png" alt=""></p>
+<p>从图11中看出，使用NIC端的时间戳以及校准机制，测得的结果十分精确。而使用应用端算出的RTTs具有较大的方差，并且较为复杂。</p>
+<h3 id="RDMA速率控制"><a href="#RDMA速率控制" class="headerlink" title="RDMA速率控制"></a>RDMA速率控制</h3><p>RDMA的速率控制略有变化。对于RDMA写的操作，发送端的TIMELY直接控制发送间隔。对于RDMA读的操作，接收器处理读的请求，并且对远端主机执行一个数据段的操作。在这种情况下，TIMELY不需要直接控制数据的发送间隔，而是控制Read操作的间隔。</p>
+<h3 id="应用限制行为"><a href="#应用限制行为" class="headerlink" title="应用限制行为"></a>应用限制行为</h3><p>考虑如下情况，应用没有足够的数据来使得当前流的传输达到目标速率。这种情况发生时，因为网络没有拥塞，不希望速率控制器，不受限制地增加目标速率。为了防止这种情况，规定，只有应用发送速率达到超过80%的情况下，才增加目标速率，还将最高目标速率限制在10 Gbps。</p>
+<h3 id="速率更新频率"><a href="#速率更新频率" class="headerlink" title="速率更新频率"></a>速率更新频率</h3><p>TIMELY的发送速率，确保了在每个RTT间隔中，最多只有一个完成的事件。然而，对于较小的数据段，在一个RTT的时间间隔内，可能会有很多完成的事件。这种情况下，希望根据最新的信息来更新速率。因此，这时采取的是，对每个完成的事件，更新一次速率。</p>
+<h3 id="额外的调度机会"><a href="#额外的调度机会" class="headerlink" title="额外的调度机会"></a>额外的调度机会</h3><p>作者尝试用NIC速率限制器，以低于链路速度来传输这一组数据包。基本原理是使用硬件速率限制器，将部分pacing的负荷转移到NIC上。但是因为硬件限制，每间隔几个RTT时间，重新配置发送速率基本不可行。因此作者采用一种混合方法——软件端处理大型的段数据pacing以及硬件端以固定速率(小于链路速率）处理pacing。 NIC做pacing的目的是在两段burst之间插入一些间隙，以此解决多重burst在交换机处重合，导致的延迟突增的问题。</p>
+<hr>
+<h2 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h2><p>作者在两种不同规模下，评估了TIMELY的效果：</p>
 <ul>
-<li>第一种情况是，在一个incast的设置下，评估了诸多网络基础的特性：比如带宽，公平性， 数据包延迟，以及时间的准确性。对于这些微型基准测试，使用带有机架设备的小型测试平台。</li>
-<li>第二种情况是，在经典的Clos网络结构下，在数百台机子上，大规模的测试平台下部署TIMELY。<br>有链路均为10 Gbps。所有实验中使用的操作系统都是Linux。</li>
+<li>在incast设置下，使用小型测试平台，评估了诸多网络基础特性：带宽，公平性， 数据包延迟，以及时间的准确性等microbenchmarks.</li>
+<li>在Clos网络拓扑的大规模测试平台中部署TIMELY，所有链路均为10 Gbps。所有实验中的操作系统都是Linux。</li>
 </ul>
 <p>作者比较了TIMELY与以下两种不同情况作对比：</p>
 <ul>
@@ -543,30 +519,22 @@
 </ul>
 <p>因此，主要做了以下四类的对比实验：</p>
 <ol>
-<li>DCTCP，使用没有PFC的结构上的内核DCTCP</li>
-<li>PFC，使用PFC结构上，进行OS-bypass消息传递</li>
-<li>FAST *，使用具有类似TCP FAST的拥塞控制算法，进行OS-bypass消息传递</li>
-<li>TIMELY，使用TIMELY，进行OS-bypass消息传递</li>
+<li>使用DCTCP，没有PFC的结构上的内核DCTCP</li>
+<li>使用PFC，进行OS-bypass消息传递</li>
+<li>使用类似TCP FAST的拥塞控制算法，进行OS-bypass消息传递</li>
+<li>使用TIMELY，进行OS-bypass消息传递</li>
 </ol>
-<p>除非特别提及，TIMELY使用以下参数：</p>
-<ol>
-<li>数据段大小16KB</li>
-<li>Tlow=50us ,Thigh = 500us</li>
-<li>additive 增量是10Mbps</li>
-<li>multiplicative 减少量是0.8</li>
-</ol>
-<h3 id="小规模实验"><a href="#小规模实验" class="headerlink" title="小规模实验"></a>小规模实验</h3><p>在小规模的实验中，使用incast流模式，因为这是数据中心最重要的网络拥塞情况。为了创造这样的incast情形，采用10台机器在一个单一机架上，同时给一台服务器发送数据。每个client运行4个链接，一共40个链接。每个链接发送16 KB字段的速率，实验的瓶颈链路是2x10G的链路。这是测试拥塞控制的理想典型网络环境：虽然数据中心存在数以万计的链接，但因为网络被限制的连接数通常很少。</p>
-<h4 id="测量的RTT必须精准："><a href="#测量的RTT必须精准：" class="headerlink" title="测量的RTT必须精准："></a>测量的RTT必须精准：</h4><p>为了评估TIMELY，所需RTT样本的准确性，我们在测量的RTT中添加噪声，并观察其对吞吐量的影响。我们将在[0，x]μs范围内，均匀分布的随机噪声，添加到每个RTT样本中，其中x设置为0,50,100,150,200。图12显示了在不同噪声水平下，服务器上测量的总吞吐量。 50μs的平均噪声会导致可见的吞吐量降低，并且，噪声越高，性能损失就越严重。 Tlow值低于50μs会进一步降低对RTT噪声的容差。因此，NIC支持的准确RTT测量是TIMELY的基石。<br><img src="/2019/01/20/TIMELY/图12.png" alt=""></p>
-<h4 id="与PFC做比较："><a href="#与PFC做比较：" class="headerlink" title="与PFC做比较："></a>与PFC做比较：</h4><p><img src="/2019/01/20/TIMELY/表1.png" alt=""><br>表1中比较了使用OS-bypass的TIMELY，和常规的    PFC部署的RDMA。当TIMELY中的带宽十分低的时候，中间和尾端的RTT，低于一定的数量级并且不会触发PAUSE暂停，还显示了TIMELY对单个的链接也有出色的表现。图13显示了对四个单独链接，使用TIMELY后，RTT和吞吐量随时间变化的轴线。每个数据点，代表一个单独的完成的事件。可以看到，4个单独链接的流公平共享带宽，并且将RTT维持在较低的水平。为了数量化测试带宽分配的公平程度，计算了Jain fairness指数，TIMELY的指标达到0.953，而PFC的指标达到0.909。TIMELY的设计可以做到更公平共享带宽。<br><img src="/2019/01/20/TIMELY/图13.png" alt=""></p>
-<h4 id="和DCTCP的对比"><a href="#和DCTCP的对比" class="headerlink" title="和DCTCP的对比"></a>和DCTCP的对比</h4><p>将DCTCP和TIMELY做对比。回顾一下DCTCP的做法：发送端发出支持ECN的数据包，交换机给每个队列超过固定阈值的包做上标记，接收器回复所有的ECN标记给发送端，发送端根据窗口中具有ECN标记的包的比例来调整发送的速率。注意到，必须比较两个不同的主机软件堆栈，因为DCTCP在没有PFC支持的优化内核中运行，而TIMELY用于OS-bypass消息传递。由于处理ECN反馈的NIC硬件限制，只能在没有OS-bypass的环境中实施DCTCP。交换机ECN标记阈值设置为K=80KB。这比DCTCP作者建议的K=65数据包用于10Gbps操作要少，因为愿意牺牲少量吞吐量来确保低延迟。表1总结了三次实验结果，RTT分布如图14所示。TIMELY的平均端到端RTT比DCTCP低10倍（60μs对600μs）。更重要的是，尾部延迟下降了近13倍（116μs对1490μs）。且没有观察到丢失PFC包。<br><img src="/2019/01/20/TIMELY/图14.png" alt=""></p>
-<h4 id="和TCP-FAST-like算法做对比"><a href="#和TCP-FAST-like算法做对比" class="headerlink" title="和TCP FAST-like算法做对比"></a>和TCP FAST-like算法做对比</h4><p>然后作者将TIMELY和TCP-FAST拥塞控制算法作比较。我们使用TCP-FAST方程来调整pacing速率，而不是周期性地更新拥塞窗口。TCP-FAST可通过协议参数a进行调整，该参数控制带宽的公平性以及网络中的缓冲总量。a是网络中待处理的每个流的数据包数，因为TIMELY是基于速率的，把a转变成吞吐量值。表1显示了具有三个不同a值的结果。对于较小的a=10 Mbps，FAST可以实现较低的尾端延迟 49us，尽管吞吐量显着下降，在20Gbps线速率下仅实现7.5Gbps。对于较大的a=50 Mbps/100 Mbps，TIMELY仍然可以实现更好的吞吐量和延迟权衡。</p>
-<h4 id="变化的Tlow"><a href="#变化的Tlow" class="headerlink" title="变化的Tlow"></a>变化的Tlow</h4><p>TIMELY的性能，也受算法参数的影响，从低阈值Tlow开始探索。目的是突出影响阈值的因素，而不是调整参数。低阈值用于在非拥塞网络的情况下，吸收RTT的变化。RTT的变化与最大分段大小相关，随着分段变大，incast时的RTT会增加。图15显示了对于大小为16 KB，32 KB和64 KB的段，瓶颈吞吐量和RTT时间如何随着Tlow的变化而变化。<br><img src="/2019/01/20/TIMELY/图15.png" alt=""></p>
-<p>我们看到降低Tlow会降低网络延迟，这是因为较低的阈值，允许更频繁地使用RTT梯度，来调整响应队列变化的速率。但是较低的阈值最终会对吞吐量产生负面影响。对于16 KB的段大小，当incast程度相对较低时，仅50μs的Tlow为我们提供了最高的吞吐量19.4 Gbps。然而，随着我们增加分段大小，并因而提高了incast程度，当Tlow变得太小时，吞吐量迅速下降。对于32 KB的段大小，临界点是100μs的Tlow。对于64 KB段这种最苛刻的情况，临界点在200-300μs之间。如此大的Incast使得很难同时获得高吞吐量和低延迟。</p>
-<h4 id="使用细粒度的pacer调整使Burst更平滑"><a href="#使用细粒度的pacer调整使Burst更平滑" class="headerlink" title="使用细粒度的pacer调整使Burst更平滑"></a>使用细粒度的pacer调整使Burst更平滑</h4><p>速率控制引擎引入段之间的pacing延迟，为了更好调整64KB的burstiness，并且启用了NIC offload。作者选择采用细粒度pacing。在这个模型中，除了主机软件pacing之外，NIC硬件还使用pacing来发送数据包。pacing使得数据包在网络中更容易混合。可编程NIC（如NetFPGA）允许执行pacing的使用。例如HULL这样先前的工作也是用了NIC pacing，并且FQ/Pacing等细粒度pacing排队规则在Linux内核中已有实现。</p>
-<p>使用64 KB段重复进行实验，这次试用NIC pacing，两个阈值分别为，Tlow=0μs,Thigh =50μs。调整1Gbps的64 KB的数据引入512μs的一个序列化延迟，图16显示了不同NIC pacing速率的结果。</p>
-<p><img src="/2019/01/20/TIMELY/图16.png" alt=""><br>【正如预期的那样，由于burstiness降低，导致吞吐量增加和延迟减少，更大的吞吐量增加可以获得更大的pacing。最优的pacing速率是700 Mbps。请注意，这也意味着单流量性能的上限为700 Mbps，除非动态调整调步速率。吞吐量略有下降，延迟时间超过此水平，因为pacing接近公平份额并具有节流效果。？？？】</p>
+<h3 id="小规模实验"><a href="#小规模实验" class="headerlink" title="小规模实验"></a>小规模实验</h3><p>小规模实验中，采用incast的模式，这是数据中心最重要的网络拥塞情况。为了创造这样的incast情形，采用10台机器在单一的机架上，同时给一台服务器发送数据。每个client运行4个链接，一共40个链接。这是测试拥塞控制的理想典型网络环境——虽然数据中心存在数以万计的链接，但因为网络被限制的连接数通常很少。</p>
+<h4 id="测量的RTT必须精准："><a href="#测量的RTT必须精准：" class="headerlink" title="测量的RTT必须精准："></a>测量的RTT必须精准：</h4><p>为了证明RTT样本准确的重要性，作者在测量RTT中添加噪声，并观察其对吞吐量的影响。将均匀分布的随机噪声添加到每个RTT样本中。图12显示了在不同噪声水平下，总吞吐量的变化。发现噪声越高，性能损失就越严重。 因此，NIC支持的准确RTT测量是TIMELY的基石。<br><img src="/2019/01/20/TIMELY/图12.png" alt=""></p>
+<h4 id="与PFC做比较："><a href="#与PFC做比较：" class="headerlink" title="与PFC做比较："></a>与PFC做比较：</h4><p><img src="/2019/01/20/TIMELY/表1.png" alt=""><br>表1比较了使用OS-bypass的TIMELY，和PFC部署的RDMA，图13显示了对四个单独链接，使用TIMELY后，RTT和吞吐量随时间变化的轴线。观察到4个流公平共享带宽，并且RTT维持在较低的水平。为了量化测试带宽分配的公平程度，计算了Jain fairness指数，TIMELY的指标达到0.953，而PFC的指标达到0.909。TIMELY的设计可以做到更公平共享带宽。<br><img src="/2019/01/20/TIMELY/图13.png" alt=""></p>
+<h4 id="和DCTCP的对比"><a href="#和DCTCP的对比" class="headerlink" title="和DCTCP的对比"></a>和DCTCP的对比</h4><p>将DCTCP和TIMELY做对比。注意到，必须比较两个不同的主机软件堆栈，因为DCTCP在没有PFC支持的优化内核中运行，而TIMELY用于OS-bypass消息传递。RTT分布如图14所示。TIMELY的平均端到端延迟比DCTCP低10倍（60μs对600μs）。更重要的是，尾部延迟下降了近13倍（116μs对1490μs）<br><img src="/2019/01/20/TIMELY/图14.png" alt=""></p>
+<h4 id="和TCP-FAST-like算法做对比"><a href="#和TCP-FAST-like算法做对比" class="headerlink" title="和TCP FAST-like算法做对比"></a>和TCP FAST-like算法做对比</h4><p>作者将TIMELY和TCP-FAST拥塞控制算法作比较。此方法使用TCP-FAST方程来调整pacing速率，而不是周期性地更新拥塞窗口。TCP-FAST可通过协议参数a进行调整，该参数控制带宽的公平性以及网络中的缓冲总量。<br>表1显示三个不同a值下的结果。对于较小的a=10 Mbps，FAST可以实现较低的尾端延迟 49us，尽管吞吐量显着下降。对于较大的a=50 Mbps，TIMELY仍然可以实现较好的的吞吐量和延迟权衡。</p>
+<h4 id="变化的Tlow"><a href="#变化的Tlow" class="headerlink" title="变化的Tlow"></a>变化的Tlow</h4><p>TIMELY的性能，也受算法参数的影响，如RTT低阈值Tlow。RTT的变化与最大分段大小相关，随着分段变大，incast时的RTT会增加。图15显示了对于大小为16 KB，32 KB和64 KB的段，瓶颈吞吐量和RTT时间如何随着Tlow的变化而变化。<br><img src="/2019/01/20/TIMELY/图15.png" alt=""></p>
+<p>从图中观察到，降低Tlow会降低网络延迟，这是因为较低的阈值，允许更频繁地使用RTT梯度来调整响应队列变化的速率。但是较低的阈值最终会对吞吐量产生负面影响。</p>
+<h4 id="使用细粒度的pacer调整使Burst更平滑"><a href="#使用细粒度的pacer调整使Burst更平滑" class="headerlink" title="使用细粒度的pacer调整使Burst更平滑"></a>使用细粒度的pacer调整使Burst更平滑</h4><p>速率控制引擎为段与段之间添加pacing延迟，为了更好适应burst的情况，作者选择采用细粒度pacing。除了主机软件pacing之外，NIC硬件也使用pacing来发送数据包（例如HULL），该规则在Linux内核中已有实现。​图16显示了不同NIC pacing速率的结果。</p>
+<p><img src="/2019/01/20/TIMELY/图16.png" alt=""></p>
 <p>注意到，在TIMELY设计中，NIC硬件pacing不是绝对的要求;但更确切地说，可以实现在较低的网络尾端延迟和由于软件pacing引起的较高的CPU开销之间权衡。</p>
-<h4 id="变化的Thigh"><a href="#变化的Thigh" class="headerlink" title="变化的Thigh"></a>变化的Thigh</h4><p>TIMELY使用一个高阈值，来对更大的RTT来做出更快的反应。这一阈值没有低阈值重要，因为仅对于超大的RTTs起作用。但随着连接变得复杂，RTT突增的可能性变大，这一阈值变得愈发有用。<br><img src="/2019/01/20/TIMELY/图17.png" alt=""><br>图17显示了不同数量的竞争链接下，这一阈值对吞吐量的影响。在一对四（一个客户端对应4个连接）的结构中，99百分位的RTT大约是100μs。这意味着Thigh&gt;100μs几乎没有效果。随着负载增加（每个客户端对应7个连接），99百分位RTT稳定接近200μs。那么，若将Thigh到100us或者更低，RTT会有所下降。当每个客户端对应10个连接时，99百分位RTT大约500μs，Thigh接近于500us，随着Thigh下降，RTT也会减少，对于100us的Thigh，吞吐量非常好。低至最多200μs的Thigh有助于减少尾部延迟，而不会降低吞吐量。</p>
+<h4 id="变化的Thigh"><a href="#变化的Thigh" class="headerlink" title="变化的Thigh"></a>变化的Thigh</h4><p>TIMELY使用一个高阈值，来对更大的RTT来做出更快的反应。这一阈值没有低阈值重要，因为仅对于超大的RTTs起作用。但随着连接变得复杂，RTT突增的可能性变大，这一阈值变得愈发有用。<br><img src="/2019/01/20/TIMELY/图17.png" alt=""><br>​图17显示了不同数量的链路竞争下，这一阈值对吞吐量的影响。在一对四的结构中，99百分位RTT稳定接近200μs。那么，若将Thigh到100us或者更低，RTT会有下降，且吞吐量也非常优异。</p>
 <h4 id="激进增量（HAI）"><a href="#激进增量（HAI）" class="headerlink" title="激进增量（HAI）"></a>激进增量（HAI）</h4><p>HAI有助于更快地获取可用带宽。通过多次不同load的incast实验，来证明这一点。incast从10个客户端和每个客户端10个连接开始。在收敛的初始阶段之后，每个客户端同时关闭其10个连接中的9个，从而将剩余连接的公平分享率提高10倍。图18显示了HAI如何在50ms内，将连接吞吐量从初始公平速率200Mbps提升到1.5Gbps，并在100ms内达到2 Gbps的新公平份额。相反，使用固定的加法增量，在140 ms后吞吐量仅仅到1.5 Gbps。发现选择五个连续RTT攻击作为使用HAI的阈值，这一决定，在模型收敛性和稳定性之间取得了良好的平衡。</p>
 <h3 id="大规模实验"><a href="#大规模实验" class="headerlink" title="大规模实验"></a>大规模实验</h3><p>通过经典Clos拓扑中的几百台机器上的实验，来研究TIMELY的大规模试验。表明TIMELY能够在大型的拥塞网络场景中保持可预测和低延迟。该实验在客户端和服务器对之间生成RPCs。为了测试TIMELY，并且增加burst，我们使用64-KB的段大小和RPC。</p>
 <h4 id="最长路径均匀随机"><a href="#最长路径均匀随机" class="headerlink" title="最长路径均匀随机"></a>最长路径均匀随机</h4><p>在此流模式中，客户端从具有网络最长路径的一组服务器中选择服务器。客户端发出64 KB请求。服务器回复相应大小的有效负载。客户端计算了RPC延迟（记录了请求发送到服务器到收到服务器响应的时间）。<br><img src="/2019/01/20/TIMELY/图19.png" alt=""><br>图19显示了应用程序在负载增加的情况下，观察到的标准化吞吐量。网络的饱和点（接受负载小于提供的负载的点）对于TIMELY来说更高，因为它能够通过最小化队列，从而也可以每秒暂停帧，来发送更多流量。<br><img src="/2019/01/20/TIMELY/图20.png" alt=""><br>【<br>图20显示了RTT与负载的关系。与PFC相比，TIMELY将RTT的中位数和99百分位数，分别降低了2倍和5倍。这导致RPC中值相应减少约2倍（如图21所示）。如果没有TIMELY，网络队列会增加，以尝试达到提供的负载。有TIMELY，通过将队列从共享网络移到终端主机，来维持低网络队列。因此，随着提供的负载增加超过饱和点，99％的RPC延迟降低效果会减弱。<br>？？？】<br><img src="/2019/01/20/TIMELY/图21.png" alt=""></p>
@@ -836,7 +804,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据中心拥塞指标RTT的值："><span class="nav-number">3.</span> <span class="nav-text">数据中心拥塞指标RTT的值：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RTT直接反应延迟"><span class="nav-number">3.1.</span> <span class="nav-text">RTT直接反应延迟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTT可以被精确测量"><span class="nav-number">3.2.</span> <span class="nav-text">RTT可以被精确测量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTT-是一个快速、多位信号："><span class="nav-number">3.3.</span> <span class="nav-text">RTT 是一个快速、多位信号：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTT-的限制："><span class="nav-number">3.4.</span> <span class="nav-text">RTT 的限制：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIMELY-结构"><span class="nav-number">4.</span> <span class="nav-text">TIMELY 结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RTT的测量"><span class="nav-number">4.1.</span> <span class="nav-text">RTT的测量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#速率计算引擎"><span class="nav-number">4.2.</span> <span class="nav-text">速率计算引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#速率控制引擎"><span class="nav-number">4.3.</span> <span class="nav-text">速率控制引擎</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIMELY-拥塞控制"><span class="nav-number">5.</span> <span class="nav-text">TIMELY 拥塞控制:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#度量和设置"><span class="nav-number">5.1.</span> <span class="nav-text">度量和设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于延迟梯度的策略"><span class="nav-number">5.2.</span> <span class="nav-text">基于延迟梯度的策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#相关算法"><span class="nav-number">5.2.1.</span> <span class="nav-text">相关算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心算法"><span class="nav-number">5.3.</span> <span class="nav-text">核心算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算延迟的梯度"><span class="nav-number">5.3.1.</span> <span class="nav-text">计算延迟的梯度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算发送速率"><span class="nav-number">5.3.2.</span> <span class="nav-text">计算发送速率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RTT低阈值-Tlow"><span class="nav-number">5.3.3.</span> <span class="nav-text">RTT低阈值-Tlow-</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RTT高阈值-Thigh"><span class="nav-number">5.3.4.</span> <span class="nav-text">RTT高阈值-Thigh-</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#激进增加HAI-Hyperactive-increase-为了更快的收敛"><span class="nav-number">5.3.5.</span> <span class="nav-text">激进增加HAI(Hyperactive increase)为了更快的收敛</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度-VS-队列大小"><span class="nav-number">5.4.</span> <span class="nav-text">梯度 VS 队列大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际应用"><span class="nav-number">6.</span> <span class="nav-text">实际应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传输界面"><span class="nav-number">6.1.</span> <span class="nav-text">传输界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用NIC完成进行RTT的测量"><span class="nav-number">6.2.</span> <span class="nav-text">使用NIC完成进行RTT的测量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDMA速率控制"><span class="nav-number">6.3.</span> <span class="nav-text">RDMA速率控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用限制行为"><span class="nav-number">6.4.</span> <span class="nav-text">应用限制行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#速率更新频率"><span class="nav-number">6.5.</span> <span class="nav-text">速率更新频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#额外的【发送-pacing-？？？】机会"><span class="nav-number">6.6.</span> <span class="nav-text">额外的【发送 pacing ？？？】机会</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评估"><span class="nav-number">7.</span> <span class="nav-text">评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小规模实验"><span class="nav-number">7.1.</span> <span class="nav-text">小规模实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测量的RTT必须精准："><span class="nav-number">7.1.1.</span> <span class="nav-text">测量的RTT必须精准：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与PFC做比较："><span class="nav-number">7.1.2.</span> <span class="nav-text">与PFC做比较：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#和DCTCP的对比"><span class="nav-number">7.1.3.</span> <span class="nav-text">和DCTCP的对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#和TCP-FAST-like算法做对比"><span class="nav-number">7.1.4.</span> <span class="nav-text">和TCP FAST-like算法做对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变化的Tlow"><span class="nav-number">7.1.5.</span> <span class="nav-text">变化的Tlow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用细粒度的pacer调整使Burst更平滑"><span class="nav-number">7.1.6.</span> <span class="nav-text">使用细粒度的pacer调整使Burst更平滑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变化的Thigh"><span class="nav-number">7.1.7.</span> <span class="nav-text">变化的Thigh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#激进增量（HAI）"><span class="nav-number">7.1.8.</span> <span class="nav-text">激进增量（HAI）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大规模实验"><span class="nav-number">7.2.</span> <span class="nav-text">大规模实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最长路径均匀随机"><span class="nav-number">7.2.1.</span> <span class="nav-text">最长路径均匀随机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络不平衡-incast"><span class="nav-number">7.2.2.</span> <span class="nav-text">网络不平衡(incast)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用级别的标准"><span class="nav-number">7.2.3.</span> <span class="nav-text">应用级别的标准</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关工作"><span class="nav-number">8.</span> <span class="nav-text">相关工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据中心拥塞指标RTT的值："><span class="nav-number">3.</span> <span class="nav-text">数据中心拥塞指标RTT的值：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RTT直接反应延迟"><span class="nav-number">3.1.</span> <span class="nav-text">RTT直接反应延迟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTT可以被精确测量"><span class="nav-number">3.2.</span> <span class="nav-text">RTT可以被精确测量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTT-是一个快速、多位信号："><span class="nav-number">3.3.</span> <span class="nav-text">RTT 是一个快速、多位信号：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RTT-的限制："><span class="nav-number">3.4.</span> <span class="nav-text">RTT 的限制：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIMELY-结构"><span class="nav-number">4.</span> <span class="nav-text">TIMELY 结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RTT的测量"><span class="nav-number">4.1.</span> <span class="nav-text">RTT的测量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#速率计算引擎"><span class="nav-number">4.2.</span> <span class="nav-text">速率计算引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#速率控制引擎"><span class="nav-number">4.3.</span> <span class="nav-text">速率控制引擎</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TIMELY-拥塞控制"><span class="nav-number">5.</span> <span class="nav-text">TIMELY 拥塞控制:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#度量和设置"><span class="nav-number">5.1.</span> <span class="nav-text">度量和设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于延迟梯度的策略"><span class="nav-number">5.2.</span> <span class="nav-text">基于延迟梯度的策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心算法"><span class="nav-number">5.3.</span> <span class="nav-text">核心算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算延迟的梯度"><span class="nav-number">5.3.1.</span> <span class="nav-text">计算延迟的梯度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#计算发送速率"><span class="nav-number">5.3.2.</span> <span class="nav-text">计算发送速率</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RTT低阈值-Tlow"><span class="nav-number">5.3.3.</span> <span class="nav-text">RTT低阈值-Tlow-</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RTT高阈值-Thigh"><span class="nav-number">5.3.4.</span> <span class="nav-text">RTT高阈值-Thigh-</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#激进增加HAI-Hyperactive-increase-为了更快的收敛"><span class="nav-number">5.3.5.</span> <span class="nav-text">激进增加HAI(Hyperactive increase)为了更快的收敛</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度-VS-队列大小"><span class="nav-number">5.4.</span> <span class="nav-text">梯度 VS 队列大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际应用"><span class="nav-number">6.</span> <span class="nav-text">实际应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传输界面"><span class="nav-number">6.1.</span> <span class="nav-text">传输界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用NIC完成进行RTT的测量"><span class="nav-number">6.2.</span> <span class="nav-text">使用NIC完成进行RTT的测量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDMA速率控制"><span class="nav-number">6.3.</span> <span class="nav-text">RDMA速率控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用限制行为"><span class="nav-number">6.4.</span> <span class="nav-text">应用限制行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#速率更新频率"><span class="nav-number">6.5.</span> <span class="nav-text">速率更新频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#额外的调度机会"><span class="nav-number">6.6.</span> <span class="nav-text">额外的调度机会</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评估"><span class="nav-number">7.</span> <span class="nav-text">评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#小规模实验"><span class="nav-number">7.1.</span> <span class="nav-text">小规模实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测量的RTT必须精准："><span class="nav-number">7.1.1.</span> <span class="nav-text">测量的RTT必须精准：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与PFC做比较："><span class="nav-number">7.1.2.</span> <span class="nav-text">与PFC做比较：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#和DCTCP的对比"><span class="nav-number">7.1.3.</span> <span class="nav-text">和DCTCP的对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#和TCP-FAST-like算法做对比"><span class="nav-number">7.1.4.</span> <span class="nav-text">和TCP FAST-like算法做对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变化的Tlow"><span class="nav-number">7.1.5.</span> <span class="nav-text">变化的Tlow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用细粒度的pacer调整使Burst更平滑"><span class="nav-number">7.1.6.</span> <span class="nav-text">使用细粒度的pacer调整使Burst更平滑</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变化的Thigh"><span class="nav-number">7.1.7.</span> <span class="nav-text">变化的Thigh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#激进增量（HAI）"><span class="nav-number">7.1.8.</span> <span class="nav-text">激进增量（HAI）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大规模实验"><span class="nav-number">7.2.</span> <span class="nav-text">大规模实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最长路径均匀随机"><span class="nav-number">7.2.1.</span> <span class="nav-text">最长路径均匀随机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络不平衡-incast"><span class="nav-number">7.2.2.</span> <span class="nav-text">网络不平衡(incast)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用级别的标准"><span class="nav-number">7.2.3.</span> <span class="nav-text">应用级别的标准</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关工作"><span class="nav-number">8.</span> <span class="nav-text">相关工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
