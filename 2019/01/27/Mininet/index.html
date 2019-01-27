@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="miqianmimi Ma">
 <meta property="og:description" content="here for website of introduce to this tool     Author: Bob Lantz   Network Emulator; Python">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-27T15:08:13.212Z">
+<meta property="og:updated_time" content="2019-01-27T15:17:57.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mininet">
 <meta name="twitter:description" content="here for website of introduce to this tool     Author: Bob Lantz   Network Emulator; Python">
@@ -394,7 +394,9 @@
 <p>暂时修改网络接口.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@linux ~]# ifconfig eth0:0 down</span><br><span class="line">[root@linux ~]# ifconfig eth1 up</span><br></pre></td></tr></table></figure></p>
 <p>关掉 eth0:0 这个接口;启动 eth1 这个接口。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@linux ~]# ip [option] [操作] [命令]</span><br><span class="line">[root@linux ~]# ip link set eth0 up</span><br><span class="line">[root@linux ~]# ip link set eth0 down</span><br><span class="line">[root@linux ~]# ip route show</span><br></pre></td></tr></table></figure>
-<p>使用ip link show能显示出整个设备接口的硬件相关信息<br>使用ip link up可以打开某个设备<br>使用ip link down可以关掉某个设备</p>
+<p>使用ip link show能显示出整个设备接口的硬件相关信息</p>
+<p>使用ip link up可以打开某个设备</p>
+<p>使用ip link down可以关掉某个设备</p>
 <h2 id="使用ip-address-show；ip-route-show"><a href="#使用ip-address-show；ip-route-show" class="headerlink" title="使用ip address show；ip route show"></a>使用ip address show；ip route show</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@linux ~]# dhClient eth0</span><br></pre></td></tr></table></figure>
 <p>想要重新取得ip但不希望网络中断。我们可以使用过dhclient<br>dhclient是主动向DHCP Server要求IP的指令..<br>如果只想对eth0这张网卡要求新的IP，可以使用dhclient eth0<br>-r 参数表示只释放</p>
 <hr>
