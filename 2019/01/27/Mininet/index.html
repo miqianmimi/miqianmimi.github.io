@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="miqianmimi Ma">
 <meta property="og:description" content="here for website of introduce to this tool     Author: Bob Lantz   Network Emulator; Python">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-27T11:09:02.704Z">
+<meta property="og:updated_time" content="2019-01-27T14:26:29.871Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mininet">
 <meta name="twitter:description" content="here for website of introduce to this tool     Author: Bob Lantz   Network Emulator; Python">
@@ -375,10 +375,30 @@
 <h1 id="What-is-Mininet"><a href="#What-is-Mininet" class="headerlink" title="What is Mininet?"></a>What is Mininet?</h1><p>Mininet is a network emulator, or perhaps more precisely a network emulation orchestration system. It runs a collection of end-hosts, switches, routers, and links on a single Linux kernel.</p>
 <p>You can send packets through what seems like a <strong>real</strong> Ethernet interface.<br>Packets get processed by what looks like a <strong>real</strong> Ethernet switch, router, or middlebox, with a given amount of queueing.</p>
 <p><strong>Iperf</strong> 是一个网络性能测试工具。Iperf可以测试最大TCP和UDP带宽性能，具有多种参数和UDP特性，可以根据需要调整，可以报告带宽、延迟抖动和数据包丢失。</p>
-<h1 id="Why-is-Mininet-cool"><a href="#Why-is-Mininet-cool" class="headerlink" title="Why is Mininet cool?"></a>Why is Mininet cool?</h1><p>fast; create custom topology ; run real program ; customize packet forwarding ; run Miniet on your laptop; share and replicate results ; open source <a href="https://github.com/mininet" target="_blank" rel="noopener">https://github.com/mininet</a> ；under active development</p>
-<h1 id="Working-with-Mininet"><a href="#Working-with-Mininet" class="headerlink" title="Working with Mininet"></a>Working with Mininet</h1><p>1.<strong>Creating Topologies</strong></p>
+<h1 id="Why-is-Mininet-cool"><a href="#Why-is-Mininet-cool" class="headerlink" title="Why is Mininet cool?"></a>Why is Mininet cool?</h1><p><code>fast</code></p>
+<p><code>create custom topology</code></p>
+<p><code>run real program</code>  </p>
+<p><code>customize packet forwarding</code>  </p>
+<p><code>run Miniet on your laptop</code></p>
+<p><code>share and replicate results</code> </p>
+<p><code>open source https://github.com/mininet</code> </p>
+<p><code>under active development</code></p>
+<h1 id="Working-with-Mininet"><a href="#Working-with-Mininet" class="headerlink" title="Working with Mininet"></a><a href="https://github.com/mininet/mininet/wiki/Introduction-to-Mininet" target="_blank" rel="noopener">Working with Mininet</a></h1><p>1.<strong>Creating Topologies</strong></p>
+<p>2.</p>
 <p><strong>host-only</strong>顾名思义，这种技术提供的是主机和虚拟机之间的网络互访，而不是虚拟机访问internet的技术。在某些特殊的网络调试环境中，要求将真实环境和虚拟环境隔离开（就是说不希望外网环境访问虚拟机，也不希望虚拟机访问外网环境），这时你就可采用host-only模式。在host-only模式中，所有的虚拟系统是可以相互通信的，但虚拟系统和真实的网络是被隔离开的。</p>
-<p><a href="http://mininet.org/walkthrough/" target="_blank" rel="noopener">mininet walkthrough</a></p>
+<h1 id="Mininet-walkthrough"><a href="#Mininet-walkthrough" class="headerlink" title="Mininet walkthrough"></a><a href="http://mininet.org/walkthrough/" target="_blank" rel="noopener">Mininet walkthrough</a></h1><h1 id="Mininet代码合集-网课"><a href="#Mininet代码合集-网课" class="headerlink" title="Mininet代码合集,网课"></a>Mininet代码合集,<a href="">网课</a></h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mn --test pingall  --topo single,3</span><br></pre></td></tr></table></figure>
+<h2 id="此代码可以用来测试mininet下的拓扑结构。"><a href="#此代码可以用来测试mininet下的拓扑结构。" class="headerlink" title="此代码可以用来测试mininet下的拓扑结构。"></a>此代码可以用来测试mininet下的拓扑结构。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dhclient eth0</span><br></pre></td></tr></table></figure>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig &#123;interface&#125; &#123;up|down&#125;</span><br></pre></td></tr></table></figure>
+<p>查询、设置网卡和IP网段等相关参数<br>HWaddr：网卡的硬件地址，习惯称为MAC。<br>eth0：网卡的代号，也有lo这个loopback。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@linux ~]# ifconfig eth0 192.168.100.100</span><br></pre></td></tr></table></figure></p>
+<p>暂时修改网络接口.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@linux ~]# ifconfig eth0:0 down</span><br><span class="line">[root@linux ~]# ifconfig eth1 up</span><br></pre></td></tr></table></figure></p>
+<p>关掉 eth0:0 这个接口;启动 eth1 这个接口。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@linux ~]# ip [option] [操作] [命令]</span><br><span class="line">[root@linux ~]# ip link set eth0 up</span><br><span class="line">[root@linux ~]# ip link set eth0 down</span><br><span class="line">[root@linux ~]# ip route show</span><br></pre></td></tr></table></figure>
+<p>使用ip link show能显示出整个设备接口的硬件相关信息<br>使用ip link up可以打开某个设备<br>使用ip link down可以关掉某个设备</p>
+<h2 id="使用ip-address-show；ip-route-show"><a href="#使用ip-address-show；ip-route-show" class="headerlink" title="使用ip address show；ip route show"></a>使用ip address show；ip route show</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@linux ~]# dhClient eth0</span><br></pre></td></tr></table></figure>
+<p>想要重新取得ip但不希望网络中断。我们可以使用过dhclient<br>dhclient是主动向DHCP Server要求IP的指令..<br>如果只想对eth0这张网卡要求新的IP，可以使用dhclient eth0<br>-r 参数表示只释放</p>
+<hr>
+<p><code></code></p>
 
       
     </div>
@@ -420,6 +440,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/27/cs244/" rel="prev" title="Cs244">
+                Cs244 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -535,7 +559,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -546,7 +570,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -557,7 +581,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -626,7 +650,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#What-is-Mininet"><span class="nav-number">1.</span> <span class="nav-text">What is Mininet?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Why-is-Mininet-cool"><span class="nav-number">2.</span> <span class="nav-text">Why is Mininet cool?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Working-with-Mininet"><span class="nav-number">3.</span> <span class="nav-text">Working with Mininet</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#What-is-Mininet"><span class="nav-number">1.</span> <span class="nav-text">What is Mininet?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Why-is-Mininet-cool"><span class="nav-number">2.</span> <span class="nav-text">Why is Mininet cool?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Working-with-Mininet"><span class="nav-number">3.</span> <span class="nav-text">Working with Mininet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mininet-walkthrough"><span class="nav-number">4.</span> <span class="nav-text">Mininet walkthrough</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mininet代码合集-网课"><span class="nav-number">5.</span> <span class="nav-text">Mininet代码合集,网课</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#此代码可以用来测试mininet下的拓扑结构。"><span class="nav-number">5.1.</span> <span class="nav-text">此代码可以用来测试mininet下的拓扑结构。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用ip-address-show；ip-route-show"><span class="nav-number">5.2.</span> <span class="nav-text">使用ip address show；ip route show</span></a></li></ol></li></ol></div>
             
 
           </div>
