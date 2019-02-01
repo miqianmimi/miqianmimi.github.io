@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Datacenter,Network Topologgy," />
 
 
 
@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="If life deals you lemons, make lemonade.">
+<meta name="description" content="here for Presentation    Author: Ankit Singla  (UIUC)     Datacenter , Network Topologgy">
+<meta name="keywords" content="Datacenter,Network Topologgy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jellyfish">
 <meta property="og:url" content="http://yoursite.com/2019/01/31/jellyfish/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="If life deals you lemons, make lemonade.">
+<meta property="og:description" content="here for Presentation    Author: Ankit Singla  (UIUC)     Datacenter , Network Topologgy">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-31T15:31:41.549Z">
+<meta property="og:image" content="http://yoursite.com/2019/01/31/jellyfish/图9.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/31/jellyfish/表1.png">
+<meta property="og:updated_time" content="2019-02-01T15:41:29.677Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jellyfish">
-<meta name="twitter:description" content="If life deals you lemons, make lemonade.">
+<meta name="twitter:description" content="here for Presentation    Author: Ankit Singla  (UIUC)     Datacenter , Network Topologgy">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/31/jellyfish/图9.png">
 
 
 
@@ -295,6 +299,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/paper/" itemprop="url" rel="index">
+                    <span itemprop="name">paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -339,7 +365,53 @@
       
 
       
-        
+        <p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://www.usenix.org/conference/nsdi12/technical-sessions/presentation/singla" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span>here for Presentation</span></a> </p>
+
+<ul>
+<li>Author: <code>Ankit Singla</code>  (UIUC)</li>
+<li><p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">    Datacenter , Network Topologgy </p>
+
+</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h3 id="Jellyfish-核心："><a href="#Jellyfish-核心：" class="headerlink" title="Jellyfish 核心："></a>Jellyfish 核心：</h3><p>提出了一种新的DC-network topology，达成两个目标，1是更高的带宽（防止瓶颈链路），2是增量扩张（添加服务器）</p>
+<p>网络拓扑结构有三：</p>
+<ol>
+<li>Torus Network</li>
+<li>Hyper Cube Network</li>
+<li>SIGCOMM fat-tree</li>
+</ol>
+<blockquote>
+<p>K层的fat-tree必须包含5k^2/4的交换机<br>Jellyfish搭建的好处在于没有任何的拓扑网络结构。</p>
+</blockquote>
+<p>怎么建立Jellyfish?<br>每个交换机有3个端口，4个连接到交换机，随机选择一个端口加一条边。</p>
+<h3 id="量化可扩展性："><a href="#量化可扩展性：" class="headerlink" title="量化可扩展性："></a>量化可扩展性：</h3><p>这个值越高，性价比越好，最少的钱可以达到最高的带宽。<br>对比jellyfish 和 Fat-Tree的带宽<br>6跳的距离内，FAT-TREE能达到3个server,而在JELLYFISH结构中，可以达到11个SERVER</p>
+<blockquote>
+<p>根据对比Degree-diameter bounded graoph 和 jellyfish<br>d-d graph 有很高的throughput<br>jellyfish 只有9%</p>
+</blockquote>
+<h3 id="实际操作问题："><a href="#实际操作问题：" class="headerlink" title="实际操作问题："></a>实际操作问题：</h3><ol>
+<li>路由routing 以及 拥塞控制CC</li>
+<li>Cabling</li>
+</ol>
+<p>Routing 里面采取了ECMP ,K shortest path 两种</p>
+<p>CC 里面采取了TCP 和Multipaht TCP</p>
+<p>Cabling 采取了 Switch to switch cables</p>
+<h3 id="最重要的复现指标。"><a href="#最重要的复现指标。" class="headerlink" title="最重要的复现指标。"></a>最重要的复现指标。</h3><p><img src="/2019/01/31/jellyfish/图9.png" alt=""><br>我们使用MPTCP作者为jellyfish和fat-tree开发的模拟器。对于路由，我们测试：</p>
+<ul>
+<li>（a）ECMP（等价多路径路由;我们使用8路ECMP，但64路ECMP表现不好，见图9），这是一种在最短路径上分配流量的标准策略</li>
+<li>（b）k-最短路径路由，这可能对jellyfish有用，因为它可以利用长于最短的路径。对于k-最短路径，我们使用Yen的无环路径排序算法[2,46]，其中k = 8路径。对于拥塞控制，我们使用8个MPTCP子流的推荐值测试标准TCP（每个服务器对1或8个流）和最近提出的多路径TCP（MPTCP）[44]。</li>
+</ul>
+<p><img src="/2019/01/31/jellyfish/表1.png" alt=""></p>
+<p>表1显示了平均每个服务器的带宽，在不同路由和负载平衡方案下，Jellyfish和fat-tree的每个服务器的带宽占服务器网卡的比率。我们观察到以下两点：</p>
+<ul>
+<li>（1）对于jellyfish,ECMP表现很差，因为提供的路径多样性不够多。对于随机置换的流，图9显示了大约55%的路径，在ECMP算法的情况下最多会使用两次；然而对于8-shortest path 这种路径算法，这个数字是6%。因此我们使用k-shortest路径。</li>
+<li>（2）一旦我们使用了k-shortest paths,fat-tree和jellyfish使用任何一种拥塞控制协议，效果将一样好</li>
+</ul>
+<p>表1的结果基于网络的级别。在这篇文章中，我们企图匹配fat-tree的性能，基于路由和拥塞控制的低效。</p>
+<p>我们发现，与之前使用理想化路由相比，Jellyfish的优势在这方面略有下降。与相同设备的fat-tree相比（686台服务器），我们现在用TCP可以支持780台服务器，并且性能有所提升，至少保持不变MPTCP可以支持805台服务器。在理想的路由和拥塞控制下，jellyfish可以支持874台服务器。</p>
+<p>而且随着jellyfish的规模越来越大，性能的优化将越来越明显。</p>
+
       
     </div>
     
@@ -353,6 +425,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Datacenter/" rel="tag"># Datacenter</a>
+          
+            <a href="/tags/Network-Topologgy/" rel="tag"># Network Topologgy</a>
+          
+        </div>
       
 
       
@@ -462,8 +542,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -504,7 +593,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -563,6 +652,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Jellyfish-核心："><span class="nav-number">1.</span> <span class="nav-text">Jellyfish 核心：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#量化可扩展性："><span class="nav-number">2.</span> <span class="nav-text">量化可扩展性：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际操作问题："><span class="nav-number">3.</span> <span class="nav-text">实际操作问题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最重要的复现指标。"><span class="nav-number">4.</span> <span class="nav-text">最重要的复现指标。</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
