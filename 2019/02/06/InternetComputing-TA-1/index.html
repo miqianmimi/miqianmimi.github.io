@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="www,html," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="here for lab 1 website    Author: Yiqing Ma (Hongkong University of Science and Technology ) Email: `ymaay@connect.ust.hk` What Include in this tutoiral:Editor: Sublime, Lab 1 Guessing Game">
+<meta name="keywords" content="www,html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="InternetComputing-TA-1">
+<meta property="og:url" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/index.html">
+<meta property="og:site_name" content="miqianmimi Ma">
+<meta property="og:description" content="here for lab 1 website    Author: Yiqing Ma (Hongkong University of Science and Technology ) Email: `ymaay@connect.ust.hk` What Include in this tutoiral:Editor: Sublime, Lab 1 Guessing Game">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/sublime.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/guttercolor.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/guessing.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/code1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/step1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/titlescreen.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/step2.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/mainscreen.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/step3.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/inspect.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/step4.png">
+<meta property="og:updated_time" content="2019-02-06T08:09:28.800Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="InternetComputing-TA-1">
+<meta name="twitter:description" content="here for lab 1 website    Author: Yiqing Ma (Hongkong University of Science and Technology ) Email: `ymaay@connect.ust.hk` What Include in this tutoiral:Editor: Sublime, Lab 1 Guessing Game">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/06/InternetComputing-TA-1/sublime.png">
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/06/InternetComputing-TA-1/"/>
+
+
+
+
+
+  <title>InternetComputing-TA-1 | miqianmimi Ma</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">miqianmimi Ma</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/06/InternetComputing-TA-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YiqingMa">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="miqianmimi Ma">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">InternetComputing-TA-1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-06T16:04:23+08:00">
+                2019-02-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/course/" itemprop="url" rel="index">
+                    <span itemprop="name">course</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/course/TA/" itemprop="url" rel="index">
+                    <span itemprop="name">TA</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/06/InternetComputing-TA-1/" class="leancloud_visitors" data-flag-title="InternetComputing-TA-1">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                <span>℃</span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">Readers <i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>人
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://course.cse.ust.hk/comp4021/hkust/2019s_labs/01_prep/" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span>here for lab 1 website</span></a> </p>
+
+<ul>
+<li>Author: <code>Yiqing Ma</code> (Hongkong University of Science and Technology )</li>
+<li>Email: <a href="mailto:`ymaay@connect.ust.hk" target="_blank" rel="noopener">`ymaay@connect.ust.hk</a>`</li>
+<li>What Include in this tutoiral:<p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">Editor: Sublime, Lab 1 Guessing Game </p></li>
+</ul>
+<hr>
+<a id="more"></a>
+<h2 id="0-Before-the-tutorial-Important-Website"><a href="#0-Before-the-tutorial-Important-Website" class="headerlink" title="0.Before the tutorial Important Website:"></a>0.<code>Before the tutorial</code> Important Website:</h2><p>Lab place: 4210</p>
+<p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://course.cse.ust.hk/comp4021/index_prep.html" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span>1. Here For Comp4021 Website</span></a> </p>
+
+<p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://course.cse.ust.hk/comp4021/hkust/2019s_labs/01_prep/" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span>2. Here For Lab 1 Website</span></a> </p>
+
+
+<p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://course.cse.ust.hk/comp4021/hkust/2019s_notes/01_course_details/01_4021_course_details_2019s.pdf#page=38" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span>3. Here For Connect the CSD account </span></a> </p>
+
+<p>Make sure everyone have already enable the CSD Account and can connect to the lab server:</p>
+<hr>
+<h2 id="1-Steps-for-connection-to-the-Server"><a href="#1-Steps-for-connection-to-the-Server" class="headerlink" title="1. Steps for connection to the Server"></a>1. Steps for connection to the Server</h2><p style="color:PaleVioletRed ;font-size:16px;font-family:Comic Sans MS">Step 1: open the terminal in your own computer or the lab computer. </p>
+
+<p style="color:PaleVioletRed ;font-size:16px;font-family:Comic Sans MS">Step 2: input the following Command line  </p>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh username@ras1.cse.ust.hk   (e.g. ssh ymaay@ras1.cse.ust.hk  )</span><br></pre></td></tr></table></figure>
+<p style="color:PaleVioletRed ;font-size:16px;font-family:Comic Sans MS">Step 3: Enter your password </p><br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Password:</span></span><br></pre></td></tr></table></figure><br><br><p style="color:PaleVioletRed ;font-size:16px;font-family:Comic Sans MS">Step 4: Your should see the following Interface </p><br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Last login: Sat Feb  2 23:01:57 2019 <span class="keyword">from</span> wf120-098.ust.hk</span><br><span class="line">===================================================================</span><br><span class="line"></span><br><span class="line">Please<span class="built_in"> note </span>that this<span class="built_in"> server </span>will be rebooted weekly at 9am every</span><br><span class="line">Saturday. Please save your work accordingly.</span><br><span class="line"></span><br><span class="line">CS System</span><br><span class="line">9 Apr 2013</span><br><span class="line"></span><br><span class="line">===================================================================</span><br><span class="line"></span><br><span class="line">ras2.cse.ust.hk:ymaay:26&gt;</span><br></pre></td></tr></table></figure><br><br><p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS"><code>username</code> is the one before your hksut email address.</p>
+
+<p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">CSE has built link for everyone to connect the CSE Server.</p>
+
+<p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">the number indicates the command line you have already executed on the CSE Server </p>
+
+<hr>
+<h2 id="2-Editor-Sublime-——easy-tutorial"><a href="#2-Editor-Sublime-——easy-tutorial" class="headerlink" title="2.Editor: Sublime ——easy tutorial"></a>2.<code>Editor:</code> Sublime ——easy tutorial</h2><p style="color:PaleVioletRed ;font-size:16px;font-family:Comic Sans MS">A sophisticated text editor for code, markup and prose </p>
+
+<p><img src="/2019/02/06/InternetComputing-TA-1/sublime.png" alt=""></p>
+<p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">The reason why i choose sublime is because it can easily edit all kinds of language with some plugins.And if you get good command of those plugins, it will be super easy to do these coding jobs.  Following those steps you can build your own sublime editor. </p>
+
+
+
+<p style="color:PaleVioletRed ;font-size:16px;font-family:Comic Sans MS"><br>Step 1 : Download the sublime editor 3. </p><br><p style="color:PaleVioletRed ;font-size:16px;font-family:Comic Sans MS"><br> Opening the following website and choose the appropriate version.</p>
+
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">https:</span><span class="comment">//www.sublimetext.com/3</span></span><br></pre></td></tr></table></figure>
+<p style="color:PaleVioletRed ;font-size:16px;font-family:Comic Sans MS"><br>Step 2 : Installation of Package Control<br></p><br><p style="color:MediumSeaGreen ;font-size:16px;font-family:Comic Sans MS"><br>The simplest method of installation is through the Sublime Text console. </p>
+
+<p><a style="color:MediumSeaGreen ;font-size:16px;font-family:Comic Sans MS"><br>The console is accessed via the ctrl+  shortcut.<br>Otherwise you can click the </a> <code>View</code> &gt; <code>Show Console menu</code>.</p>
+<p style="color:MediumSeaGreen ;font-size:16px;font-family:Comic Sans MS"><br>Once open, paste the appropriate Python code for your version of Sublime Text into the console.</p>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request,os,hashlib; h = <span class="string">'6f4c264a24d933ce70df5dedcf1dcaee'</span> + <span class="string">'ebe013ee18cced0ef93d5f746d80ef60'</span>; pf = <span class="string">'Package Control.sublime-package'</span>; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( <span class="string">'http://packagecontrol.io/'</span> + pf.replace(<span class="string">' '</span>, <span class="string">'%20'</span>)).read(); dh = hashlib.sha256(by).hexdigest(); print(<span class="string">'Error validating download (got %s instead of %s), please try manual install'</span> % (dh, h)) <span class="keyword">if</span> dh != h <span class="keyword">else</span> open(os.path.join( ipp, pf), <span class="string">'wb'</span> ).write(by)</span><br></pre></td></tr></table></figure>
+<p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS"><br>This code creates the Installed Packages folder for you, and then downloads the <code>Package Control.sublime-package</code> into it.</p>
+
+<p style="color:PaleVioletRed ;font-size:16px;font-family:Comic Sans MS"><br>Step 3 : Installation all kinds of useful package.<br></p>
+
+<p><a style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS"><br>Once you finish installing the package control, you can check the upper-bar whether you can find </a> <code>Sublime Text</code>  &gt; <code>Preference</code> &gt; <code>Package Control</code>.</p>
+<p style="color:RoyalBlue;font-size:16px;font-family:Comic Sans MS"><br>If you find it, you are successfully download it !<br></p>
+
+<p><a style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS"><br>From there, you can simply type in </a><code>ctrl+shift+p</code> <a style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS"> on Windows, or </a> <code>cmd+shift+p</code> <a style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS"> on a Mac to open the Command Palette.</a></p>
+<p><a style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">Once the Command Palette is open, you can then type <code>Install Package</code>, to install a plugin from the Package Control website. You can also type <code>Add Repository</code>, which allows you to add plugins that are not hosted on the Package Control website, by simply using their repository url. And finally, <code>Remove Package</code>, will let you uninstall a plugin from your system by removing it, as well as any assets from the Sublime packages directory.</a></p>
+<p><a style="color:RoyalBlue;font-size:16px;font-family:Comic Sans MS"><br>Now i start to introduce several useful package in sublime <strong>Top 25 !</strong><br></a></p>
+<h3 id="1-Emmet"><a href="#1-Emmet" class="headerlink" title="1. Emmet"></a><code>1. Emmet</code></h3><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br><a href="https://packagecontrol.io/packages/Emmet" target="_blank" rel="noopener">Emmet</a> is a plugin that enables faster HTML and CSS creation with the use of snippets. It uses <a href="https://docs.emmet.io/abbreviations/" target="_blank" rel="noopener">abbreviations</a> <code>ctrl + E</code>that expand to valid HTML tags.<br></p>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#page&gt;div.logo+ul#navigation&gt;li*5&gt;a&#123;Item $&#125;</span></span><br></pre></td></tr></table></figure>
+<p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br>Which will expand to:<br></p>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"page"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"logo"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"navigation"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>Item 1<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>Item 2<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>Item 3<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>Item 4<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>Item 5<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">div&gt;ul&gt;li</span><br></pre></td></tr></table></figure>
+<p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br>Which will expand to:<br></p><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><br><br>### <code>2. View in Browser</code><br><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br>View In Browser helps you to launch your projects into your default browser with a simple shortcut, <code>ctrl+alt+c</code> for Chrome. It also enables shortcuts for various other browsers installed on your computer, such as Chrome, Firefox, Internet Explorer and more<br></p>
+
+<ul>
+<li>CTRL + ALT + F - Firefox</li>
+<li>CTRL + ALT + C - Chrome</li>
+<li>CTRL + ALT + I - Internet Explorer</li>
+<li>CTRL + ALT + S - Safari</li>
+</ul>
+<h3 id="3-GhostText"><a href="#3-GhostText" class="headerlink" title="3. GhostText"></a><code>3. GhostText</code></h3><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br><a href="https://packagecontrol.io/packages/GhostText" target="_blank" rel="noopener">GhostText</a> is probably one of the coolest plugins I’ve seen in awhile. It allows you to link your Sublime Text editor (with all your plugins 🎉) to text areas in a browser. For example, you could work on a CodePen, but do all the editing in your main text editor. You just need to install the plugin and browser extension. Simply highlight the text area you want to link, and click the browser extension: then magic happens. ✨🐇🎩✨<br></p><br><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br>It allows you to use your text editor to write in your browser. Everything you type in the editor will be instantly updated in the browser (and vice versa).<br></p>
+
+<p><a href="https://chrome.google.com/webstore/detail/ghosttext/godiecgffnchndlihlpaajjcplehddca" target="_blank" rel="noopener">download the Chrome GhostText</a></p>
+<h3 id="4-Alignment"><a href="#4-Alignment" class="headerlink" title="4. Alignment"></a><code>4. Alignment</code></h3><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br><a href="https://packagecontrol.io/packages/Alignment" target="_blank" rel="noopener">Alignment</a> plugin helps to easily align multiple selections, or multi-line selections. What that means is you can align multiple selections, or lines, via delimiter such as =. Simply type <code>ctrl + alt + a</code> on Windows, or <code>cmd + ctrl + a</code> on a Mac, to align your selection. To align with :follow this tutorial to setup custom delimiters.<br></p>
+
+<h3 id="5-ChangegQuotes"><a href="#5-ChangegQuotes" class="headerlink" title="5. ChangegQuotes"></a><code>5. ChangegQuotes</code></h3><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br><a href="https://packagecontrol.io/packages/ChangeQuotes" target="_blank" rel="noopener">ChangeQuotes</a> “converts single and double quotes, and and re-escapes quotes within the string,” according to their docs. Once installed, whenever you want to change quotes, make sure your cursor is inside the quoted text. Open the Command Palette to run ChangeQuotes—there is no need to select the text to change quotes.<br></p>
+
+<h3 id="6-AutoFileName"><a href="#6-AutoFileName" class="headerlink" title="6. AutoFileName"></a><code>6. AutoFileName</code></h3><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br><a href="https://packagecontrol.io/packages/AutoFileName" target="_blank" rel="noopener">AutoFileName</a> follows through on its name: it completes filenames automatically. It triggers a dropdown with file names relative to your existing file and subsequent path as you type.<br></p>
+
+<h3 id="7-SideBarEnhancements"><a href="#7-SideBarEnhancements" class="headerlink" title="7. SideBarEnhancements"></a><code>7. SideBarEnhancements</code></h3><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br><a href="https://packagecontrol.io/packages/SideBarEnhancements" target="_blank" rel="noopener">SideBarEnhancements</a> provides enhancements to the operations on Sidebar of Files and Folders for Sublime Text. Particularly, it sets delete options as a “Move to trash,” includes an “Open with…”, gives you the ability to move files, and more.<br></p>
+
+
+<h3 id="8-BracketHighlighter"><a href="#8-BracketHighlighter" class="headerlink" title="8. BracketHighlighter"></a><code>8. BracketHighlighter</code></h3><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><a href="https://packagecontrol.io/packages/BracketHighlighter" target="_blank" rel="noopener">BracketHighlighter</a> does exactly what it says: it highlights the brackets in your code. It matches a variety of brackets, such as [], (), {}, ””, ’’, #!xml <tag></tag>, as well as custom brackets if you add them.<br></p>
+
+
+<h3 id="9-Gutter-Color"><a href="#9-Gutter-Color" class="headerlink" title="9. Gutter Color"></a><code>9. Gutter Color</code></h3><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><a href="https://packagecontrol.io/packages/Gutter%20Color" target="_blank" rel="noopener">Gutter Color</a> is a great plugin that displays a colored icon for all lines containing a color. What’s nice about this plugin, compared to others, is that the color highlighting is a bit less intrusive, as it only appears in the gutter (instead of behind a highlighted word). It will please the designer in you.<br></p>
+
+
+<table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>red</td>
+<td>yellow</td>
+<td>blue</td>
+<td>royalblue</td>
+<td>pink</td>
+<td>mediumseagreen</td>
+<td>palevioletred</td>
+<td>violet</td>
+</tr>
+</tbody>
+</table>
+<p><img src="/2019/02/06/InternetComputing-TA-1/guttercolor.png" alt=""></p>
+<h3 id="10-A-File-Icon"><a href="#10-A-File-Icon" class="headerlink" title="10. A File Icon"></a><code>10. A File Icon</code></h3><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br><a href="https://packagecontrol.io/packages/A%20File%20Icon" target="_blank" rel="noopener">A File Icon</a> is great for easily scanning what files you have in your project. It simply adds pretty and customizable icons to supported files in your project sidebar. It’s supported by Material and Boxy Themes for customized thematic icons.<br></p>
+
+<h3 id="11-Color-Sublime"><a href="#11-Color-Sublime" class="headerlink" title="11. Color Sublime"></a><code>11. Color Sublime</code></h3><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br><a href="https://packagecontrol.io/packages/Colorsublime" target="_blank" rel="noopener">Color Sublime</a> is a plugin that enables the installation of color schemes to your editor. These color schemes change the syntax highlighting. What’s great about this is you can cycle through a list of schemes, rather than having to install each one and see if you like it.<br></p>
+
+<h3 id="12-Emoji"><a href="#12-Emoji" class="headerlink" title="12. Emoji"></a><code>12. Emoji</code></h3><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br>Because…why not. The <a href="https://packagecontrol.io/packages/Emoji" target="_blank" rel="noopener">Emoji</a> plugin allows you to insert emoji via the Command Palette💓 or ‘ctrl + command + space’. Amazing!<br></p><br>&gt; 🐹<br><br>—<br>## 3.<code>Begin the lab</code> Overview:<br><p style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>    What about this lab?<br>    this lab is about how to build a ‘guessing game.’<br></p>
+
+<p><img src="/2019/02/06/InternetComputing-TA-1/guessing.png" alt=""></p>
+<p><a style="color:royalblue;font-size:17px;font-family:Comic Sans MS"><br>♥ The game works like this: </a></p>
+<p><a style="color:royalblue;font-size:15px;font-family:Comic Sans MS"> 1. The game starts and thinks of a secret number between 1 to 100.</a></p>
+<p><a style="color:royalblue;font-size:15px;font-family:Comic Sans MS"> 2. The player needs to guess the number by entering a number between 1 to 100.</a></p>
+<p><a style="color:royalblue;font-size:15px;font-family:Comic Sans MS">     3. Depending on the player’s input, the game will give appropriate hints to the player.</a></p>
+<p><a style="color:royalblue;font-size:15px;font-family:Comic Sans MS">       4. The game is over when the player can successfully guess the secret number correctly。</a></p>
+<hr>
+<p><a style="color:palevioletred;font-size:17px;font-family:Comic Sans MS"> ♥ What’s your job:</a><br><a style="color:palevioletred;font-size:15px;font-family:Comic Sans MS">           </a></p>
+<ol>
+<li>You need to use appropriate <strong><code>CSS styles</code></strong> to make the game looks similar to what is shown above.<br><a style="color:palevioletred;font-size:15px;font-family:Comic Sans MS">     </a></li>
+<li>You need to write the <strong><code>JavaScript Code</code></strong> to complete the logic of the game.<br></li>
+</ol>
+<hr>
+<h3 id="3-1-The-Guessing-Game"><a href="#3-1-The-Guessing-Game" class="headerlink" title="3.1 The Guessing Game"></a>3.1 The Guessing Game</h3><p style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>You are given a starting HTML file <a href="https://course.cse.ust.hk/comp4021/hkust/2019s_labs/01_prep/guessing_game.html" target="_blank" rel="noopener">here</a> and an image <a href="https://course.cse.ust.hk/comp4021/hkust/2019s_labs/01_prep/smoke.png" target="_blank" rel="noopener">here</a><br></p>
+
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clicks <span class="keyword">the</span> <span class="literal">right</span> key <span class="keyword">and</span> download <span class="keyword">the</span> HTML <span class="built_in">file</span> <span class="keyword">and</span> <span class="keyword">the</span> image</span><br></pre></td></tr></table></figure>
+<p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>And you will find it looks very terrible. Before you work on the HTML code, let’s first understand the two <strong><code>major components</code></strong> in the game display<br></a></p>
+<h3 id="3-2-The-Title-Screen-and-the-Main-Screen"><a href="#3-2-The-Title-Screen-and-the-Main-Screen" class="headerlink" title="3.2 The Title Screen and the Main Screen"></a>3.2 The Title Screen and the Main Screen</h3><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Use Sublime Editor <span class="built_in">to</span> <span class="built_in">open</span> <span class="keyword">the</span> HTML <span class="built_in">file</span></span><br></pre></td></tr></table></figure>
+<p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"> There are two ‘screens’ in the game - the title screen and the main screen </a></p>
+<ul>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"> The title screen shows the game title called ‘Fantastic Number’</a></li>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"> The main screen contains the components that the player needs to play the game</a></li>
+</ul>
+<p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>The two screens are put in their corresponding <code>&lt;div&gt;</code> as the following pic </a></p>
+<p><img src="/2019/02/06/InternetComputing-TA-1/code1.png" alt=""></p>
+<p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>we need to ensure 3 things:<br></a></p>
+<ul>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"> Always one screen in the game. </a></li>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"> Show the title screen in the middle until the player click the screen</a></li>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS">Once the player clicks on the title screen, the title screen will disappear and the main screen will be shown </a></li>
+</ul>
+<p><a style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br>Step 1 : You first need to apply appropriate styles to them so that you will see them displayed correctly in the browser </a></p>
+<p><img src="/2019/02/06/InternetComputing-TA-1/step1.png" alt=""></p>
+<p><a style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> </a></p>
+<blockquote>
+<p>At first point, there are two screen in this computer;<br>So we think about to hide one.<br>how to hide one box, we chan chnage the display of its style.<br>so i add display：none to the game also the main screen.</p>
+</blockquote>
+<blockquote>
+<p>And then how to switch from the title screen to main screen by click.<br>See there is a onclick start() function in the title screen. We use this start function to switch the screen.</p>
+</blockquote>
+<blockquote>
+<p>So that i write the function start() like this .start function is to make the title screen disappear, so we set the display to none. and make the main screen appear, so we set the display to block. </p>
+</blockquote>
+<blockquote>
+<p>Now we almost finish the switching of main screen and the game screen.<br></p>
+</blockquote>
+<hr>
+<h3 id="3-3-The-Title-Screen"><a href="#3-3-The-Title-Screen" class="headerlink" title="3.3 The Title Screen"></a>3.3 The Title Screen</h3><p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>We still see the ugly interface of the tilte screen because we haven’t change the style of the box yet.We would like the title screen looks like this pic.<br></a></p>
+<p><img src="/2019/02/06/InternetComputing-TA-1/titlescreen.png" alt=""></p>
+<p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>Then we need to ensure the following things:<br></a></p>
+<ul>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"> The screens cover roughly 90% of the display area of the browser<br></a></li>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"> The screens are located centrally inside the display</a></li>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS">The screens have an appropriate black border around it<br></a></li>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS">The screens have an appropriate font size and the size is automatically adjusted based on the size of the screen.<br></a></li>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS">The screens have a transparent background.<br></a></li>
+</ul>
+<p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>Step 2: Then you need to set up the style of the boxes of the two screens.<br></a></p>
+<p><img src="/2019/02/06/InternetComputing-TA-1/step2.png" alt=""></p>
+<p> <a style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> </a></p>
+<blockquote>
+<p>At first point,i set the boxes style for the two screens, first is the box-sizing: border-box, it means there is a border around it . aaa</p>
+<p>in the second line , i set the border to 10px with black color . then i want to ensure the text in the middle not left or right. so i set the text-align to the center.</p>
+<p>to make the letter more big , i set the font-size to 8vh ( vh means the 8 %percentage of the height, it is a percentage number which means it will change with the real screen size, the letter size will be automatically adjusted based on the size of the screen.) </p>
+<p>Now the same as the width and heigth of the boxes .make it to 90vw, 90 percentage of the whole width and 90 percentage of the whole heighth.  </p>
+<p>then comes to the margin set the margin to 5vh 5vw each . 90 box add 2 pieces of 5vh margins make the whole a 100 percentage. </p>
+<p>the margin is the thing outside the box ,then the padding-top is the thing inside the box. now i set the padding to be 25vh, and make the words and letters exactly the middle of the screen.</p>
+<p>After he box style is setting now we still need to set the color of the title screen, make it cool black. so in the style for title screen, first i set the letter color to cool silver ,then the background to black . </p>
+<p>we definitely see the black is relatively too dark for our background, we need the color transfer. rgba(0,0,0,0.8). Now we set the color to be transparent .the last number represent the percentage of the transparency.</p>
+<p>And we also needs to make the letter be uppercase, we simply do text-transform to uppercase.</p>
+<p>how to make the word more closer and some biggger some smaller.</p>
+<p>just set p margin = 0 makes the letter more closer . the big represents the some part of the letter and be shown at the last part and we make it more bigger .150% and till now the style of the title screen is set finished.</p>
+</blockquote>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p><strong>More details you can refer to the lab <a href="https://course.cse.ust.hk/comp4021/hkust/2019s_labs/01_prep/" target="_blank" rel="noopener">website</a> 2.1-&gt;3.1</strong></p>
+<hr>
+<h3 id="3-4-the-Main-Screen"><a href="#3-4-the-Main-Screen" class="headerlink" title="3.4 the Main Screen"></a>3.4 the Main Screen</h3><p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>We need to ensure 2 things: </a></p>
+<ul>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"> Making the hyperlink to look like a button</a></li>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS">Using a transparent background colour for the screen and using appropriate font settings for different parts of the screen</a></li>
+</ul>
+<p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>This is what it should look like  </a><br><img src="/2019/02/06/InternetComputing-TA-1/mainscreen.png" alt=""></p>
+<p><img src="/2019/02/06/InternetComputing-TA-1/step3.png" width="60%"></p>
+<p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>Step 3: you should change the style for the main-screen. And you need to create the button.<br></a></p>
+<p><a style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> </a></p>
+<blockquote>
+<p>It’s totally same as the following about how to change the style of main screen. The minor change is that the background color of the screen this time is transparent white 。So we just do it like change the color, change the background.</p>
+<p>Since in the main screen we have 3 fields of the content , one is guess part , one is button part. one is the hint part.It seems like easier to change the hint part and the guess part because we only need to change the style like font-size of it。so we change it. </p>
+<p>For the guess, we change the font-size to 50% and for the hint , we change the font-size to 80% and the color to red.</p>
+<p>For the button, it originally be a hyperlink. and it seems complicated to change a hyperlink to a button; however, it is in fact quite easy to do .<br>The very first thing that you need to do is to change the hyperlink to a block element. This can be achieved by using the display property and setting its value to <code>block</code>.Doing this makes any target element to become a block element.</p>
+<p>Once the hyperlink has become a box, you can use the usual padding, margin and border to adjust the apperance of the hyperlink.</p>
+<p>So firstly i adjust the font-size of the button and then the line-height and then the color , background to make it more button like, next is the width and the margin to make it middle of the screen. lastly is the border, make a 4 pixel solid black border around the button .</p>
+<p>now we seems like finish the button . but there are still two things different with the demo sample. first is the border-radius, we can change the rectangle to circle-like shape.</p>
+<p>last is the underline, in order to remove it we erase the text-decoration.</p>
+<p>You may also want to change the ‘mouse over’ behaviour of the ‘button’ by experimenting with the :hover pseudo-class.You can make the button change to a lighter colour when the mouse moves over it.</p>
+<p>Now we finish all things.</p>
+</blockquote>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h3 id="3-5-Very-Useful-Tool"><a href="#3-5-Very-Useful-Tool" class="headerlink" title="3.5 Very Useful Tool"></a>3.5 Very Useful Tool</h3><p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"> == This is a useful tool to check the style you write of the website. ==</a></p>
+<p>== First ensure that you have download <strong>google chrome</strong> on your website.==</p>
+<p>== Now i show you how powerful the tool is ~ ==<br></p>
+<p><img src="/2019/02/06/InternetComputing-TA-1/inspect.png" alt=""></p>
+<p><a style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"></a></p>
+<p>== For example, open the current gussing game in chrome. ==</p>
+<p>== Use the <code>Ctrl+Shift+I (Windows) 或 Cmd+Opt+I (Mac)</code> to open this tool ==</p>
+<p>== Otherwise you can right click on the website and select <code>inspection</code> button ==</p>
+<p>== It shows all the html code of the web page. What’s more? == </p>
+<p>== You can relate the style and the code directly to the web page. == </p>
+<p>== Open the elements page and select the styles page. now you can check it one by one == </p>
+<hr>
+<p>== (1) If you don’t like some style you can just uncheck that style == </p>
+<p>== (2) you can easily see the Hierarchical relationship between the styles.==</p>
+<p>== For example the style of the tytle1 also inherited the box style and the title style ==</p>
+<p>== (3) You can modify each element by double click the content == </p>
+<p>== For example you can view the style of the button by inspect it == </p>
+<p>== We click the background rightside we can see the whole property list there ==</p>
+<p>== We can change the content enter your guess to enter your favourite number==</p>
+<p>== We can see the relationship between margin, padding and border and change the size of them ==</p>
+<p>== you can explore more function in this inspect section ==</p>
+<hr>
+<p></p>
+<h3 id="3-6-The-JavaScript-Code"><a href="#3-6-The-JavaScript-Code" class="headerlink" title="3.6 The JavaScript Code"></a>3.6 The JavaScript Code</h3><p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>After you finish ‘decorating’ the game, it is time to write some code to complete the game logic. The starting file gives you a few things to start with<br></a><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var answer;</span><br><span class="line"></span><br><span class="line"><span class="function">function <span class="title">load</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">function <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">function <span class="title">guess</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><br><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>We need to ensure 3 things: </a></p>
+<ul>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"> Making an Answer Using a Random Number in <code>Load()</code> </a></li>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS">Completing the Click Handler of the Title Screen </a></li>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"> Asking the Player for the <code>Guess()</code> </a></li>
+<li><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS">Handling the Player Guess </a></li>
+</ul>
+<p><a style="color:royalblue;font-size:16px;font-family:Comic Sans MS"><br>Step 4: you need to write the inner logic function.<br></a></p>
+<p><img src="/2019/02/06/InternetComputing-TA-1/step4.png" width="75%"></p>
+<p><a style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> </a></p>
+<blockquote>
+<p>Here, first we use a random function to prepare the answer for the guessing game.</p>
+<p>Then for the guessing gunction. we need the two variable last_guess and mynumber. For the last_guess, we let the original last_guess to be 50 ; then we should ensure that when we guess the right answer, we should quite guess function which means a return (false). and next you click the button enter your guess, you forever quite the game. until you refresh the page.</p>
+<p>Next, when a user enter the guess number, he should avoid several things like “ if its not a number “, then the hint part return “please enter a number”.try</p>
+<p>if it is not an integer . then the hint part return please enter an integer .try</p>
+<p>if it is an integer outside the range (1-100). the hint part return (please enter an intger between 1 and 100!)</p>
+<p>if mynumber is larger than the answer , return the guess equal to mynumber<br>and hint is your number is too big.</p>
+<p>if else mynumber is too small, then return the hint your number is too small. and the guess equal to mynumber .</p>
+<p>if else mynumber is equal to the answer , then return you are right, and return false</p>
+</blockquote>
+<h2 id="-2"><a href="#-2" class="headerlink" title=""></a></h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/www/" rel="tag"># www</a>
+          
+            <a href="/tags/html/" rel="tag"># html</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/03/Color-for-Website/" rel="next" title="Color-for-Website">
+                <i class="fa fa-chevron-left"></i> Color-for-Website
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/miqianmimi || github" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/100002269882529 || facebook" target="_blank" title="FB Page">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  FB Page
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://instagram.com/miqianmimi || instagram" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Instagram
+                </a>
+              </span>
+            
+  <!--以下是加入关于high一下的代码-->
+            <span class="links-of-author-item"><a title="小high一下~" style="underline: none;color:red" rel="alternate" class="mw-harlem_shake_slow wobble shake" href="javascript:shake()"><i class="fa fa-music"></i> &nbsp;&nbsp;High</a></span>
+  <!--以上是加入关于high一下的代码-->
+          
+        </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="YiqingMa" />
+            
+              <p class="site-author-name" itemprop="name">YiqingMa</p>
+              <p class="site-description motion-element" itemprop="description"><p style="color:MediumSeaGreen;font-size:15px;font-family:Comic Sans MS" > If life deals you lemons, make lemonade. </p></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/miqianmimi" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.facebook.com/100002269882529" target="_blank" title="FB Page">
+                      
+                        <i class="fa fa-fw fa-facebook"></i>FB Page</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://instagram.com/miqianmimi" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i>Instagram</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://jacquelinewang.github.io/" title="Jacqueline Wang" target="_blank">Jacqueline Wang</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-Before-the-tutorial-Important-Website"><span class="nav-number">1.</span> <span class="nav-text">0.Before the tutorial Important Website:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Steps-for-connection-to-the-Server"><span class="nav-number">2.</span> <span class="nav-text">1. Steps for connection to the Server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Editor-Sublime-——easy-tutorial"><span class="nav-number">3.</span> <span class="nav-text">2.Editor: Sublime ——easy tutorial</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Emmet"><span class="nav-number">3.1.</span> <span class="nav-text">1. Emmet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-GhostText"><span class="nav-number">3.2.</span> <span class="nav-text">3. GhostText</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Alignment"><span class="nav-number">3.3.</span> <span class="nav-text">4. Alignment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-ChangegQuotes"><span class="nav-number">3.4.</span> <span class="nav-text">5. ChangegQuotes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-AutoFileName"><span class="nav-number">3.5.</span> <span class="nav-text">6. AutoFileName</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-SideBarEnhancements"><span class="nav-number">3.6.</span> <span class="nav-text">7. SideBarEnhancements</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-BracketHighlighter"><span class="nav-number">3.7.</span> <span class="nav-text">8. BracketHighlighter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Gutter-Color"><span class="nav-number">3.8.</span> <span class="nav-text">9. Gutter Color</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-A-File-Icon"><span class="nav-number">3.9.</span> <span class="nav-text">10. A File Icon</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-Color-Sublime"><span class="nav-number">3.10.</span> <span class="nav-text">11. Color Sublime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-Emoji"><span class="nav-number">3.11.</span> <span class="nav-text">12. Emoji</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-The-Guessing-Game"><span class="nav-number">3.12.</span> <span class="nav-text">3.1 The Guessing Game</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-The-Title-Screen-and-the-Main-Screen"><span class="nav-number">3.13.</span> <span class="nav-text">3.2 The Title Screen and the Main Screen</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-The-Title-Screen"><span class="nav-number">3.14.</span> <span class="nav-text">3.3 The Title Screen</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">4.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-the-Main-Screen"><span class="nav-number">4.1.</span> <span class="nav-text">3.4 the Main Screen</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#-1"><span class="nav-number">5.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-Very-Useful-Tool"><span class="nav-number">5.1.</span> <span class="nav-text">3.5 Very Useful Tool</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-The-JavaScript-Code"><span class="nav-number">5.2.</span> <span class="nav-text">3.6 The JavaScript Code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#-2"><span class="nav-number">6.</span> <span class="nav-text"></span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YiqingMa</span>
+
+  
+</div>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("0ixKT2BwaVfXNDSkwyzUoHme-gzGzoHsz", "EdAY2rFqeW0COVKGLhLtLEAp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+  <!-- 背景动画 
+  <script type="text/javascript" src="/js/src/particle.js"></script>-->
+</body>
+</html>
