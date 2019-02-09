@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab)  Key words :bitrate adaptation, video streaming, reinforcement learning    专有名词：Adaptive bitrate streaming is a technique us">
+<meta name="description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab) Key words :bitrate adaptation, video streaming, reinforcement learning">
 <meta name="keywords" content="Video Streaming,Neural Network">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pensieve(Sigcomm 2017)">
+<meta property="og:title" content="Pensieve(Sigcomm 2017) ☀">
 <meta property="og:url" content="http://yoursite.com/2019/02/09/Pensieve/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab)  Key words :bitrate adaptation, video streaming, reinforcement learning    专有名词：Adaptive bitrate streaming is a technique us">
+<meta property="og:description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab) Key words :bitrate adaptation, video streaming, reinforcement learning">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-09T14:17:32.791Z">
+<meta property="og:updated_time" content="2019-02-09T15:00:29.973Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pensieve(Sigcomm 2017)">
-<meta name="twitter:description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab)  Key words :bitrate adaptation, video streaming, reinforcement learning    专有名词：Adaptive bitrate streaming is a technique us">
+<meta name="twitter:title" content="Pensieve(Sigcomm 2017) ☀">
+<meta name="twitter:description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab) Key words :bitrate adaptation, video streaming, reinforcement learning">
 
 
 
@@ -128,11 +128,20 @@
 
 
 
-  <title>Pensieve(Sigcomm 2017) | miqianmimi Ma</title>
+  <title>Pensieve(Sigcomm 2017) ☀ | miqianmimi Ma</title>
   
 
 
 
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-134209279-1', 'auto');
+  ga('send', 'pageview');
+</script>
 
 
 
@@ -273,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Pensieve(Sigcomm 2017)</h1>
+          <h1 class="post-title" itemprop="name headline">Pensieve(Sigcomm 2017) ☀</h1>
         
 
         <div class="post-meta">
@@ -325,7 +334,7 @@
 
           
           
-             <span id="/2019/02/09/Pensieve/" class="leancloud_visitors" data-flag-title="Pensieve(Sigcomm 2017)">
+             <span id="/2019/02/09/Pensieve/" class="leancloud_visitors" data-flag-title="Pensieve(Sigcomm 2017) ☀">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -365,13 +374,12 @@
         <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://people.csail.mit.edu/hongzi/content/publications/Pensieve-Sigcomm17.pdf" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for paper </span></a> </p>
 
 <ul>
-<li><p>Author:<code>Hongzi Mao</code>,<code>Mohammad Alizadeh</code>(MIT Mohammad lab)</p>
-</li>
-<li><p>Key words :</p><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">bitrate adaptation, video streaming, reinforcement learning</p><p></p>
-</li>
+<li>Author:<code>Hongzi Mao</code>,<code>Mohammad Alizadeh</code>(MIT Mohammad lab)</li>
+<li>Key words :<p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">bitrate adaptation, video streaming, reinforcement learning</p></li>
 </ul>
 <hr>
-<h2 id="专有名词："><a href="#专有名词：" class="headerlink" title="专有名词："></a>专有名词：</h2><p><code>Adaptive bitrate streaming</code> is a technique used in streaming multimedia over computer networks. While in the past most video or audio streaming technologies utilized streaming protocols such as RTP with RTSP, today’s adaptive streaming technologies are almost exclusively based on HTTP[1] and designed to work efficiently over large distributed HTTP networks such as the Internet.</p>
+<a id="more"></a>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><h2 id="专有名词："><a href="#专有名词：" class="headerlink" title="专有名词："></a>专有名词：</h2><p><code>Adaptive bitrate streaming</code> is a technique used in streaming multimedia over computer networks. While in the past most video or audio streaming technologies utilized streaming protocols such as RTP with RTSP, today’s adaptive streaming technologies are almost exclusively based on HTTP[1] and designed to work efficiently over large distributed HTTP networks such as the Internet.</p>
 <p>It works by detecting a user’s bandwidth and CPU capacity in real time and adjusting the quality of the media stream accordingly. [2] It requires the use of an encoder which can encode a single source media (video or audio) at multiple bit rates. The player client[3] switches between streaming the different encodings depending on available resources.[4] “The result: very little buffering, fast start time and a good experience for both high-end and low-end connections.”[5]</p>
 <p>More specifically, and as the implementations in use today are, adaptive bitrate streaming is a method of video streaming over HTTP where the source content is encoded at multiple bit rates, then each of the different bit rate streams are segmented into small multi-second parts. The streaming client is made aware of the available streams at differing bit rates, and segments of the streams by a manifest file. When starting, the client requests the segments from the lowest bit rate stream. If the client finds the download speed is greater than the bit rate of the segment downloaded, then it will request the next higher bit rate segments. Later, if the client finds the download speed for a segment is lower than the bit rate for the segment, and therefore the network throughput has deteriorated, then it will request a lower bit rate segment. The segment size can vary depending on the particular implementation, but they are typically between two (2) and ten (10) seconds.[4][6]</p>
 
@@ -629,7 +637,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#专有名词："><span class="nav-number">1.</span> <span class="nav-text">专有名词：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#专有名词："><span class="nav-number">2.</span> <span class="nav-text">专有名词：</span></a></li></ol></div>
             
 
           </div>
