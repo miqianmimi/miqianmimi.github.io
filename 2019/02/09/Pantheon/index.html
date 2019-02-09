@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="congestion control,incast," />
+  <meta name="keywords" content="congestion control," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="here for paper    Author: Haoyu Wang (UVA University of  Virginia)  congestion control, incast">
-<meta name="keywords" content="congestion control,incast">
+<meta name="description" content="here for paper     Author:Francis Y.Yan(SING lab Stanford University)  Key words :congestion control, evaluation, testbed">
+<meta name="keywords" content="congestion control">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PICC (Infocomm 2018)">
-<meta property="og:url" content="http://yoursite.com/2019/02/08/PICC/index.html">
+<meta property="og:title" content="Pantheon （SIGCOMM 2018) ☀">
+<meta property="og:url" content="http://yoursite.com/2019/02/09/Pantheon/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="here for paper    Author: Haoyu Wang (UVA University of  Virginia)  congestion control, incast">
+<meta property="og:description" content="here for paper     Author:Francis Y.Yan(SING lab Stanford University)  Key words :congestion control, evaluation, testbed">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-08T13:56:09.499Z">
+<meta property="og:updated_time" content="2019-02-09T13:53:50.939Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PICC (Infocomm 2018)">
-<meta name="twitter:description" content="here for paper    Author: Haoyu Wang (UVA University of  Virginia)  congestion control, incast">
+<meta name="twitter:title" content="Pantheon （SIGCOMM 2018) ☀">
+<meta name="twitter:description" content="here for paper     Author:Francis Y.Yan(SING lab Stanford University)  Key words :congestion control, evaluation, testbed">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/08/PICC/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/02/09/Pantheon/"/>
 
 
 
 
 
-  <title>PICC (Infocomm 2018) | miqianmimi Ma</title>
+  <title>Pantheon （SIGCOMM 2018) ☀ | miqianmimi Ma</title>
   
 
 
@@ -256,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/08/PICC/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/09/Pantheon/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YiqingMa">
@@ -273,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">PICC (Infocomm 2018)</h1>
+          <h1 class="post-title" itemprop="name headline">Pantheon （SIGCOMM 2018) ☀</h1>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-08T20:53:58+08:00">
-                2019-02-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-09T19:33:02+08:00">
+                2019-02-09
               </time>
             
 
@@ -325,7 +325,7 @@
 
           
           
-             <span id="/2019/02/08/PICC/" class="leancloud_visitors" data-flag-title="PICC (Infocomm 2018)">
+             <span id="/2019/02/09/Pantheon/" class="leancloud_visitors" data-flag-title="Pantheon （SIGCOMM 2018) ☀">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -362,26 +362,47 @@
       
 
       
-        <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="http://www.cs.virginia.edu/~hs6ms/publishedPaper/Conference/2018/INFOCOM2018-PICC.pdf" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span>here for paper</span></a> </p>
+        <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://sing.stanford.edu/site/publications/pantheon-atc18.pdf" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for paper </span></a> </p>
 
 <ul>
-<li>Author: <code>Haoyu Wang</code> (UVA University of  Virginia)</li>
-<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> congestion control, incast </p>
-
+<li><p>Author:<code>Francis Y.Yan</code>(SING lab Stanford University)</p>
+</li>
+<li><p>Key words :</p><p style="color:MediumSeaGreen;font-size:16px;font-family:Comic Sans MS">congestion control, evaluation, testbed</p><p></p>
 </li>
 </ul>
 <hr>
 <a id="more"></a>
-<h2 id="1-摘要："><a href="#1-摘要：" class="headerlink" title="1.摘要："></a>1.摘要：</h2><p>随着数据中心网络应用的迅速发展，网络延迟成为了用户体验的终极评判标准。又因为网络延迟受到incast的巨大影响。之前的incast问题的解决方法一般都是直接处理数据服务器和接收端服务器之间的数据传输，但这种方法在处理proactively避免incast congestion的时候并不高效。进一步提升effectiveness.我们提出了PICC(Proactive Incast Congestion)因为每一种限制都有带宽的限制，PICC限制了连接到接收端服务器的数据服务器的数量，通过数据放置避免了incast congestion。</p>
-<p>通过收集各种常用的数据包，PICC减少了连接的数量，PICC还结合了队列延迟减少算法，给小规模，长队列的传输更高的优先级。</p>
-<h2 id="2-引入："><a href="#2-引入：" class="headerlink" title="2.引入："></a>2.引入：</h2><p>网络应用开启后，会出现一对多的网络incast问题，一个front-end 服务器会想多个数据服务器同时发出请求，并同时接受数千个服务器的回应。这种incast降低了90%的带宽并且导致延迟巨大上升。对于之一问题有很多解决方案，link layer的解决，transport layer的解决以及application layer的解决。在我们这篇文章中，提出了picc采用的是application layer的解决方案。PICC通过减少同时连接的个数来避免incast问题。并且通过重置数据，将常用个多数据放置在一块，来确保减少链接个数也能完成application的任务。为了减少队列，picc给那些小规模，等待时间长的传输设定了更高的优先级来完成。</p>
-<p>picc是第一个使用数据放置来避免拥塞的算法，它主要做了</p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>这篇文章提出了<a href="https://pantheon.stanford.edu" target="_blank" rel="noopener">Pantheon</a>,一个系统通过提供training ground，为传输协议和拥塞控制提供帮助。这是一个共享的评估平台，pantheon这个科研工具在以下三个方面提供了帮助：</p>
 <ul>
-<li>著名数据聚集在一些服务器上</li>
-<li>相关数据聚集在一些服务器上</li>
-<li>队列延迟降低，提出了一个队列延迟降低的算法来减少head-of-line 队头拥塞的负面影响。</li>
+<li>第一，通过一年的数据，我们总结了一个测量算法好坏的的方法，表明拥塞控制方案作为路径动态函数的相对性能变化很大。</li>
+<li>第二，Pantheon提供网络仿真器，可捕获真实Internet路径的各种性能。在pantheon的测试平台上得到的结果非常接近真实结果。</li>
+<li>第三，我们描述了pantheon对于生成新的拥塞控制算法的帮助。NSDI2018中发表的两篇就是在pantheon的平台上实现的。同时神经网络的算法也可以在这个平台上评测。</li>
 </ul>
-<hr>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>30年过去了，网络拥塞控制的问题仍旧是cornerstone problem基石问题，初衷是去除网络catastrophic灾难性的问题。但今天面临更多的挑战。</p>
+<p>流行的传输协议和拥塞控制体系需要评测，但当今网络更难统一，</p>
+<ul>
+<li>CDN(CDN的全称是Content Delivery Network，即内容分发网络)80Gbps</li>
+<li>智能手机的网络</li>
+<li>照相机连接家用WIFI网络。</li>
+</ul>
+<p>大部分拥塞控制的研究多是在小规模的网络上，而且很难重现。大多数研究者会建立自己的testbed<br>但为了证明算法的优势，会和之前的算法做对比。为了做到公平比较，会有很多额外的工作。尽管比较了，算法也不会部署到真实的internet网上。比如sprout,PCC,verus.</p>
+<p>这篇paper中描述了Pantheon,一个分布式的，综合的系统，专门为了评测端到端的网络，比如拥塞控制，传输协议和网路仿真器。它分为四部分：</p>
+<ul>
+<li>software library包含传输协议，同一个界面。</li>
+<li>多样的testbed,网络节点在世界各地。</li>
+<li>网络仿真器的集合。</li>
+<li>一系列的测试系统评估了pantheon协议和真实的网络。</li>
+</ul>
+<p>pantheon 解决了科研者在开发网络协议的时候面临的现实性和复现性权衡的问题。不是关注是否有jitter, packet loss, reordering, pantheon的关注指标是throughoput,delay和loss rate，</p>
+<p>借鉴了ImageNet在计算机视觉领域取得成功的推动下，我们相信可运行benchmark,连续的实验，将有助于更快的创新和更有效，可复现的研究。</p>
+<h2 id="实验结果总结："><a href="#实验结果总结：" class="headerlink" title="实验结果总结："></a>实验结果总结：</h2><ul>
+<li><p>通过对Pantheon超过一年的测量结果分析，我们发现传输协议的表现十分多遍，通常随着<strong>网络路径，网络瓶颈和时间</strong>的变化而变化，没有任何一种协议在所有环境下效果都最优。</p>
+</li>
+<li><p>在自然和合成交叉流量的情况下，我们发现一些网络仿真器参数可以重现很大部分的传输协议的性能。这一结果与先前结果相悖，某些人专注于构建详细的网络仿真器。</p>
+</li>
+<li><p>我们讨论了三种使用pantheon作为共享评估测试平台的拥塞控制新方法，是在USENIX NSDI 2018上发表的Copa 和Vivace。我们还描述了用于拥塞控制的数据驱动设计，它基于神经网络，可以在pantheon的仿真器集合上进行训练，从而在真实的互联网路径上实现良好的性能。</p>
+</li>
+</ul>
 
       
     </div>
@@ -401,8 +422,6 @@
           
             <a href="/tags/congestion-control/" rel="tag"># congestion control</a>
           
-            <a href="/tags/incast/" rel="tag"># incast</a>
-          
         </div>
       
 
@@ -414,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/08/ccp/" rel="next" title="CCP (Sigcomm 2018) ☀">
-                <i class="fa fa-chevron-left"></i> CCP (Sigcomm 2018) ☀
+              <a href="/2019/02/08/PICC/" rel="next" title="PICC (Infocomm 2018)">
+                <i class="fa fa-chevron-left"></i> PICC (Infocomm 2018)
               </a>
             
           </div>
@@ -423,10 +442,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/09/Pantheon/" rel="prev" title="Pantheon （SIGCOMM 2018) ☀">
-                Pantheon （SIGCOMM 2018) ☀ <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -633,7 +648,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-摘要："><span class="nav-number">1.</span> <span class="nav-text">1.摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-引入："><span class="nav-number">2.</span> <span class="nav-text">2.引入：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入"><span class="nav-number">2.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验结果总结："><span class="nav-number">3.</span> <span class="nav-text">实验结果总结：</span></a></li></ol></div>
             
 
           </div>
