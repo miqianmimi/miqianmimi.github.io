@@ -82,7 +82,7 @@
 <meta name="description" content="If life deals you lemons, make lemonade.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="miqianmimi Ma">
-<meta property="og:url" content="http://yoursite.com/tags/Network/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/network/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
 <meta property="og:description" content="If life deals you lemons, make lemonade.">
 <meta property="og:locale" content="en">
@@ -118,18 +118,28 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/Network/"/>
+  <link rel="canonical" href="http://yoursite.com/tags/network/"/>
 
 
 
 
 
-  <title>Tag: Network | miqianmimi Ma</title>
+  <title>Tag: network | miqianmimi Ma</title>
   
 
 
 
 
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b23a977420dff14ebc585ce07adca932";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -244,7 +254,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>Network<small>Tag</small>
+        <h1>network<small>Tag</small>
         </h1>
       </div>
 
@@ -256,37 +266,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2019/01/11/DCQCN/" itemprop="url">
+            <a class="post-title-link" href="/2019/01/27/cs244yo/" itemprop="url">
               
-                <span itemprop="name">DCQCN</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-01-11T20:00:57+08:00"
-              content="2019-01-11" >
-          01-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/07/CC-BLOG/" itemprop="url">
-              
-                <span itemprop="name">CC-BLOG</span>
+                <span itemprop="name">Cs244yo</span>
               
             </a>
         
@@ -294,65 +276,9 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-07T01:24:15+08:00"
-              content="2018-12-07" >
-          12-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/06/TCP-CC/" itemprop="url">
-              
-                <span itemprop="name">TCP-CC</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-06T13:10:11+08:00"
-              content="2018-12-06" >
-          12-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/03/PASE/" itemprop="url">
-              
-                <span itemprop="name">PASE</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-03T21:00:27+08:00"
-              content="2018-12-03" >
-          12-03
+              datetime="2019-01-27T22:19:38+08:00"
+              content="2019-01-27" >
+          01-27
         </time>
       </div>
 
@@ -775,6 +701,77 @@
       var query = new AV.Query(Counter);
 
       query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+ualTo("url", url);
       query.find({
         success: function(results) {
           if (results.length > 0) {
