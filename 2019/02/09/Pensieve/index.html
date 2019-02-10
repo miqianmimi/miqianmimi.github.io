@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab) Key words :bitrate adaptation, video streaming, reinforcement learning">
+<meta name="description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab) bitrate adaptation, video streaming, reinforcement learning">
 <meta name="keywords" content="Video Streaming,Neural Network">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pensieve(Sigcomm 2017) ☀">
 <meta property="og:url" content="http://yoursite.com/2019/02/09/Pensieve/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab) Key words :bitrate adaptation, video streaming, reinforcement learning">
+<meta property="og:description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab) bitrate adaptation, video streaming, reinforcement learning">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-09T15:00:29.973Z">
+<meta property="og:updated_time" content="2019-02-10T04:53:50.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pensieve(Sigcomm 2017) ☀">
-<meta name="twitter:description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab) Key words :bitrate adaptation, video streaming, reinforcement learning">
+<meta name="twitter:description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab) bitrate adaptation, video streaming, reinforcement learning">
 
 
 
@@ -375,13 +375,29 @@
 
 <ul>
 <li>Author:<code>Hongzi Mao</code>,<code>Mohammad Alizadeh</code>(MIT Mohammad lab)</li>
-<li>Key words :<p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">bitrate adaptation, video streaming, reinforcement learning</p></li>
+<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">bitrate adaptation, video streaming, reinforcement learning</p>
+
+</li>
 </ul>
 <hr>
 <a id="more"></a>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><h2 id="专有名词："><a href="#专有名词：" class="headerlink" title="专有名词："></a>专有名词：</h2><p><code>Adaptive bitrate streaming</code> is a technique used in streaming multimedia over computer networks. While in the past most video or audio streaming technologies utilized streaming protocols such as RTP with RTSP, today’s adaptive streaming technologies are almost exclusively based on HTTP[1] and designed to work efficiently over large distributed HTTP networks such as the Internet.</p>
+<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>客户端视频播放器，采用ABR算法来优化用户QoE。然而即使是最先进的ABR算法也受到限制：部署环境的过度简化或不准确建模，以及一些固定控制规则。因此，作者提出了Pensieve，一个使用强化学习（RL）生成ABR算法的系统。 Pensieve训练了一个神经网络模型，根据客户视频播放器收集的观察结果，来选择传输比特率。它的效果优于最先进的方案。</p>
+<h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>相关工作有ABR算法，它根据观察到的网络的带宽和playback的buffer的占据量，来做出bitrate的决定。它的目标是最大化QoE矩阵。然而选择正确的bitrate是比较困难的，基于以下四种情况：</p>
+<ul>
+<li>网络的带宽经常变动</li>
+<li>QoE需求(high bitrate，minimal rebuffering,smoothness)</li>
+<li>bitrate决定的级联效应</li>
+<li>ABR决定的coarse-grained特性</li>
+</ul>
+<p>ABR算法通常有两种做决策的手段——<br>1。网络带宽(基于速率的算法);<br>2。playback buffersize(基于buffer的机制);</p>
+<p>另一个state-of-art算法MPC，解决QoE最优问题，做决策基于horizon的未来块。因为是直接最优化”QoE”,所以效果优于fixed heuristics的方法，然而，MPC的好坏依赖于动态系统的精确建模。MPC对于未来网络带宽的错误预测十分敏感。</p>
+<p>在我们这篇PAPER中提出的是Pensieve,自动学习ABR算法，并且使用现代化的RL技术学习控制策略。Reward和QoE指标息息相关，用的是A3C算法。Pensieve使用的模拟是大型网络跟踪语料库。<br>Pensieve对于未见过的网络情况和视频属性也能达到比较好的效果。</p>
+<h2 id="专有名词："><a href="#专有名词：" class="headerlink" title="专有名词："></a>专有名词：</h2><blockquote>
+<p><code>Adaptive bitrate streaming</code> is a technique used in streaming multimedia over computer networks. While in the past most video or audio streaming technologies utilized streaming protocols such as RTP with RTSP, today’s adaptive streaming technologies are almost exclusively based on HTTP[1] and designed to work efficiently over large distributed HTTP networks such as the Internet.</p>
 <p>It works by detecting a user’s bandwidth and CPU capacity in real time and adjusting the quality of the media stream accordingly. [2] It requires the use of an encoder which can encode a single source media (video or audio) at multiple bit rates. The player client[3] switches between streaming the different encodings depending on available resources.[4] “The result: very little buffering, fast start time and a good experience for both high-end and low-end connections.”[5]</p>
-<p>More specifically, and as the implementations in use today are, adaptive bitrate streaming is a method of video streaming over HTTP where the source content is encoded at multiple bit rates, then each of the different bit rate streams are segmented into small multi-second parts. The streaming client is made aware of the available streams at differing bit rates, and segments of the streams by a manifest file. When starting, the client requests the segments from the lowest bit rate stream. If the client finds the download speed is greater than the bit rate of the segment downloaded, then it will request the next higher bit rate segments. Later, if the client finds the download speed for a segment is lower than the bit rate for the segment, and therefore the network throughput has deteriorated, then it will request a lower bit rate segment. The segment size can vary depending on the particular implementation, but they are typically between two (2) and ten (10) seconds.[4][6]</p>
+<p>More specifically, and as the implementations in use today are, adaptive bitrate streaming is a method of video streaming over HTTP where the source content is encoded at multiple bit rates, then each of the different bit rate streams are segmented into small multi-second parts. The streaming client is made aware of the available streams at differing bit rates, and segments of the streams by a manifest file. When starting, the client requests the segments from the lowest bit rate stream. If the client finds the download speed is greater than the bit rate of the segment downloaded, then it will request the next higher bit rate segments. Later, if the client finds the download speed for a segment is lower than the bit rate for the segment, and therefore the network throughput has deteriorated, then it will request a lower bit rate segment. The segment size can vary depending on the particular implementation, but they are typically between two (2) and ten (10) seconds.</p>
+</blockquote>
+<hr>
 
       
     </div>
@@ -637,7 +653,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#专有名词："><span class="nav-number">2.</span> <span class="nav-text">专有名词：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#专有名词："><span class="nav-number">3.</span> <span class="nav-text">专有名词：</span></a></li></ol></div>
             
 
           </div>
