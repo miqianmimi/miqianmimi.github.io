@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="miqianmimi Ma">
 <meta property="og:description" content="here for paper     Author: Bomin Mao (Tohoku University 日本東北大學 ) Software defined routers, network traffic control, deep learning, backbone networks, routing.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-10T18:27:59.962Z">
+<meta property="og:updated_time" content="2019-02-11T05:08:24.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DBA Routing or Computing? (IEEE Transactions on Computers 2017)">
 <meta name="twitter:description" content="here for paper     Author: Bomin Mao (Tohoku University 日本東北大學 ) Software defined routers, network traffic control, deep learning, backbone networks, routing.">
@@ -389,6 +389,26 @@
 <li>我们演示了如何增强“基于深度学习的SDR”的路由计算。</li>
 <li>特别是，仿真结果表明我们的提议在延迟，吞吐量和信令开销方面优于基准方法。</li>
 </ul>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>更大的核心网络驱使路由器变得在计算和交换能力上更高效,来保证Quality of Service(QoS)，设计可编程性的路由是一个挑战性的新领域。SDR(软件定义的路由)是SDN(软件定义网络)的核心组成部分。</p>
+<ul>
+<li><p>一方面，多核的SDRs，多核CPU和GPU提升了并行运算的能力。gpucpu的组合可以极大促进SDR处理包裹的带宽。是许多backbone网络的合适候选者。(competent candidate)</p>
+</li>
+<li><p>另一方面，为了解决backbone的网络，网络控制策略也许要提升性能，基于机器学习的智能网络控制系统逐步进入人们的眼球，监督，无监督，强化学习的技术可以在许多不同的网络情形下管理包裹的路由。随着深度学习的发展，使用深度学习算法来实现智能网络交通控制（尤其是路由管理）并且使用GPU加速的SDRs。</p>
+</li>
+</ul>
+<p>这篇文章的贡献有五：</p>
+<ol>
+<li><p>首先，我们从三个方面探讨路由策略，即网络流量控制，深度学习和CPU / GPU计算架构，如图1所示。</p>
+</li>
+<li><p>其次，我们提出了一种基于深度学习的GPU加速SDR路由表构建方法。在我们的提议中，我们采用受监督的深度信念架构<code>（DBA）deep belief architecture</code>来计算后续节点（路由器流量为输入）</p>
+</li>
+<li><p>第三，我们根据边缘路由器的传入流量模式，为我们采用的DBA提供输入和输出的唯一特征。根据所收集的数据训练所提出的DBA架构。此外，我们还演示了经过培训的DBA如何预测下一个节点。</p>
+</li>
+<li><p>第四，我们展示了基于深度学习的路由策略在较低信令开销和快速收敛方面的优势，从而显着改善了流量控制。</p>
+</li>
+<li><p>第五，通过分析和广泛的仿真结果，我们证明了我们提出的基于深度学习的解决方案与基准路由方法相比，有很大的性能提升。特别是，我们演示了我们的提案如何在GPU加速的SDR上工作，并在分析其复杂性后评估运行路由策略的时间成本。结果表明，所提出的路由策略在GPU上的运行速度比在CPU上快100多倍。</p>
+</li>
+</ol>
 <hr>
 
       
@@ -604,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入"><span class="nav-number">2.</span> <span class="nav-text">引入</span></a></li></ol></div>
             
 
           </div>
