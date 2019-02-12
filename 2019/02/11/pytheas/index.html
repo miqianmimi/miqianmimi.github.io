@@ -88,7 +88,7 @@
 <meta property="og:description" content="here for paper     Author: Junchen Jiang (CMU,Computer Science at The University of Chicago AP) Video Streaming, real-time">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/02/11/pytheas/ptheas.png">
-<meta property="og:updated_time" content="2019-02-11T16:01:22.561Z">
+<meta property="og:updated_time" content="2019-02-12T03:04:10.564Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pytheas (NSDI 2017) ☀">
 <meta name="twitter:description" content="here for paper     Author: Junchen Jiang (CMU,Computer Science at The University of Chicago AP) Video Streaming, real-time">
@@ -384,8 +384,20 @@
 <p>作者认为：<strong>类比机器学习</strong> ，数据驱动的QoE优化应该着手于 <strong>实时探索和利用</strong>取代一个预测问题。但是，在网络应用中采用E2会带来架构和算法的双重挑战。</p>
 <p>我们提出了Pytheas，这是一个使用基于E2机制解决这些挑战的框架。我们的见解是，可以对共享相同功能的应用程序会话进行分组，以便我们可以按群组粒度运行E2算法。在CloudLab中使用端到端实现和概念验证部署，我们展示了Pytheas改善视频QoE的结果。</p>
 <h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>我们观察到一个递增的趋势，基于采取数据驱动的方式来最优化应用层的QoE.这些方根据观察到的最近的session的QoE，来积极改善未来session的QoE。应用包括视频流，网络电话以及网络表现。</p>
-<p>现存的框架基本上都是，使用数据驱动的最优化，把这个问题抽象成一个预测问题。正如图之中显示的那样.他们使用消极层梁来阶段性的更新预测模型。更新后的预测模型会对于未来的session做出决策并生成最佳的QoE.</p>
+<p>现存的框架基本上都是，使用数据驱动的最优化，把这个问题抽象成一个预测问题。正如图中显示的那样.他们使用消极层梁来阶段性的更新预测模型。更新后的预测模型会对于未来的session做出决策并生成最佳的QoE.</p>
 <p><img src="/2019/02/11/pytheas/ptheas.png" alt=""></p>
+<p>以前的结构有2个缺点：</p>
+<ol>
+<li>QoE的收集和预测的过程是不同的过程(easily biased)</li>
+<li>预测和决定都是阶段性的更新(延迟)</li>
+</ol>
+<p>因此，我们认为数据驱动的优化应该被实时的E2结构替代。需要连续不断得在探索当前最优决策和发现次优决策中做平衡。实际应用有以下两个挑战：</p>
+<ol>
+<li>怎样跑一个实时的E2在数以万计的全球分布式session的新数据上（既要全球数据，又要新数据）</li>
+<li>怎样获取复杂的关系在E2的sessions之间</li>
+</ol>
+<p>传统的E2技术假定使用决策。<br>我们决定使用group-based E2(是因为作者发现了domain-specific的insight:有相同的网络session的两个video会有类似的情况)因此我们E2的方法是基于group的，所以可以在全球的各地集群上部署。用非常famous的E2算法。</p>
+<p>我们的实验整合了工业标准的标准数据处理平台—- Spark Kafka 他们提供了界面可以让QoE的评测上升到实时的全球的状态，Cloud-lab video player的结果显示Pytheas效果良好</p>
 
       
     </div>
