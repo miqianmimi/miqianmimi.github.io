@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="here for paper     Author:Mo Dong(UIUC)  congestion control, Reinforcement Learning .">
+<meta name="description" content="here for paper        Author:Mo Dong(UIUC)  congestion control, Reinforcement Learning .">
 <meta name="keywords" content="congestion control,Reinforcement Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PCC (NSDI 2015) ☀">
 <meta property="og:url" content="http://yoursite.com/2019/02/10/PCC/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="here for paper     Author:Mo Dong(UIUC)  congestion control, Reinforcement Learning .">
+<meta property="og:description" content="here for paper        Author:Mo Dong(UIUC)  congestion control, Reinforcement Learning .">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-10T12:19:52.108Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/10/PCC/effect.png">
+<meta property="og:updated_time" content="2019-02-13T15:20:13.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PCC (NSDI 2015) ☀">
-<meta name="twitter:description" content="here for paper     Author:Mo Dong(UIUC)  congestion control, Reinforcement Learning .">
+<meta name="twitter:description" content="here for paper        Author:Mo Dong(UIUC)  congestion control, Reinforcement Learning .">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/10/PCC/effect.png">
 
 
 
@@ -370,6 +372,9 @@
       
         <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://www.usenix.org/system/files/conference/nsdi15/nsdi15-paper-dong.pdf" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for paper </span></a> </p>
 
+
+
+
 <ul>
 <li>Author:<code>Mo Dong</code>(UIUC) </li>
 <li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">congestion control, Reinforcement Learning .</p>
@@ -379,6 +384,9 @@
 <hr>
 <a id="more"></a>
 <h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>由于基本的架构缺陷，TCP几乎没有希望实现高性能。提出PCC（面向结果的拥塞控制），其中每个发送者持续观察其“这一步的操作”与“经验性结果之间”的联系，使其能够始终如一地采用导致更好结果的操作。我们还证明PCC可以达到公平的稳定点。</p>
+<p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="http://modong.github.io/pcc-page/#pcc_arch" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for website </span></a> </p>
+
+
 <h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>TCP拥塞控制性能不佳体现在以下多方面：</p>
 <ul>
 <li>perform poorly on lossy links, </li>
@@ -413,8 +421,33 @@
 <li>14倍CUBIC 5.6倍的Illinois 在不断变化的网络情况下</li>
 <li>PCC和ICTCP表现相同，在数据中心incast网络情形下。</li>
 </ul>
+<h2 id="pcc-的网页版"><a href="#pcc-的网页版" class="headerlink" title="pcc 的网页版"></a><a href="http://modong.github.io/pcc-page/#pcc_arch" target="_blank" rel="noopener">pcc</a> 的网页版</h2><p>pcc:表现驱动的拥塞控制</p>
+<p><img src="/2019/02/10/PCC/effect.png" alt=""></p>
+<h3 id="TCP的劣势"><a href="#TCP的劣势" class="headerlink" title="TCP的劣势"></a>TCP的劣势</h3><p>TCP的表现差是因为TCP简单的hardwiring的包层面的事件-&gt;一些预先设定好的控制策略，并不理解真实的动作之后的表现。</p>
+<p>TCP假设网络处于某种状态（例如拥塞）并尝试通过触发预定的控制行为（例如，将窗口大小减半）作为对该假定状态的响应来优化性能</p>
+<p>但实际上的网络更为复杂：会有以下情况with bandwidth varying by 10,000x, virtualization, AQMs, middleboxes and software routers, shallow queues and bufferbloat, congestion loss and random loss.</p>
+<p>所以tcp的假设会失败，但是仍旧会实施不匹配的反应，这就会导致竭股肱的严重下降。</p>
 <hr>
-
+<h3 id="PCC的优势"><a href="#PCC的优势" class="headerlink" title="PCC的优势"></a>PCC的优势</h3><p>PCC从TCP失败的地方升起，PCC通过将控制动作（发送速率的变化）直接与其对实际性能的影响相关联。例如，当发送方将其速率更改为r并在以此速率发送后获取SACK时，PCC将这些数据包级事件聚合为有意义的性能指标（吞吐量，丢失率，延迟等），而不是触发任何预定的控制操作。并通过描述“高吞吐量和低损失率”等目标的效用函数将它们组合成数值u。通过这种理解特定发送速率的实际性能结果的能力，PCC直接观察并比较不同发送速率的结果效用，并学习如何通过控制算法调整其速率以改善经验效用。通过<strong>避免对潜在的复杂网络的任何假设</strong>，PCC跟踪经验上最优的发送速率，从而实现一致的高性能。</p>
+<hr>
+<h3 id="高性能开箱即用"><a href="#高性能开箱即用" class="headerlink" title="高性能开箱即用"></a>高性能开箱即用</h3><h4 id="互联网上的大数据传输"><a href="#互联网上的大数据传输" class="headerlink" title="互联网上的大数据传输"></a>互联网上的大数据传输</h4><p>基于我们在全球商业互联网上的大规模实验，PCC可以在44％的发送-接收对上以10倍击败TCP CUBIC（Linux内核默认值）。我们使用几个代表性样本来比较在使用 <strong>PCC，TCP以及用飞机携带100GB传输数据所需的时间。</strong></p>
+<h4 id="专用网络上的巨大数据传输"><a href="#专用网络上的巨大数据传输" class="headerlink" title="专用网络上的巨大数据传输"></a>专用网络上的巨大数据传输</h4><p>有大量数据（10TB /交付）？拥有一个快速的网络？可以提供专用网络容量吗？不要浪费你的能力！为了测试这种情况，我们在GENI（<a href="http://www.geni.net/）Internet2骨干网上配置了多个完全专用的800Mbps链路。以下是在PCC和TCP-Illinois中提供10TB数据的时间。" target="_blank" rel="noopener">http://www.geni.net/）Internet2骨干网上配置了多个完全专用的800Mbps链路。以下是在PCC和TCP-Illinois中提供10TB数据的时间。</a></p>
+<p>卫星互联网，在基于真实世界测量的模拟WINDS卫星互联网连接上，PCC提供的数据比TCP Hybla快17倍。</p>
+<p>快速变化的网络，我们在网络路径上测试了TCP和PCC，其中可用带宽，丢失率和RTT每5秒都在变化，带宽范围从10Mbps到100Mbps，延迟从10ms到100ms，丢失率从0％到1％。与TCP变体相比，PCC可以紧密跟踪最佳速率。</p>
+<p>我们还测试了:</p>
+<ul>
+<li>不可靠的有损链路（10-37X对比TCP伊利诺伊州）</li>
+<li>竞争发送方的RTT不均等（RTT不公平的架构解决方案）</li>
+<li>浅缓冲瓶颈链路（性能提高45倍，缓冲区减少13倍，达到90％吞吐量）</li>
+<li>数据中心的TCP内容，其中PCC的表现与专用的ICTCP相似。</li>
+</ul>
+<hr>
+<p>PCC的控制算法本质上是自私的。令人惊讶的是，它可以实现比TCP更公平和更稳定的收敛。以下是典型的哑铃拓扑收敛实验，100Mbps，30ms延迟瓶颈。四个流以500s间隔顺序到达。每个流发送2000s。</p>
+<h3 id="稳定收敛与公平性"><a href="#稳定收敛与公平性" class="headerlink" title="稳定收敛与公平性"></a>稳定收敛与公平性</h3><p>PCC稳定地收敛于公平点。</p>
+<p>TCP显示非常不稳定的行为。</p>
+<h3 id="灵活的表现目标"><a href="#灵活的表现目标" class="headerlink" title="灵活的表现目标"></a>灵活的表现目标</h3><p>PCC具有TCP系列范围之外的功能：PCC可以通过简单地插入不同的实用功能直接表达不同的数据传送目标。考虑一种想要获得高吞吐量和低延迟的交互式应用程序，即以优化吞吐量或者等待时间为目标，在先前文献中定义为“power”。</p>
+<p>当使用TCP传递数据时，这个交互式应用程序的用户将对落后的用户非常不满经验，因为TCP不知道低延迟目标，仍然积极地填充网络缓冲区并导致恼人的延迟，称为 <strong>bufferbloat</strong>。为了获得更好的延迟，需要像Codel这样的网内主动队列管理机制或协议栈的fork lift change。使用PCC时，<strong>可以简单地将数据传送目标吞吐量延迟作为效用函数插入。</strong>然后PCC的控制学习算法将控制发送速率，以凭经验优化该效用函数。</p>
+<h2 id="如下图所示，PCC比TCP更能满足交互式应用程序的目标，甚至比使用附加网络AQM的TCP实现更多功能"><a href="#如下图所示，PCC比TCP更能满足交互式应用程序的目标，甚至比使用附加网络AQM的TCP实现更多功能" class="headerlink" title="如下图所示，PCC比TCP更能满足交互式应用程序的目标，甚至比使用附加网络AQM的TCP实现更多功能."></a>如下图所示，PCC比TCP更能满足交互式应用程序的目标，甚至比使用附加网络AQM的TCP实现更多功能.</h2>
       
     </div>
     
@@ -630,7 +663,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pcc-的网页版"><span class="nav-number">3.</span> <span class="nav-text">pcc 的网页版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP的劣势"><span class="nav-number">3.1.</span> <span class="nav-text">TCP的劣势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCC的优势"><span class="nav-number">3.2.</span> <span class="nav-text">PCC的优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高性能开箱即用"><span class="nav-number">3.3.</span> <span class="nav-text">高性能开箱即用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#互联网上的大数据传输"><span class="nav-number">3.3.1.</span> <span class="nav-text">互联网上的大数据传输</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#专用网络上的巨大数据传输"><span class="nav-number">3.3.2.</span> <span class="nav-text">专用网络上的巨大数据传输</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#稳定收敛与公平性"><span class="nav-number">3.4.</span> <span class="nav-text">稳定收敛与公平性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#灵活的表现目标"><span class="nav-number">3.5.</span> <span class="nav-text">灵活的表现目标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如下图所示，PCC比TCP更能满足交互式应用程序的目标，甚至比使用附加网络AQM的TCP实现更多功能"><span class="nav-number">4.</span> <span class="nav-text">如下图所示，PCC比TCP更能满足交互式应用程序的目标，甚至比使用附加网络AQM的TCP实现更多功能.</span></a></li></ol></div>
             
 
           </div>
