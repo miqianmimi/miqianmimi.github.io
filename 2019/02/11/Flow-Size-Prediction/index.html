@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="online flow size prediction," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="here for paper     Author: Pascal Poupart">
+<meta name="description" content="here for paper     Author: Pascal Poupart(Waterloo)  Networks, Online flow size prediction, Routing">
+<meta name="keywords" content="online flow size prediction">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Flow-Size-Prediction">
 <meta property="og:url" content="http://yoursite.com/2019/02/11/Flow-Size-Prediction/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="here for paper     Author: Pascal Poupart">
+<meta property="og:description" content="here for paper     Author: Pascal Poupart(Waterloo)  Networks, Online flow size prediction, Routing">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-11T15:37:37.060Z">
+<meta property="og:updated_time" content="2019-02-15T15:06:03.215Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flow-Size-Prediction">
-<meta name="twitter:description" content="here for paper     Author: Pascal Poupart">
+<meta name="twitter:description" content="here for paper     Author: Pascal Poupart(Waterloo)  Networks, Online flow size prediction, Routing">
 
 
 
@@ -370,13 +371,26 @@
         <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://ieeexplore.ieee.org/abstract/document/7785324" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for paper </span></a> </p>
 
 <ul>
-<li>Author: Pascal Poupart</li>
-<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> </p>
+<li>Author: <a href="https://cs.uwaterloo.ca/~ppoupart/" target="_blank" rel="noopener">Pascal Poupart(Waterloo)</a></li>
+<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> Networks, Online flow size prediction, Routing</p>
 
 </li>
 </ul>
 <hr>
 <a id="more"></a>
+<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>这篇文章发表在ICNP(第26届IEEE国际网络协议会议上)。描述了在计算机网络环境中的数据挖掘的新应用。该应用是关于预测流量大小和检测大象流量（非常大的流量）的问题。流量大小是一个非常重要的统计数据，可用于改进计算机网络中的路由，负载平衡和调度。</p>
+<p>流量大小预测特别具有挑战性，因为流量模式不断变化，并且必须实时（毫秒）进行预测以避免延迟。我们描述了如何将这个问题抽象成online的机器学习任务来连续调整流量的变化。</p>
+<p><strong>我们基于三个真实流量数据集，评估了基于神经网络,高斯回归和在线贝叶斯的三个现实预测器的准确性。</strong>我们还表明了如何使用这种在线预测器来改进网络模拟中的路由（从而降低的流总完成时间。）</p>
+<h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>数据中心不断增长的对带宽的需求越来越大，可以通过multiplying多个链路来实现这一需求。一开始这不被认为是一个问题，然而，发现ecmp并不能够合理得分配flow，从而导致某些链路变得拥挤，而某些链路会变得很空闲，导致不公平分配的问题。</p>
+<p>这一问题的原因是flow的size变化很剧烈。(几千字节的小老鼠流mice flow到许多千兆字节的大象 elephant flow ）它们占用路径的时间差异很大（毫秒到几小时）</p>
+<p>因为大象的流很有可能被分配到同一链路，所以会导致拥塞的问题。<br>举个例子来说一些启发式 heuristic的算法比如ECMP，直接忽略了流的大小，并且直接平均分配流,会导致拥塞以及负载均衡的问题.<strong>流的大小在scheduling的技术上非常重要。因为要找到最小的平均FCT。</strong></p>
+<p>举个例子来说，short job first 是一个著名的有效的根据流的大小做的调度技术。</p>
+<hr>
+<p>最近的工作证明了对于一些应用预测和推断flow的大小是可行的。<strong>Mahout</strong> 安装了一个shim layer 在end hosts 来观察那些大象流,通过监测流的超出阈值的socket buffer。更普遍的来说，因为没有一种可行的方法来调整网络end hosts 上的网络堆栈。</p>
+<p>很多方法都是在检测到大象流在他们flow了一段时间后，因此他们只允许rerouting 和rescheduling<br>这种方法不是最理想的，因为拥塞会发生直到大象流被观察到，并且新的路径被选择了。因为Load balancing，大象流的行为会被消弱，来允许最小流没有delay的完成。</p>
+<p>我们提出使用数据挖掘，来估计每个流的大小，当它开始观察到大象流，而没有修改任何end host的应用。<strong>流大小的估测是基于机器学习的，可以被简单的加入到逻辑中心的控制器中对于SDN网络</strong>。这样的估测器可以使用第一个包裹的特征 <strong>packet size, header information 以及TCP synchronization</strong> 来预测每个flow的size当每个flow开始的时候。</p>
+<p><strong>预测的流大小就可以来作为routing和scheduling的模型的输入，提升网络的engineering并且减少流的完成时间。</strong> 在这篇工作中，我们描述了怎么使用三个个ml的方法(Gaussian process, Gaussian mixture model 和 Bayesian Moment Matching 和神经网络)来估计每个flow的大小，基于历史数据以及网络的流数据。</p>
+<p>这篇paper的结构如下：</p>
 
       
     </div>
@@ -391,6 +405,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/online-flow-size-prediction/" rel="tag"># online flow size prediction</a>
+          
+        </div>
       
 
       
@@ -465,8 +485,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -507,7 +536,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -566,6 +595,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
