@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="congestion control,Machine Learning," />
 
 
 
@@ -79,17 +79,20 @@
 
 
 
-<meta name="description" content="If life deals you lemons, make lemonade.">
+<meta name="description" content="here for paper     Author: Junchen Jiang (CMU,Computer Science at The University of Chicago AP) Video Streaming, real-time">
+<meta name="keywords" content="congestion control,Machine Learning">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Indigo">
+<meta property="og:title" content="Indigo (Sigcomm 2018)">
 <meta property="og:url" content="http://yoursite.com/2019/02/15/indigo/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="If life deals you lemons, make lemonade.">
+<meta property="og:description" content="here for paper     Author: Junchen Jiang (CMU,Computer Science at The University of Chicago AP) Video Streaming, real-time">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-15T03:32:35.798Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/15/indigo/indigo.png">
+<meta property="og:updated_time" content="2019-02-15T07:56:45.298Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Indigo">
-<meta name="twitter:description" content="If life deals you lemons, make lemonade.">
+<meta name="twitter:title" content="Indigo (Sigcomm 2018)">
+<meta name="twitter:description" content="here for paper     Author: Junchen Jiang (CMU,Computer Science at The University of Chicago AP) Video Streaming, real-time">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/15/indigo/indigo.png">
 
 
 
@@ -125,7 +128,7 @@
 
 
 
-  <title>Indigo | miqianmimi Ma</title>
+  <title>Indigo (Sigcomm 2018) | miqianmimi Ma</title>
   
 
 
@@ -279,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Indigo</h1>
+          <h1 class="post-title" itemprop="name headline">Indigo (Sigcomm 2018)</h1>
         
 
         <div class="post-meta">
@@ -302,6 +305,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/paper/" itemprop="url" rel="index">
+                    <span itemprop="name">paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -309,7 +334,7 @@
 
           
           
-             <span id="/2019/02/15/indigo/" class="leancloud_visitors" data-flag-title="Indigo">
+             <span id="/2019/02/15/indigo/" class="leancloud_visitors" data-flag-title="Indigo (Sigcomm 2018)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -345,7 +370,55 @@
       
 
       
-        
+        <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://www.cs.cmu.edu/~junchenj/pytheas.pdf" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for paper </span></a> </p>
+
+<ul>
+<li>Author: <a href="https://people.cs.uchicago.edu/~junchenj/" target="_blank" rel="noopener">Junchen Jiang</a> (CMU,Computer Science at The University of Chicago AP)</li>
+<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">Video Streaming, real-time </p>
+
+</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>Indigo是一种机器学习的拥塞控制方案，其设计我们从Pantheon收集的数据中提取.Pantheon的校准仿真器提供了一种替代方案：它们是可重现的，可以多次并行实例化。我们的高级策略是使用仿真器训练Indigo，然后使用Pantheon在现实世界中进行评估。</p>
+<p>Pantheon通过提供公共基准，不断发展的数据集和校准模拟器来实现逼真的离线培训和测试，以实现近似逼真的离线培训和测试。</p>
+<h2 id="Indigo的概要："><a href="#Indigo的概要：" class="headerlink" title="Indigo的概要："></a>Indigo的概要：</h2><p>Indigo做了两件核心的事情</p>
+<ul>
+<li>1.它观察到网络状态.</li>
+<li>2.它调整拥塞窗口.</li>
+</ul>
+<p>允许的飞行数据包数量。每次收到ACK时都会发生观察，其效果是更新Indigo的内部状态，定义如下。 Indigo每10毫秒调整它拥塞窗口。状态向量是：</p>
+<ul>
+<li>1.排队延迟的指数加权移动平均值（EWMA），测量为当前RTT和当前连接期间观察到的最小RTT之间的差值。</li>
+<li>2.发送速率的指数加权移动平均值EWMA，定义为自上一个ACK发送数据包发送以来发送的字节数除以RTT。</li>
+<li>3.接收速率的指数加权移动平均值EWMA，定义为自最近ACK确认分组传输之前的ACK以来接收的字节数除以相应的持续时间（类似于TCP,BBR的传送速率,并受其启发)。</li>
+<li>4.当前的拥塞窗口大小。</li>
+<li>5.前一步采取的行动。</li>
+</ul>
+<p>Indigo把states到actions存储为一个mapping在LSTM内具有一层32个隐藏单元。Indigo需要一个训练阶段，其中粗略地说，它学习从状态到动作的映射。<strong>经过训练和部署后，此映射是固定的。</strong></p>
+<p>我们注意到可能有更好的参数选择：</p>
+<ul>
+<li>隐藏单元的数量</li>
+<li>动作空间</li>
+<li>状态内容</li>
+</ul>
+<p>我们发现上述选择已经取得了良好的性能;进一步改进是未来的工作。作为验证我们选择的一步，我们训练和<br>测试了几个版本的Indigo，在模拟网络上有一系列隐藏单元，从1到256;16到128之间的选择产生了良好的性能。</p>
+<p>Indigo的训练阶段。 Indigo使用模仿学习来训练其神经网络。在较高的层次上，这有两个步骤：首先，我们生成一个或多个拥塞控制的理想化的算法，完美地映射状态以纠正行动，对应于要训练Indigo的网络链路。然后我们应用使用一个模仿学习的算法来生成训练数据。</p>
+<p>当然，现实世界的路径不存在任何oracle。相反，我们生成对应于模拟路径的oracles;这是可能的，因为Pantheon的仿真器参数很少。<strong>通过oracle的定义，如果我们知道给定链路的理想拥塞窗口，我们就有链接的oracle</strong>对于任何状态，输出哪个动作导致最接近理想值的拥塞窗口。</p>
+<p>一个关键的insight是，对于模拟链接，我们可以非常接近理想的拥塞窗口。对于具有固定带宽和最小单向延迟的简单链路，理想窗口由链路的 <strong>每个流的带宽延迟乘积（BDP）</strong> 给出。对于校准仿真器（具有DropTail队列，丢失等），计算BDP然后在仿真中搜索该值附近以找到最佳的固定拥塞窗口大小。</p>
+<hr>
+<blockquote>
+</blockquote>
+<p><strong>在产生每个训练链接相对应的拥塞控制oracle之后，我们使用称为DAgger的最先进的模仿学习算法来训练神经网络</strong>。对于每个训练链接，<strong>DAgger按如下方式训练Indigo的神经网络</strong>：首先，它允许神经网络在训练链路的仿真器上做出一系列拥塞控制决策，<strong>记录导致每个决策的状态向量。接下来，它使用拥塞控制oracle来标记与每个记录的状态向量相对应的正确动作</strong>。最后，它通过使用生成的状态动作映射作为训练数据来更新神经网络。重复该过程直到进一步训练不改变神经网络。</p>
+<hr>
+<h2 id="Indigo的表现"><a href="#Indigo的表现" class="headerlink" title="Indigo的表现:"></a>Indigo的表现:</h2><p>在本节中，我们将Indigo的性能与其他拥塞控制方案的性能进行了比较，并且评估了Pantheon校准仿真器对性能的影响，而不仅仅是对固定带宽，固定延迟仿真器的培训。</p>
+<p>我们在24个合成仿真器上训练Indigo，这些仿真器与Pantheon的真实网络路径和校准模拟器无关。合成仿真器包括（5,10,20,50,100和200Mbps）链路速率和（10,20,40,80ms）最小单向延迟的所有组合，具有无限缓冲且无损耗。</p>
+<p>Pantheon上的Indigo。我们发现Indigo始终如一地实现了良好的性能。图6将Indigo与两条有线路径上单流的其他方案进行了比较。在这两种情况下，Indigo都处于吞吐量/延迟权​​衡边界。</p>
+<p>图7显示了Indigo在多流情况下的表现。图7a显示了所有Pantheon的拥塞控制方案在从印度到AWS India的有线路径上的性能; Indigo再次展现其在吞吐量延迟权​​衡上的前沿表现。图7b是来自图7a的一个试验的时域图，表明至少在某些情况下，Indigo公平共享。</p>
+<p><img src="/2019/02/15/indigo/indigo.png" alt=""></p>
+<p>校准仿真器的好处。图6和图7还描绘了Indigo的变体，“Indigo w / o calib”，其仅在合成仿真器上训练，但不在校准的仿真器上训练。在校准模拟器上训练的版本总是最好或更好。</p>
+<hr>
+
       
     </div>
     
@@ -359,6 +432,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/congestion-control/" rel="tag"># congestion control</a>
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
       
 
       
@@ -429,8 +510,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -530,6 +620,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Indigo的概要："><span class="nav-number">2.</span> <span class="nav-text">Indigo的概要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Indigo的表现"><span class="nav-number">3.</span> <span class="nav-text">Indigo的表现:</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
