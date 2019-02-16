@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="QUIC（Quick UDP Internet Connections）是一种新的互联网传输协议，由Google开发。 QUIC解决了现代Web应用程序遇到的许多传输层和应用层问题，同时几乎不需要应用程序编写者进行任何更改。 QUIC与TCP + TLS + HTTP2非常相似，但是在 UDP 之上实现。将QUIC作为一个独立的协议，可以实现现有协议无法实现的创新，因为现有协议受到传统客户端和中间">
+<meta name="description" content="here for website     Author: Google udp, protocol">
 <meta name="keywords" content="protocol">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Quic">
 <meta property="og:url" content="http://yoursite.com/2019/02/16/quic/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="QUIC（Quick UDP Internet Connections）是一种新的互联网传输协议，由Google开发。 QUIC解决了现代Web应用程序遇到的许多传输层和应用层问题，同时几乎不需要应用程序编写者进行任何更改。 QUIC与TCP + TLS + HTTP2非常相似，但是在 UDP 之上实现。将QUIC作为一个独立的协议，可以实现现有协议无法实现的创新，因为现有协议受到传统客户端和中间">
+<meta property="og:description" content="here for website     Author: Google udp, protocol">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-16T03:26:17.598Z">
+<meta property="og:updated_time" content="2019-02-16T05:41:05.542Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Quic">
-<meta name="twitter:description" content="QUIC（Quick UDP Internet Connections）是一种新的互联网传输协议，由Google开发。 QUIC解决了现代Web应用程序遇到的许多传输层和应用层问题，同时几乎不需要应用程序编写者进行任何更改。 QUIC与TCP + TLS + HTTP2非常相似，但是在 UDP 之上实现。将QUIC作为一个独立的协议，可以实现现有协议无法实现的创新，因为现有协议受到传统客户端和中间">
+<meta name="twitter:description" content="here for website     Author: Google udp, protocol">
 
 
 
@@ -379,7 +379,17 @@
       
 
       
-        <p>QUIC（Quick UDP Internet Connections）是一种新的互联网传输协议，由Google开发。 QUIC解决了现代Web应用程序遇到的许多传输层和应用层问题，同时几乎不需要应用程序编写者进行任何更改。</p>
+        <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://www.chromium.org/quic" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for website </span></a> </p>
+
+<ul>
+<li>Author: Google</li>
+<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">udp, protocol</p>
+
+</li>
+</ul>
+<hr>
+<a id="more"></a>
+<p>QUIC（Quick UDP Internet Connections）是一种新的互联网传输协议，由Google开发。 QUIC解决了现代Web应用程序遇到的许多传输层和应用层问题，同时几乎不需要应用程序编写者进行任何更改。</p>
 <p>QUIC与TCP + TLS + HTTP2非常相似，但是在 <strong>UDP</strong> 之上实现。将QUIC作为一个独立的协议，可以实现现有协议无法实现的创新，因为现有协议受到传统客户端和中间盒的阻碍。</p>
 <p>QUIC优于TCP + TLS + HTTP2的主要优势包括：</p>
 <p>●连接建立延迟</p>
@@ -395,8 +405,8 @@
 <p>由于QUIC是从头开始设计用于多路复用操作的，因此丢失的携带单个流数据的数据包通常仅影响该特定流。可以在到达时立即将每个流帧分派到该流，因此可以继续重新组装没有丢失的流并在应用中前进。</p>
 <h2 id="前向纠错"><a href="#前向纠错" class="headerlink" title="前向纠错"></a>前向纠错</h2><p>为了从丢包中恢复，QUIC采用了FEC技术，更像RAID-4技术，会从FEC包裹中恢复，sender会决定是否发送FEC包裹来优化特殊的场景</p>
 <h2 id="连接整个"><a href="#连接整个" class="headerlink" title="连接整个"></a>连接整个</h2><p>QUIC 的连接是64-bit connection ID, TCP 连接是4-tuple source address source port destination port 以及destination address. 这意味着如果改变了IP地址或者port，TCP连接会不再合理，而QUIC的client当它change IP address 的时候，他会使用旧的连接ID, 继续从新的IP地址，而不会有interrupt.</p>
-<hr>
-
+<h2 id="UDT协议"><a href="#UDT协议" class="headerlink" title="UDT协议"></a>UDT协议</h2><p>基于UDP的数据传输协议（英语：UDP-based Data Transfer Protocol，缩写：UDT）是一种互联网数据传输协议。UDT的主要目的是支持 <strong>高速广域网上的海量数据传输</strong>，而互联网上的标准数据传输协议TCP在高带宽长距离网络上性能很差。</p>
+<h2 id="UDT由开源软件作者谷云洪在美国伊利诺伊大学芝加哥分校攻读博士期间开发，并由他在毕业后继续维护和升级。UDT的开源软件可以在SourceForge上获取。"><a href="#UDT由开源软件作者谷云洪在美国伊利诺伊大学芝加哥分校攻读博士期间开发，并由他在毕业后继续维护和升级。UDT的开源软件可以在SourceForge上获取。" class="headerlink" title="UDT由开源软件作者谷云洪在美国伊利诺伊大学芝加哥分校攻读博士期间开发，并由他在毕业后继续维护和升级。UDT的开源软件可以在SourceForge上获取。"></a>UDT由开源软件作者谷云洪在美国伊利诺伊大学芝加哥分校攻读博士期间开发，并由他在毕业后继续维护和升级。UDT的开源软件可以在SourceForge上获取。</h2>
       
     </div>
     
@@ -435,6 +445,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/16/scatter/" rel="prev" title="Scatter Knowledeg 🐣">
+                Scatter Knowledeg 🐣 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -515,7 +529,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -526,7 +540,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -537,7 +551,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">60</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -606,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#连接建立"><span class="nav-number">1.</span> <span class="nav-text">连接建立</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拥塞控制"><span class="nav-number">2.</span> <span class="nav-text">拥塞控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多路径问题"><span class="nav-number">3.</span> <span class="nav-text">多路径问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前向纠错"><span class="nav-number">4.</span> <span class="nav-text">前向纠错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接整个"><span class="nav-number">5.</span> <span class="nav-text">连接整个</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#连接建立"><span class="nav-number">1.</span> <span class="nav-text">连接建立</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拥塞控制"><span class="nav-number">2.</span> <span class="nav-text">拥塞控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多路径问题"><span class="nav-number">3.</span> <span class="nav-text">多路径问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前向纠错"><span class="nav-number">4.</span> <span class="nav-text">前向纠错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接整个"><span class="nav-number">5.</span> <span class="nav-text">连接整个</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDT协议"><span class="nav-number">6.</span> <span class="nav-text">UDT协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UDT由开源软件作者谷云洪在美国伊利诺伊大学芝加哥分校攻读博士期间开发，并由他在毕业后继续维护和升级。UDT的开源软件可以在SourceForge上获取。"><span class="nav-number">7.</span> <span class="nav-text">UDT由开源软件作者谷云洪在美国伊利诺伊大学芝加哥分校攻读博士期间开发，并由他在毕业后继续维护和升级。UDT的开源软件可以在SourceForge上获取。</span></a></li></ol></div>
             
 
           </div>
