@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="🐣 🐣 🐣 some scatter knowledge       Author:Yiqing Ma (Hongkong University of Science and Technology) udp, protocol     Scatter knowledge我们需要一個轻量级小工具，可以給他一些 symbol帮我們删掉不需要的分支，其他的地方不要乱动！這就是今天要介紹的 -">
+<meta name="description" content="some scatter knowledge     Author: Yiqing Ma (Hongkong University of Science and Technology) udp, protocol     Scatter knowledgesunifdef我们需要一個轻量级小工具，可以給他一些 symbol帮我們删掉不需要的分支，其他的地方不要乱动！這就是今天要介紹的 - su">
 <meta name="keywords" content="some linux function">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scatter Knowledeg 🐣">
 <meta property="og:url" content="http://yoursite.com/2019/02/16/scatter/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="🐣 🐣 🐣 some scatter knowledge       Author:Yiqing Ma (Hongkong University of Science and Technology) udp, protocol     Scatter knowledge我们需要一個轻量级小工具，可以給他一些 symbol帮我們删掉不需要的分支，其他的地方不要乱动！這就是今天要介紹的 -">
+<meta property="og:description" content="some scatter knowledge     Author: Yiqing Ma (Hongkong University of Science and Technology) udp, protocol     Scatter knowledgesunifdef我们需要一個轻量级小工具，可以給他一些 symbol帮我們删掉不需要的分支，其他的地方不要乱动！這就是今天要介紹的 - su">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-16T05:44:21.489Z">
+<meta property="og:updated_time" content="2019-02-17T03:40:41.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scatter Knowledeg 🐣">
-<meta name="twitter:description" content="🐣 🐣 🐣 some scatter knowledge       Author:Yiqing Ma (Hongkong University of Science and Technology) udp, protocol     Scatter knowledge我们需要一個轻量级小工具，可以給他一些 symbol帮我們删掉不需要的分支，其他的地方不要乱动！這就是今天要介紹的 -">
+<meta name="twitter:description" content="some scatter knowledge     Author: Yiqing Ma (Hongkong University of Science and Technology) udp, protocol     Scatter knowledgesunifdef我们需要一個轻量级小工具，可以給他一些 symbol帮我們删掉不需要的分支，其他的地方不要乱动！這就是今天要介紹的 - su">
 
 
 
@@ -368,21 +368,38 @@
       
 
       
-        <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> <i class="fa fa-pencil fa-lg"></i><span> 🐣 🐣 🐣 some scatter knowledge  </span>  </p>
+        <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> <i class="fa fa-pencil fa-lg"></i><span> some scatter knowledge  </span><br></p>
 
 <ul>
-<li>Author:Yiqing Ma (Hongkong University of Science and Technology)</li>
+<li>Author: <code>Yiqing Ma</code> (Hongkong University of Science and Technology)</li>
 <li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">udp, protocol</p>
 
 </li>
 </ul>
 <hr>
-<h1 id="Scatter-knowledge"><a href="#Scatter-knowledge" class="headerlink" title="Scatter knowledge"></a>Scatter knowledge</h1><p>我们需要一個轻量级小工具，可以給他一些 symbol帮我們删掉不需要的分支，其他的地方不要乱动！這就是今天要介紹的 - sunifdef。sunifdef 是 son of unifdef 的意思，unifdef 源自 FreeBSD。</p>
+<h1 id="Scatter-knowledge"><a href="#Scatter-knowledge" class="headerlink" title="Scatter knowledge"></a>Scatter knowledge</h1><h2 id="sunifdef"><a href="#sunifdef" class="headerlink" title="sunifdef"></a>sunifdef</h2><p>我们需要一個轻量级小工具，可以給他一些 symbol帮我們删掉不需要的分支，其他的地方不要乱动！這就是今天要介紹的 - sunifdef。sunifdef 是 son of unifdef 的意思，unifdef 源自 FreeBSD。</p>
 <p>sunifdef 參數很多，不過以下範例應該可以解決大部分問題：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sunifdef<span class="selector-class">.exe</span> --file argfile --constant eval,<span class="selector-tag">del</span> xyz.c</span><br></pre></td></tr></table></figure>
 <p>–constant eval,del 告诉 sunifdef 碰到 #if… 時要如何处理，eval,del 代表计算出常数值 = 0 就刪除该区块：</p>
-<hr>
-
+<h2 id="man"><a href="#man" class="headerlink" title="man"></a>man</h2><p>man手册页的操作指令：</p>
+<p>按q退出，这个最重要，因为Ctrl+C都没法退出来</p>
+<p>按下箭头可以往后一行</p>
+<p>按回车或者上箭头可以往前一行</p>
+<p>按End键可以翻到最后一页</p>
+<p>按Home键可以翻到第一页</p>
+<p>按空白键或者PgDn键可以往后翻一页</p>
+<p>按PgUp键可以往前翻一页</p>
+<p>输入/keyword回车可以搜索keyword</p>
+<p>输入?keyword回车可以往前搜索keyword</p>
+<p>按n可以往前或往后搜索下一个</p>
+<h2 id="tmux"><a href="#tmux" class="headerlink" title="tmux"></a>tmux</h2><p>tmux 是一款终端复用命令行工具，一般用于 Terminal 的窗口管理。在 macOS 下，使用 iTerm2 能应付绝大多数窗口管理的需求。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctrl <span class="selector-tag">b</span> +</span><br></pre></td></tr></table></figure>
+<h2 id="uname-r"><a href="#uname-r" class="headerlink" title="uname -r"></a>uname -r</h2><p>可以查看内核的版本<br>执行命令update-grub，更新grub引导使用新的内核。<br>sudo grub-reboot 4<br>sudo reboot now</p>
+<h2 id="c4-2XL"><a href="#c4-2XL" class="headerlink" title="c4-2XL"></a>c4-2XL</h2><p>C4.2XL  C4.2XL<br>EW2 instance 一台机子的名称</p>
+<h2 id="Emulab"><a href="#Emulab" class="headerlink" title="Emulab"></a>Emulab</h2><p>A time- and space-shared platform for research, education, and development in distributed systems and networks. Emulab’s primary goals are ease of use, control, and realism, achieved through consistent use of virtualization and abstraction.<br>分布式系统和网络中的研究，教育和开发的时间和空间共享平台。Emulab的主要目标是通过一致使用虚拟化和抽象实现易用性，控制和真实性。<br><strong>Emulab和mininet的区别是啥？？？？</strong></p>
+<h2 id="ipfw"><a href="#ipfw" class="headerlink" title="ipfw"></a>ipfw</h2><p>IPFW IPFW是为FreeBSD编写的状态防火墙，支持IPv4和IPv6。它由几个组件组成：内核防火墙过滤规则处理器及其集成的数据包计费工具，日志记录工具，NAT，虚拟网络（4）流量整形器，转发设施，桥接设施和ipstealth设施。</p>
+<h2 id="iperf"><a href="#iperf" class="headerlink" title="iperf"></a>iperf</h2><p>iperf命令是一个网络性能测试工具。iperf可以测试TCP和UDP带宽质量。iperf可以测量最大TCP带宽，具有多种参数和UDP特性。iperf可以报告带宽，延迟抖动和数据包丢失。利用iperf这一特性，可以用来测试一些网络设备如路由器，防火墙，交换机等的性能。</p>
+<h2 id="iperf分为两种版本，Unix-Linux版和Windows版，Unix-Linux版更新比较快，版本最新。Windows版更新慢。Windows版的iperf叫jperf，或者xjperf。jperf是在iperf基础上开发了更好的UI和新的功能。"><a href="#iperf分为两种版本，Unix-Linux版和Windows版，Unix-Linux版更新比较快，版本最新。Windows版更新慢。Windows版的iperf叫jperf，或者xjperf。jperf是在iperf基础上开发了更好的UI和新的功能。" class="headerlink" title="iperf分为两种版本，Unix/Linux版和Windows版，Unix/Linux版更新比较快，版本最新。Windows版更新慢。Windows版的iperf叫jperf，或者xjperf。jperf是在iperf基础上开发了更好的UI和新的功能。"></a>iperf分为两种版本，Unix/Linux版和Windows版，Unix/Linux版更新比较快，版本最新。Windows版更新慢。Windows版的iperf叫jperf，或者xjperf。jperf是在iperf基础上开发了更好的UI和新的功能。</h2>
       
     </div>
     
@@ -421,6 +438,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/17/pcc-244/" rel="prev" title="Pcc-244">
+                Pcc-244 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -501,7 +522,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -523,7 +544,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -592,7 +613,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Scatter-knowledge"><span class="nav-number">1.</span> <span class="nav-text">Scatter knowledge</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Scatter-knowledge"><span class="nav-number">1.</span> <span class="nav-text">Scatter knowledge</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sunifdef"><span class="nav-number">1.1.</span> <span class="nav-text">sunifdef</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#man"><span class="nav-number">1.2.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux"><span class="nav-number">1.3.</span> <span class="nav-text">tmux</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#uname-r"><span class="nav-number">1.4.</span> <span class="nav-text">uname -r</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#c4-2XL"><span class="nav-number">1.5.</span> <span class="nav-text">c4-2XL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Emulab"><span class="nav-number">1.6.</span> <span class="nav-text">Emulab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ipfw"><span class="nav-number">1.7.</span> <span class="nav-text">ipfw</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iperf"><span class="nav-number">1.8.</span> <span class="nav-text">iperf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iperf分为两种版本，Unix-Linux版和Windows版，Unix-Linux版更新比较快，版本最新。Windows版更新慢。Windows版的iperf叫jperf，或者xjperf。jperf是在iperf基础上开发了更好的UI和新的功能。"><span class="nav-number">1.9.</span> <span class="nav-text">iperf分为两种版本，Unix/Linux版和Windows版，Unix/Linux版更新比较快，版本最新。Windows版更新慢。Windows版的iperf叫jperf，或者xjperf。jperf是在iperf基础上开发了更好的UI和新的功能。</span></a></li></ol></li></ol></div>
             
 
           </div>
