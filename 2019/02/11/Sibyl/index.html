@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="miqianmimi Ma">
 <meta property="og:description" content="here for paper     Author:Ítalo Cunha">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-11T15:33:47.031Z">
+<meta property="og:updated_time" content="2019-02-19T09:12:52.637Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Sibyl (NSDI 2016) ☀">
 <meta name="twitter:description" content="here for paper     Author:Ítalo Cunha">
@@ -377,6 +377,43 @@
 </ul>
 <hr>
 <a id="more"></a>
+<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>网络运营商测量互联网路线来解决问题，研究人员测量路线以表征互联网。然而，他们仍然依赖几十年前的工具，如traceroute，BGP路由收集器和Lookingglasses。</p>
+<p>本文介绍了Sibyl，这是一个系统，它将研究人员和操作员的丰富查询作为正则表达式，然后发出并返回匹配的traceroutes。</p>
+<p>它的实现分为3个步骤：</p>
+<ol>
+<li><p>为了最大限度地覆盖互联网路由，Sibyl将各种各样的traceroute有利位置集成在一起，提供互补的视图。</p>
+</li>
+<li><p>用户可能不知道哪些测量将遍历有利的路径。由于有利位置资源限制使Sibyl无法跟踪所有来源的所有目的地，Sibyl使用历史测量来预测哪些新的可能的查询匹配。</p>
+</li>
+<li><p>Sibyl针对并发查询进行优化，以确定在给定资源约束下发出哪些度量。</p>
+</li>
+</ol>
+<h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>路由测量可以揭示邪恶的hijacks以及不可逆转的routing路由泄露，路由测量也可以被用来理解网络结构和表现。</p>
+<h3 id="理想的情况：一个网络路由预示-route-oracle"><a href="#理想的情况：一个网络路由预示-route-oracle" class="headerlink" title="理想的情况：一个网络路由预示(route oracle)"></a>理想的情况：一个网络路由预示(route oracle)</h3><p>需要有一个平台来更好得对路由做可视化，哪个Tor出口节点有路由到达我的目的地，不穿越美国？能够回答这些问题的平台可以做得更好，了解并加快研究人员的故障排除。</p>
+<h3 id="事实的情况：跟踪路由"><a href="#事实的情况：跟踪路由" class="headerlink" title="事实的情况：跟踪路由"></a>事实的情况：跟踪路由</h3><p>虽然这样一个平台非常有用，但今天的现实远非如此。我们被像traceroute这样的工具困住了。虽然traceroute很简单，广泛使用。但实际上，traceroute提供了非常有限的能力，它只能回答“从这里到那里的路径是什么？What is the path from here to there?</p>
+<h3 id="我们的贡献：一个实用的基于traceroute的oracle。"><a href="#我们的贡献：一个实用的基于traceroute的oracle。" class="headerlink" title="我们的贡献：一个实用的基于traceroute的oracle。"></a>我们的贡献：一个实用的基于traceroute的oracle。</h3><p>虽然在没有对网络进行根本性改变的情况下，完整的互联网路由预测显然是不可行的，但我们证明，只使用可用的有利位置(vantage points)和测量工具，结果可以做到惊人地接近。</p>
+<p>我们提出了Sibyl,我们的系统可以提供有关Internet路由的丰富查询。Sibyl的界面简单但功能强大：用户提交感兴趣路径的正则表达式，Sibyl返回匹配的路径。无需担心要使用哪些有利位置，如何访问或配置它们，或者要定位哪些目的地。在幕后，Sibyl从各种各样的有利位置发出追踪路线，目标是找到合适的满足查询要求的路径。</p>
+<h3 id="问题：资源限制限制了测量预算"><a href="#问题：资源限制限制了测量预算" class="headerlink" title="问题：资源限制限制了测量预算"></a>问题：资源限制限制了测量预算</h3><p>尽管多组有利位置的集成提供了改善覆盖范围的潜力，但大多数有利位置都严重受限于它们可以发出的测量数量。之所以出现这种限制是因为最多样化的有利位置集合在家庭网络，个人电话和生产设备上。因此，详尽的探测回答查询是不可行的。</p>
+<p>构建Sibyl以服务于任何查询的主要挑战是，由于其探测预算有限，它可能以前从未测量过与查询匹配的路径，或者即使它确实如此，路径也可能已经改变。因此，尽管不确定哪些测量与查询匹配，但仍需要提供查询。</p>
+<h3 id="我们的方法：根据预测分配测量预算。"><a href="#我们的方法：根据预测分配测量预算。" class="headerlink" title="我们的方法：根据预测分配测量预算。"></a>我们的方法：根据预测分配测量预算。</h3><p>我们克服这一挑战的主要技术贡献是三方面的。</p>
+<ul>
+<li><p>首先，我们演示了Sibyl如何使用查询结构将注意力集中在少量的traceroutes上以考虑issueing。</p>
+</li>
+<li><p>其次，我们设计了一个预测引擎，该引擎使用先前发布的跟踪路由的图集来预测哪些未发布的跟踪路由可能与输入查询匹配（第5节）。</p>
+</li>
+<li><p>第三，我们开发了一个优化框架，使用预测将Sibyl的探测预算分配给测量，以最大限度地满足输入查询。</p>
+</li>
+</ul>
+<p>构建有效的预测引擎需要解决潜在的不准确原因。</p>
+<ul>
+<li><p>首先，由于路由策略建模的不准确性，即使是最新的地图集，预测引擎也可能导致不正确的预测。</p>
+</li>
+<li><p>其次，地图集中的测量值可能会过时。因此，我们开发了评估预测正确性的可能技术，允许Sibyl将可能性纳入其优化中。</p>
+</li>
+<li><p>并且我们开发了Sibyl可用于识别和修补或丢弃可能不再是的路径的轻量级方法。</p>
+</li>
+</ul>
+
       
     </div>
     
@@ -464,8 +501,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -565,6 +611,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理想的情况：一个网络路由预示-route-oracle"><span class="nav-number">2.1.</span> <span class="nav-text">理想的情况：一个网络路由预示(route oracle)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事实的情况：跟踪路由"><span class="nav-number">2.2.</span> <span class="nav-text">事实的情况：跟踪路由</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我们的贡献：一个实用的基于traceroute的oracle。"><span class="nav-number">2.3.</span> <span class="nav-text">我们的贡献：一个实用的基于traceroute的oracle。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题：资源限制限制了测量预算"><span class="nav-number">2.4.</span> <span class="nav-text">问题：资源限制限制了测量预算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#我们的方法：根据预测分配测量预算。"><span class="nav-number">2.5.</span> <span class="nav-text">我们的方法：根据预测分配测量预算。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
