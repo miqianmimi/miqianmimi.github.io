@@ -89,14 +89,14 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/图7.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/图12.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/队列扫描结果1">
-<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/队列扫描结果2">
-<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/公平性1">
-<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/公平性2">
-<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/公平性3">
-<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/公平性4">
-<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/公平性5">
-<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/公平性6">
+<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/队列扫描结果1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/队列扫描结果2.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/公平性1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/公平性2.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/公平性3.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/公平性4.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/公平性5.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/公平性6.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/图6&图15.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/延迟公平.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/流完成时间.png">
@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/对比4.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/友好1.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/17/pcc-244/友好2.png">
-<meta property="og:updated_time" content="2019-02-17T08:05:43.790Z">
+<meta property="og:updated_time" content="2019-02-19T05:52:36.835Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pcc-244">
 <meta name="twitter:description" content="here for paper     Author: Stanford Students  PCC, congestion control">
@@ -423,10 +423,10 @@
 <p>我们的两个实验需要单独的拓扑。我们使用简单的两个主机网络运行浅缓冲区队列实验，在Mininet和Emulab的中间有一个开关。一个链路设置为1000 Mb / s，瓶颈设置为100 Mb / s。队列大小范围为5-275个数据包。对于公平拓扑，我们创建了一个wishbone network(叉骨网络)，每个发送器和接收器都有一个单独的主机，中间有两个交换机。瓶颈是两个交换机之间的链路，设置速度为100 Mbps。我们选择了一个可以处理带宽延迟乘积的队列大小，以允许TCP实现最大吞吐量，我们计算得到这个队列大小事250个数据包。对于叉骨网络，我们还使用Mininet和Emulab。但是，由于资源有限，我们只能在Emulab上获得两个主机接收的万用网，这限制了我们可以发送的流量。</p>
 <p>在这两种环境中，我们使用来自提供的可执行文件——appclient和appserver，以及使用iperf的TCP吞吐量来测量PCC吞吐量。在这两种情况下，吞吐量平均超过60秒，与原始工作一样。我们使用具有本文评估的效用函数的PCC实现。两个实验都使用TCP Cubic与PCC进行比较，因为Cubic包含在我们复制的两个原始数据中，并且是大多数操作系统的默认值。</p>
 <h3 id="浅队列结果："><a href="#浅队列结果：" class="headerlink" title="浅队列结果："></a>浅队列结果：</h3><p>Emulab和Mininet队列扫描的结果如下所示：</p>
-<p><img src="/2019/02/17/pcc-244/队列扫描结果1" alt=""><br><img src="/2019/02/17/pcc-244/队列扫描结果2" alt=""></p>
+<p><img src="/2019/02/17/pcc-244/队列扫描结果1.png" alt=""><br><img src="/2019/02/17/pcc-244/队列扫描结果2.png" alt=""></p>
 <p>基于Mininet图，PCC在Mininet设置上表现不佳，而不是以原始浅队列图中显示的速率增加。对于Emulab设置而言，PCC符合预期。请注意，TCPCubic的结果在两种环境之间几乎相同。在与Mo Dong谈话并阅读之前的CS244-PCC实验后，我们认为mininet中情况差是因为PCC实施依赖于准确的pacing时间。<strong>先前的CS244复现，观察到在虚拟化环境中通过具有浅缓冲器的仿真网络运行PCC时也会有类似的情况很差。目前的假设是PCC依赖于在特定时间发送数据包</strong>，但由于Ec2实例的主机操作系统周期性中断，当主机操作系统唤醒时，PCC的均匀节奏会降低为发送更大批量的数据包。必要时，小型缓冲网络在这种突发情况中，丢弃的数据包比在预定时间发送所有数据包要多。<strong>这个假设可以解释我们的结果，这表明随着我们增加瓶颈缓冲区大小，PCC性能接近预期值。</strong></p>
 <p>注意：我们尝试在专用主机上运行此实验以缓解这些问题，但即使在较大的缓冲区大小，我们实际上也看到了更多的情况不变差。回想起来，这可能是由于我们的专用主机是单核机器，这使得PCC发送器和接收器相互中断并进一步降低节奏。</p>
-<h3 id="趋同和公平结果："><a href="#趋同和公平结果：" class="headerlink" title="趋同和公平结果："></a>趋同和公平结果：</h3><p>以下图像显示了我们在Emulab和Mininet中运行并发PCC和TCP流的结果：<br><img src="/2019/02/17/pcc-244/公平性1" alt=""><br><img src="/2019/02/17/pcc-244/公平性2" alt=""><br><img src="/2019/02/17/pcc-244/公平性3" alt=""><br><img src="/2019/02/17/pcc-244/公平性4" alt=""><br><img src="/2019/02/17/pcc-244/公平性5" alt=""><br><img src="/2019/02/17/pcc-244/公平性6" alt=""><br>虽然我们的Emulab设置只包括两个发送器和接收器，但我们看到这两个流很快收敛到相同的值并且在运行期间经历了很小的变化，这与原始论文的实验一致。我们运行了几个不同的实例，得到了不同的结果。在m3-large（2 vCPUS），上面显示的“mininet多流”图中，PCC流比TCP流更稳定和更公平，但仍然比原始论文中的图11的流的变化更大。在具有8个虚拟CPU的c4-2XL实例上运行，我们实现了最终结果。即上面看到的“8核mininet多流”图。在这种情况下，不同流量的稳定性和公平性与PCC作者所看到的相当。我们已经包含了一个2流Mininet运行图（在m3-large上），以提供与Emulab数据更好的视觉比较。<br>（8核的结果最符合原始paper）</p>
+<h3 id="趋同和公平结果："><a href="#趋同和公平结果：" class="headerlink" title="趋同和公平结果："></a>趋同和公平结果：</h3><p>以下图像显示了我们在Emulab和Mininet中运行并发PCC和TCP流的结果：<br><img src="/2019/02/17/pcc-244/公平性1.png" alt=""><br><img src="/2019/02/17/pcc-244/公平性2.png" alt=""><br><img src="/2019/02/17/pcc-244/公平性3.png" alt=""><br><img src="/2019/02/17/pcc-244/公平性4.png" alt=""><br><img src="/2019/02/17/pcc-244/公平性5.png" alt=""><br><img src="/2019/02/17/pcc-244/公平性6.png" alt=""><br>虽然我们的Emulab设置只包括两个发送器和接收器，但我们看到这两个流很快收敛到相同的值并且在运行期间经历了很小的变化，这与原始论文的实验一致。我们运行了几个不同的实例，得到了不同的结果。在m3-large（2 vCPUS），上面显示的“mininet多流”图中，PCC流比TCP流更稳定和更公平，但仍然比原始论文中的图11的流的变化更大。在具有8个虚拟CPU的c4-2XL实例上运行，我们实现了最终结果。即上面看到的“8核mininet多流”图。在这种情况下，不同流量的稳定性和公平性与PCC作者所看到的相当。我们已经包含了一个2流Mininet运行图（在m3-large上），以提供与Emulab数据更好的视觉比较。<br>（8核的结果最符合原始paper）</p>
 <p>为了量化PCC对TCP的改进，我们记录了四流(多流)实验的统计数据。我们测量了平均值Jain的公平性指数，这是一个标准度量，当多个流以100s的时间间隔获得更多的吞吐量时接近1。<strong>我们还包括平均标准偏差作为每个流量稳定性的度量，其中较高的吞吐量标准偏差对应于较大的不稳定性</strong>。我们对每个间隔的记录的统计数据进行平均化。例如，我们对t=1000-1500s和t=2000-2500s的吞吐量数据进行了3次流量统计。</p>
 <p>数据显示，在我们的实验过程中，多个PCC发送者具有更好的稳定性和公平性。在c4-2XL上运行的实验显示与原始论文中报告的结果相当的公平性，其中所有以100s间隔的JFI（jain的公平性指数）在0.98和0.99之间。</p>
 <h2 id="挑战："><a href="#挑战：" class="headerlink" title="挑战："></a>挑战：</h2><ul>
