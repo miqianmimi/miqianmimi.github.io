@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="here for paper     Author:Keith Winstein(MIT Now is already Stanford’s AP teaching CS244) and Hari Balakrishnan  congestion control, computer-generated algorithms.">
+<meta name="description" content="here for website     Author:Keith Winstein(MIT Now is already Stanford’s AP teaching CS244) and Hari Balakrishnan  congestion control, computer-generated algorithms.">
 <meta name="keywords" content="congestion control">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Remy (Sigcomm 2013) ☀">
 <meta property="og:url" content="http://yoursite.com/2019/02/10/Remy/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="here for paper     Author:Keith Winstein(MIT Now is already Stanford’s AP teaching CS244) and Hari Balakrishnan  congestion control, computer-generated algorithms.">
+<meta property="og:description" content="here for website     Author:Keith Winstein(MIT Now is already Stanford’s AP teaching CS244) and Hari Balakrishnan  congestion control, computer-generated algorithms.">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/02/10/Remy/remy1.png">
-<meta property="og:updated_time" content="2019-02-10T06:37:36.312Z">
+<meta property="og:updated_time" content="2019-02-20T10:58:04.911Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Remy (Sigcomm 2013) ☀">
-<meta name="twitter:description" content="here for paper     Author:Keith Winstein(MIT Now is already Stanford’s AP teaching CS244) and Hari Balakrishnan  congestion control, computer-generated algorithms.">
+<meta name="twitter:description" content="here for website     Author:Keith Winstein(MIT Now is already Stanford’s AP teaching CS244) and Hari Balakrishnan  congestion control, computer-generated algorithms.">
 <meta name="twitter:image" content="http://yoursite.com/2019/02/10/Remy/remy1.png">
 
 
@@ -370,7 +370,7 @@
       
 
       
-        <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="http://nms.csail.mit.edu/papers/sigcomm13.pdf" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for paper </span></a> </p>
+        <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="http://web.mit.edu/remy/" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for website </span></a> </p>
 
 <ul>
 <li>Author:<code>Keith Winstein</code>(MIT Now is already Stanford’s AP teaching CS244) and <code>Hari Balakrishnan</code> </li>
@@ -398,6 +398,9 @@
 <p>Stream Control Transmission Protocol ，简写：SCTP</p>
 <p>Request for Comments: 3124 The Congestion Manager :CM</p>
 </blockquote>
+<h2 id="Bufferbloat"><a href="#Bufferbloat" class="headerlink" title="Bufferbloat:"></a>Bufferbloat:</h2><p>这现在是一个知名的问题，一些类型的网关不愿意丢弃它们缓冲区中保持的数据包。今天的TCP填补了瓶颈网关中的缓冲区，导致在同一路径上传输的其他数据包出现大量延迟。这使得很难通过有限调制解调器同时进行Skype 呼叫和上传。</p>
+<p>一些研究人员雄辩地指出，网络运营商和实施者应该修改基础设施以使用更短的缓冲区或智能队列管理方案，例如最近的CoDel和用于不同流的单独队列。但是修改每个地方都有太多的缓冲每个LTE基站，手机内的每个LTE基带芯片，以及每个有线调制解调器都可能是一场艰苦的战斗。</p>
+<p>我们的工作表明，在某些情况下，只需修改竞争端点，就可以在不修改网络基础设施的情况下实现可比较或更高的性能。哪条路线更容易取决于您所处的位置，并且要明确，CoDel是在Linux中实施的实际方案，而Remy是在模拟中测量的学术研究，因此声称实际奇偶校验为时尚早。但Remy建议对同一问题有一种替代的，可能更易部署的解决方案。</p>
 <hr>
 
       
@@ -613,7 +616,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#专有名词："><span class="nav-number">3.</span> <span class="nav-text">专有名词：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#专有名词："><span class="nav-number">3.</span> <span class="nav-text">专有名词：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bufferbloat"><span class="nav-number">4.</span> <span class="nav-text">Bufferbloat:</span></a></li></ol></div>
             
 
           </div>

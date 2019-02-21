@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="here for paper     Author: Hongzi Mao (MIT Computer Science and Artificial Intelligence Laboratory)">
+<meta name="description" content="here for paper     Author: Hongzi Mao (MIT Computer Science and Artificial Intelligence Laboratory) Deep Learning, Resource Management">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DeepRM (Hotnets 16) ☀">
 <meta property="og:url" content="http://yoursite.com/2019/02/11/DeepRM/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="here for paper     Author: Hongzi Mao (MIT Computer Science and Artificial Intelligence Laboratory)">
+<meta property="og:description" content="here for paper     Author: Hongzi Mao (MIT Computer Science and Artificial Intelligence Laboratory) Deep Learning, Resource Management">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-11T15:31:16.686Z">
+<meta property="og:updated_time" content="2019-02-21T10:13:57.131Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DeepRM (Hotnets 16) ☀">
-<meta name="twitter:description" content="here for paper     Author: Hongzi Mao (MIT Computer Science and Artificial Intelligence Laboratory)">
+<meta name="twitter:description" content="here for paper     Author: Hongzi Mao (MIT Computer Science and Artificial Intelligence Laboratory) Deep Learning, Resource Management">
 
 
 
@@ -371,11 +371,43 @@
 
 <ul>
 <li>Author: <a href="http://people.csail.mit.edu/hongzi/" target="_blank" rel="noopener">Hongzi Mao</a> (MIT Computer Science and Artificial Intelligence Laboratory)</li>
-<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"></p></li>
-<li><p></p></li>
+<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"><br>Deep Learning, Resource Management </p>
+
+</li>
 </ul>
 <hr>
 <a id="more"></a>
+<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>系统和网络中的资源管理问题通常表现为难以在线的决策制定任务，其中适当的解决方案依赖于理解工作负载和环境。 <strong>受到AI问题深度强化学习的最新进展的启发，我们考虑构建学习直接从经验中管理资源的系统</strong>。我们提供 <strong>DeepRM</strong>，这是一个示例解决方案，可将具有多种资源需求的打包任务问题转化为学习问题。初步结果表明，DeepRM与最先进的启发式算法相比，能够适应不同的条件，快速收敛，并学习合理的策略。</p>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入:"></a>引入:</h2><p>资源管理问题在计算机系统和网络中无处不在。例子包括</p>
+<ul>
+<li>计算集群中的作业调度</li>
+<li>视频流中的比特率自适应</li>
+<li>网络电话中的中继选择</li>
+<li>云计算中的虚拟机放置</li>
+<li>拥塞控制等等。</li>
+</ul>
+<p>通常做法：</p>
+<ul>
+<li>（1）提出一个聪明的启发式方法来简化问题的模型; </li>
+<li>（2）在实践中精心测试和调整启发式方法以获得良好的性能。</li>
+</ul>
+<p>为什么现实世界资源管理问题具有挑战性？</p>
+<ol>
+<li>底层系统很复杂，通常无法准确建模。例如，在集群调度中，任务的运行时间因数据位置而异。</li>
+<li>实际的实例化必须通过噪声输入做出在线决策，并且在不同条件下工作良好。</li>
+<li>一些感兴趣的性能指标，例如尾部性能，很难以原则方式进行优化</li>
+</ol>
+<p>=&gt; 机器学习 =&gt; 系统能学会自己管理资源吗？</p>
+<p>RL很适合资源管理问题：</p>
+<ul>
+<li>首先，这些系统做出的决策往往是高度重复的，因此为RL算法生成了大量的训练数据</li>
+<li>其次，RL可以将复杂系统和决策策略建模为类似于用于游戏代理的模型的深度神经网络</li>
+<li>第三，如果存在与目标相关的奖励信号，有可能直接训练因为缺乏精确的模型而难以优化的目标</li>
+<li>RL-agent可以针对特定工作负载（例如，小作业，低负载，周期性）进行优化，在不同的条件下</li>
+</ul>
+<p>策略梯度强化学习算法在§3.3中描述。</p>
+<p>使用强化学习在真实环境部署会遇到更多的挑战，比如启发式算法会更容易增量得部署。</p>
+
       
     </div>
     
@@ -463,8 +495,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -564,6 +605,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入"><span class="nav-number">2.</span> <span class="nav-text">引入:</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

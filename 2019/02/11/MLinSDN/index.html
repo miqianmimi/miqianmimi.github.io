@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="here for paper     Author: Pedro Amaral">
+<meta name="description" content="here for paper     Author: Pedro Amaral  Software defined Networks; Machine Learning; Data Analysis; Traffic Classification">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MLinSDN ☀">
 <meta property="og:url" content="http://yoursite.com/2019/02/11/MLinSDN/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="here for paper     Author: Pedro Amaral">
+<meta property="og:description" content="here for paper     Author: Pedro Amaral  Software defined Networks; Machine Learning; Data Analysis; Traffic Classification">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-19T09:15:57.990Z">
+<meta property="og:updated_time" content="2019-02-21T10:25:15.156Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MLinSDN ☀">
-<meta name="twitter:description" content="here for paper     Author: Pedro Amaral">
+<meta name="twitter:description" content="here for paper     Author: Pedro Amaral  Software defined Networks; Machine Learning; Data Analysis; Traffic Classification">
 
 
 
@@ -370,13 +370,32 @@
         <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://ieeexplore.ieee.org/document/7785327" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for paper </span></a> </p>
 
 <ul>
-<li>Author: Pedro Amaral </li>
-<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> </p>
+<li>Author: Pedro Amaral</li>
+<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> Software defined Networks; Machine Learning; Data Analysis; Traffic Classification</p>
 
 </li>
 </ul>
 <hr>
 <a id="more"></a>
+<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>软件定义网络（SDN）提供控制平面和网络转发平面之间的分离。控制平面的软件实现和OpenFlow协议的内置数据收集机制有望成为实现机器学习（ML）网络控制应用的出色工具。在这项工作中，我们描述了一个部署在企业网络中的简单架构，该架构使用OpenFlow协议收集流量数据。我们提供了可以获得的数据集，并展示了如何将多种ML技术应用于流量分类。结果表明，使用监督学习的数据集可以获得高精度分类。</p>
+<h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>背景：流经网络的数据量以及产生它的应用程序的复杂性不断上升。从这些数据中提取知识以理解和预测其影响对于执行网络的有效管理变得越来越重要。</p>
+<p>软件定义网络（SDN）的新范例通过其内置的信息收集机制以及它为网络带来的灵活性和可编程性，开启了该领域的新途径。OpenFlow是SDN的标准API协议。</p>
+<p>本研究是使用数据驱动机器学习（ML）控制企业计算机网络的SDN应用程序的第一步，主要用于使用OpenFlow协议获得的数据监控和分类流量。</p>
+<p>现在有多种尝试识别网络中流量的几种方法。然而，这两种方法都有几个缺点，人工智能（AI）算法，更具体地说，机器学习（ML），在最近的文献中已经考虑过。</p>
+<p>ML最新的应用：</p>
+<ol>
+<li>预测网络中的趋势（例如预测交通量）;</li>
+<li>安全监控（例如，访问控制，自适应防火墙，以及DoS和DDoS攻击检测;</li>
+<li>具有流量识别和拥塞预测的流量工程（TE）</li>
+</ol>
+<p>软件定义网络的好处：</p>
+<ol>
+<li>软件定义网络有可能简化网络中此类应用程序的实现。</li>
+<li>它们提供数据平面和转发平面之间的分离，控制平面采用软件设置，并且可以实现网络的集中视图。</li>
+<li>该软件控制点和内置数据收集机制有助于数据的获取和ML算法的实现，无需为此目的提供额外的中间件，并且可以根据结果强制执行网络行为</li>
+</ol>
+<p>在本文中，我们提出了一种简单的体系结构，使用OpenFlow在网络中收集流量数据，可以在SDN网络中使用，也可以在传统网络中使用（在这种情况下使用单个OpenFlow交换机）。然后，我们呈现所获得的数据集，用于处理它的数据挖掘工具以及将ML技术应用于所收集数据的流量分类的初始结果。</p>
+
       
     </div>
     
@@ -464,8 +483,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -565,6 +593,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
