@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="here for paper     Author: Jun Zhang">
+<meta name="description" content="here for paper     Author: Jun Zhang Traffic Classification, Semi-supervised Learning, Zero-day applications">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RTC">
 <meta property="og:url" content="http://yoursite.com/2019/02/11/RTC/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="here for paper     Author: Jun Zhang">
+<meta property="og:description" content="here for paper     Author: Jun Zhang Traffic Classification, Semi-supervised Learning, Zero-day applications">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-11T15:35:50.907Z">
+<meta property="og:updated_time" content="2019-02-21T14:44:08.889Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RTC">
-<meta name="twitter:description" content="here for paper     Author: Jun Zhang">
+<meta name="twitter:description" content="here for paper     Author: Jun Zhang Traffic Classification, Semi-supervised Learning, Zero-day applications">
 
 
 
@@ -371,12 +371,41 @@
 
 <ul>
 <li>Author: Jun Zhang</li>
-<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> </p>
+<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">Traffic Classification, Semi-supervised Learning, Zero-day applications </p>
 
 </li>
 </ul>
 <hr>
 <a id="more"></a>
+<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>作为网络管理和安全的基本工具，流量分类近年来受到越来越多的关注。分类性能的稳健性面临的重大挑战来自于流量分类系统中以前未知的zero-day应用。在本文中，我们提出了一种新的鲁棒统计流量分类（RTC）(robust trafic classification)方案，<strong>它结合了有监督和无监督的机器学习技术来应对这一挑战</strong>。所提出的RTC方案能够识别zero-day应用的流量以及准确地区分预定义的应用类别。此外，我们开发了一种自动化RTC方案参数优化过程的新方法。对现实世界交通数据的实证研究证实了该方案的有效性。当存在zero-day应用时，新方案的分类性能明显优于四种最先进的方法：</p>
+<ul>
+<li>随机森林</li>
+<li>基于相关性的分类</li>
+<li>半监督聚类</li>
+<li>one-classSVM</li>
+</ul>
+<h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>TRAFFIC分类是网络管理和安全的基础，它可以识别网络中存在的不同应用和协议。例如，大多数QoS控制机制具有流量分类模块，以便在有限带宽上适当区分不同应用的优先级。对于网络管理器而言，正确理解应用程序和协议网络流量。</p>
+<p>有三类流量分类方法：</p>
+<ol>
+<li>基于端口</li>
+<li>基于有效载荷</li>
+<li>基于流量统计</li>
+</ol>
+<p>传统的基于端口的方法依赖于检查众所周知的应用程序使用的标准端口。<br>基于有效负载的方法因加密流量而失败。<br>在最近的学术研究中，将机器学习技术应用于基于流量统计的方法受到了极大的关注。统计方法仅使用流统计特征，例如跨包时间，而不需要深度包检测（DPI）。</p>
+<p>大多数基于流统计的方法采用有监督或无监督的机器学习算法，</p>
+<ul>
+<li>监督学习：以基于已知应用将网络流量分类为预定义类。受监督的方法可以从一组标记的训练样本中学习流量分类器。</li>
+<li>无监督学习：使用无监督算法的方法会自动对一组未标记的训练样本进行分类，并应用聚类结果在其他工具的帮助下构建流量分类器。例如DPI。</li>
+</ul>
+<p>然而，现有的基于流量统计的方法遭受以前在流量分类系统中未知的zero-day应用。一般来说，zero-day应用（zero-day流量）的流量是无法识别数据的主要部分，占网络流量数据集中流量的60％和30％的字节。</p>
+<p>在本文中，提出了一种新的流量分类方案来解决零日应用的问题。当存在零日应用时，我们的方案可以有效地提高已知类的准确度。我们工作的主要贡献概括如下：</p>
+<ul>
+<li>我们提出了一种鲁棒流量分类（RTC）方案，结合有监督和无监督学习来解决zero-day应用的问题。</li>
+<li>我们提出了一种新方法，可以有效地从未标记的网络流量中提取zero-day流量样本。</li>
+<li>我们开发了一种自动化RTC方案参数优化过程的新方法。</li>
+</ul>
+<p>当零日应用程序出现时，最先进的流量分类方法。<br>概率论，以显示流量相关如何有利于流量分类。</p>
+
       
     </div>
     
@@ -464,8 +493,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -484,7 +522,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -506,7 +544,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -565,6 +603,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
