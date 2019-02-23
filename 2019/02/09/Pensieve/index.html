@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="miqianmimi Ma">
 <meta property="og:description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab) bitrate adaptation, video streaming, reinforcement learning">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-10T04:53:50.810Z">
+<meta property="og:updated_time" content="2019-02-23T06:42:34.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pensieve(Sigcomm 2017) ☀">
 <meta name="twitter:description" content="here for paper     Author:Hongzi Mao,Mohammad Alizadeh(MIT Mohammad lab) bitrate adaptation, video streaming, reinforcement learning">
@@ -378,7 +378,7 @@
 </ul>
 <hr>
 <a id="more"></a>
-<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>客户端视频播放器，采用ABR算法来优化用户QoE。然而即使是最先进的ABR算法也受到限制：部署环境的过度简化或不准确建模，以及一些固定控制规则。因此，作者提出了Pensieve，一个使用强化学习（RL）生成ABR算法的系统。 Pensieve训练了一个神经网络模型，根据客户视频播放器收集的观察结果，来选择传输比特率。它的效果优于最先进的方案。</p>
+<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>客户端视频播放器通常会应用adaptive bitrate(ABR) algorithms(自适应码率调整算法 来优化用户的quality of experience(QoE)(用户体验)。  尽管有很多算法被提出，state-of-the-art算法们的局限性仍然存在: 它们只是基于简化的或者不准确的环境模型来设定固定的控制规则。结果就是当网络环境变化或者是QoE的目标发生变化时，现有的策略往往达不到理想的效果。为了解决这些问题，作者提出了Pensieve，一种通过强化学习来自动生成ABR算法的系统。通过学习到的算法为将来的video chunk选择合适bitrate，从而优化QoE metrics。Pensieve训练的神经网络模型根据客户端视频播放器提供的观测数据作出预测。 实验表明，Pensieve能适应各种各样的环境以及不同的QoE metrics，取得了比state-of-the-art scheme高12%-25%的平均QoE。此外，Pensieve也很好地适应了未曾遇到过的网络情况，表明它generalizes well.</p>
 <h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>相关工作有ABR算法，它根据观察到的网络的带宽和playback的buffer的占据量，来做出bitrate的决定。它的目标是最大化QoE矩阵。然而选择正确的bitrate是比较困难的，基于以下四种情况：</p>
 <ul>
 <li>网络的带宽经常变动</li>
@@ -520,7 +520,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -542,7 +542,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">72</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
