@@ -82,15 +82,15 @@
 <meta name="description" content="here for paper     Author: Yizhou Sun(http://lastweek.io/)(Ph.D. at Purdue ECE)  OS, Kernel">
 <meta name="keywords" content="OS,Kernel">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LegoOS (NSDI 2018)">
+<meta property="og:title" content="LegoOS (NSDI 2018) ☀">
 <meta property="og:url" content="http://yoursite.com/2019/02/23/legoos/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
 <meta property="og:description" content="here for paper     Author: Yizhou Sun(http://lastweek.io/)(Ph.D. at Purdue ECE)  OS, Kernel">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/图1.png">
-<meta property="og:updated_time" content="2019-02-23T06:57:21.213Z">
+<meta property="og:updated_time" content="2019-02-23T15:04:52.465Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LegoOS (NSDI 2018)">
+<meta name="twitter:title" content="LegoOS (NSDI 2018) ☀">
 <meta name="twitter:description" content="here for paper     Author: Yizhou Sun(http://lastweek.io/)(Ph.D. at Purdue ECE)  OS, Kernel">
 <meta name="twitter:image" content="http://yoursite.com/图1.png">
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>LegoOS (NSDI 2018) | miqianmimi Ma</title>
+  <title>LegoOS (NSDI 2018) ☀ | miqianmimi Ma</title>
   
 
 
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">LegoOS (NSDI 2018)</h1>
+          <h1 class="post-title" itemprop="name headline">LegoOS (NSDI 2018) ☀</h1>
         
 
         <div class="post-meta">
@@ -334,7 +334,7 @@
 
           
           
-             <span id="/2019/02/23/legoos/" class="leancloud_visitors" data-flag-title="LegoOS (NSDI 2018)">
+             <span id="/2019/02/23/legoos/" class="leancloud_visitors" data-flag-title="LegoOS (NSDI 2018) ☀">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -388,7 +388,16 @@
 <li>跨非连贯组件的网络消息传递</li>
 <li>全球资源管理和故障处理</li>
 </ul>
-<h2 id="组会："><a href="#组会：" class="headerlink" title="组会："></a>组会：</h2><p><img src="/图1.png" alt=""></p>
+<h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p><img src="/图1.png" alt=""></p>
+<p>多年来，数据中心的部署，操作和故障单元一直是单片服务器，包含运行用户程序所需的所有硬件资源（通常是处理器，某些主存，磁盘或磁盘）。但这存在了一些问题：</p>
+<ol>
+<li>首先，数据中心面临着将应用程序安装到物理机器上的困难的装箱问题。</li>
+<li>其次，在服务器中打包硬件设备后，很难在数据中心中添加，删除或更改硬件组件</li>
+<li>最后，现代数据中心托管了越来越多的异构硬件但是，设计适合单片服务器并在数据中心部署它们的新硬件是一个痛苦且成本效率低的过程，往往会限制新硬件的采用速度。</li>
+</ol>
+<p>CPU，DRAM和磁盘是独立的，故障隔离的，网络连接的组件。这种硬件资源分解架构是通过网络技术的最新进展实现的。硬件资源分解大大提高资源利用率，弹性，异质性和故障隔离。硬件资源分解完全改变了计算范式，并对系统构建者提出了一个关键挑战：如何管理和虚拟化分布式，分解的硬件组件。</p>
+<p>但是，远程管理需要大量的网络流量，并且当处理器发生故障时，其他组件将无法使用。多内核操作系统在单片计算机中的每个处理器（或核心）上运行内核，并且这些每处理器内核通过消息传递相互通信。多内核仍假设对单片机中的硬件资源进行本地访问，并且它们的消息传递是通过本地总线而不是通用网络。虽然可以对现有操作系统进行改造以支持硬件资源分解，但是这种改进将对OS的中央子系统（例如存储器和I / O管理）具有侵入性。</p>
+<p>因此这篇文章提出了splitkernel</p>
 
       
     </div>
@@ -431,8 +440,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/23/hyperloop/" rel="prev" title="Hyperloop">
-                Hyperloop <i class="fa fa-chevron-right"></i>
+              <a href="/2019/02/23/hyperloop/" rel="prev" title="Hyperloop (SIGCOMM 2018) ☀">
+                Hyperloop (SIGCOMM 2018) ☀ <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -536,7 +545,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">72</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -605,7 +614,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组会："><span class="nav-number">2.</span> <span class="nav-text">组会：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a></li></ol></div>
             
 
           </div>
