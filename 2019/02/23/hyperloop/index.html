@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="here for paper     Author: Weili(NorthEastern University)  Congestion Control, Q-learning">
+<meta name="description" content="here for paper     Author:  Daehyeok Kim(CMU Computer Science) Yibo Zhu (Bytedance)  Distributed Storage System, Replicated transactions, RDMA NIC-offloading">
 <meta name="keywords" content="storage">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hyperloop (SIGCOMM 2018) ☀">
 <meta property="og:url" content="http://yoursite.com/2019/02/23/hyperloop/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="here for paper     Author: Weili(NorthEastern University)  Congestion Control, Q-learning">
+<meta property="og:description" content="here for paper     Author:  Daehyeok Kim(CMU Computer Science) Yibo Zhu (Bytedance)  Distributed Storage System, Replicated transactions, RDMA NIC-offloading">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-23T14:42:16.529Z">
+<meta property="og:updated_time" content="2019-02-23T16:08:15.867Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hyperloop (SIGCOMM 2018) ☀">
-<meta name="twitter:description" content="here for paper     Author: Weili(NorthEastern University)  Congestion Control, Q-learning">
+<meta name="twitter:description" content="here for paper     Author:  Daehyeok Kim(CMU Computer Science) Yibo Zhu (Bytedance)  Distributed Storage System, Replicated transactions, RDMA NIC-offloading">
 
 
 
@@ -368,25 +368,50 @@
       
 
       
-        <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://ieeexplore.ieee.org/document/8357943" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for paper </span></a> </p>
+        <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://www.microsoft.com/en-us/research/uploads/prod/2018/07/main-5b3a73f8ce767.pdf" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for paper </span></a> </p>
 
 <ul>
-<li>Author: <code>Weili</code>(NorthEastern University)</li>
-<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> Congestion Control, Q-learning</p>
+<li>Author:  Daehyeok Kim(CMU Computer Science) Yibo Zhu (Bytedance)</li>
+<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> Distributed Storage System, Replicated transactions, RDMA NIC-offloading</p>
 
 </li>
 </ul>
 <hr>
 <a id="more"></a>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><h2 id="组会："><a href="#组会：" class="headerlink" title="组会："></a>组会：</h2><p>1.RDMA NIC + NVM(Non-Volatile Memory)<br>2.leveragingg the progrgammability with RDMA NICs<br>3.APIS covering key transactional operations</p>
-<h3 id="1-RDMA-NIC-NVM"><a href="#1-RDMA-NIC-NVM" class="headerlink" title="1. RDMA NIC + NVM"></a>1. RDMA NIC + NVM</h3><p>(没有cpu介入做网络操作) NVM (RDMA的存储 NICS)</p>
-<h3 id="Roadblock"><a href="#Roadblock" class="headerlink" title="Roadblock:"></a>Roadblock:</h3><ol>
-<li>Run by CPUs</li>
-<li>Operations in Commit PHASE</li>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>数据中心的存储系统是大规模在线服务的重要组成部分。它们通常执行复制备份操作，以实现数据可用性和完整性。</p>
+<p>然而，今天，即使最近的内核旁路和存储优化（RDMA），此类操作也会受到高速延迟的影响，从而影响这些服务的预测端到端性能的可预测性。我们观察到这些操作的根本原因。问题在于CPU（多租户设置中的宝贵商品）在复制交易的关键路径中的参与。</p>
+<p>在本文中，我们介绍HyperLoop，<strong>一个新的框架，通过将CPU卸载到商用RDMA网卡，将CPU从存储系统中复制事务的关键路径中移除。</strong>为此，我们开发了新的和通用的NIC卸载原语，可以在复制组中的所有节点上执行内存操作，同时保证ACID属性而不涉及CPU。</p>
+<h2 id="组会："><a href="#组会：" class="headerlink" title="组会："></a>组会：</h2><ol>
+<li>RDMA NIC + NVM(Non-Volatile Memory)</li>
+<li>leveragingg the progrgammability with RDMA NICs</li>
+<li>APIS covering key transactional operations</li>
 </ol>
-<h3 id="2-Leveraging-The-Programming-of-RNICs"><a href="#2-Leveraging-The-Programming-of-RNICs" class="headerlink" title="2.Leveraging The Programming of RNICs"></a>2.Leveraging The Programming of RNICs</h3><p>源语级别的可编程性</p>
-<p>1.等待receive<br>2.trigger wait<br>3.activate<br>4.proceed</p>
-<h3 id="3-Forwarding-Operations"><a href="#3-Forwarding-Operations" class="headerlink" title="3.Forwarding Operations"></a>3.Forwarding Operations</h3>
+<h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>分布式存储系统是重要现代在线服务的组成部分。为了保证数据的可用性和完整性，这些系统将每个数据对象的多个副本保存在不同的服务器上，并依赖于复制（replicated transational)操作，以确保在所有副本上一致地和原语地执行更新。</p>
+<p>这种复制的事务可能会产生大量且不可预测的延迟，从而影响存储密集型应用程序的整体性能。认识到这个问题，从两个方面：<code>网络</code>和<code>存储</code>都提出了许多解决方案来减少此类系统的平均和尾部延迟。</p>
+<ol>
+<li>网络方面的解决方案，包括内核旁路技术，如RDMA（远程直接内存访问）和用户空间网络技术。类似地，已经努力集成非易失性主存储器（NVM）和用户空间固态磁盘（SSD）绕过OS存储堆栈以减少延迟。</li>
+</ol>
+<p>虽然内核旁路等优化确实可以提高独立存储服务和设备（如只运行单个服务的系统）的性能。在整个集群中，它们无法为多租户存储系统提供低且可预测的延迟。</p>
+<p>为什么呢？原因有二:</p>
+<ul>
+<li><p>首先，许多提出的减少平均和尾部延迟的技术依赖于使用CPU进行I / O轮询（polling)。但是，在多租户云设置中，提供商无法以这种方式刻录核心以实现经济可行性。</p>
+</li>
+<li><p>其次，即使没有轮询，CPU也会在复制存储事务中涉及太多步骤。以写操作为例：</p>
+</li>
+<li>i）它需要CPU来记录，处理日志记录和截断日志，以确保事务中列出的所有修改都是原语的; </li>
+<li>ii）CPU还运行一致性协议，以确保在向客户端发送ACK之前，所有副本都达到相同的状态; </li>
+<li>iii）在transaction期间，CPU必须参与锁定所有副本以便在不同事务之间进行隔离以确保正确性; </li>
+<li>iv）最后，CPU确保来自网络堆栈的数据在发送ACK之前到达持久存储介质。</li>
+<li>CPU可能会导致频繁的上下文切换和其他调度问题。完全从关键路径中删除CPU。</li>
+</ul>
+<p>在本文中，我们介绍HyperLoop，HyperLoop，我们为NVM访问引入新的和通用的基于组的NIC卸载原语，而传统的RDMA操作只通过易失性存储器卸载点对点通信。HyperLoop具有加速复制事务的必要机制，这有助于在一组服务器的持久数据上执行逻辑上相同且语义上强大的内存操作，而无需远程CPU的参与。</p>
+<p>Realizing these primitives,为了实现这些原语。</p>
+<ul>
+<li>首先，我们重新调整了一项研究较少且广泛支持的RDMA操作，该操作允许NIC在特殊队列中执行RDMA操作之前等待某些事件。</li>
+<li>其次，我们开发了一个远程RDMA操作发布方案，允许NIC将RDMA操作排入网络中的其他NIC。</li>
+</ul>
+<p>我们的方法非常通用，因为它只使用商用RDMA网卡，因此应用程序可以轻松采用我们的原语。例如，我们修改了RocksDB（Google LevelDB的开源替代品）和MongoDB（Azure CosmosDB和Amazon DynamoDB的开源替代品），以使用HyperLoop和1000行代码。</p>
+
       
     </div>
     
@@ -600,7 +625,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组会："><span class="nav-number">2.</span> <span class="nav-text">组会：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-RDMA-NIC-NVM"><span class="nav-number">2.1.</span> <span class="nav-text">1. RDMA NIC + NVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Roadblock"><span class="nav-number">2.2.</span> <span class="nav-text">Roadblock:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Leveraging-The-Programming-of-RNICs"><span class="nav-number">2.3.</span> <span class="nav-text">2.Leveraging The Programming of RNICs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Forwarding-Operations"><span class="nav-number">2.4.</span> <span class="nav-text">3.Forwarding Operations</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组会："><span class="nav-number">2.</span> <span class="nav-text">组会：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">3.</span> <span class="nav-text">引入：</span></a></li></ol></div>
             
 
           </div>
