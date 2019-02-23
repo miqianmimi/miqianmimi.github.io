@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="miqianmimi Ma">
 <meta property="og:description" content="Lab 3 Teaching    Author: Yiqing Ma (Hongkong University of Science and Technology ) Email1: `ydkwon@cse.ust.hk` Email2: `ymaay@connect.ust.hk` What Include in this tutoiral: Lab 3 Responsive Web P">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-23T11:27:31.707Z">
+<meta property="og:updated_time" content="2019-02-23T14:27:02.625Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="InternetComputing-Lab-3">
 <meta name="twitter:description" content="Lab 3 Teaching    Author: Yiqing Ma (Hongkong University of Science and Technology ) Email1: `ydkwon@cse.ust.hk` Email2: `ymaay@connect.ust.hk` What Include in this tutoiral: Lab 3 Responsive Web P">
@@ -389,7 +389,7 @@
 </ul>
 <hr>
 <a id="more"></a>
-<p style="color:MediumSeaGreen;font-size:20px;font-family:Comic Sans MS"><i class="fa fa-pencil fa-lg"></i><span> TA Sophia has made a lab-tutorial page for you. This page is mainly for you to review the lab3 class. I hope that it will help you prepare your test well.</span> </p>
+<p style="color:MediumSeaGreen;font-size:20px;font-family:Comic Sans MS"><i class="fa fa-pencil fa-lg"></i><span> TA Sophia has made a lab-tutorial page for you. This page is mainly for you to review the lab3 class. If you miss the class, I hope it will help you to remember.</span> </p>
 
 
 <h2 id="First——Target"><a href="#First——Target" class="headerlink" title="First——Target:"></a>First——Target:</h2><p>First, let’s see the target together:</p>
@@ -398,7 +398,153 @@
 <p>Your main task is to format the menu and make it responsive to the size of the device</p>
 <p style="color:palevioletred;font-size:20px;font-family:Comic Sans MS"><i class="fa fa-pencil fa-lg"></i><span> There are totally 4 steps in this lab.</span> </p>
 
-<h2 id="Step-1-The-Common-Core-Course-List"><a href="#Step-1-The-Common-Core-Course-List" class="headerlink" title="Step 1: The Common Core Course List"></a>Step 1: The Common Core Course List</h2><p>You are given a starting HTML file here and a few CSS files here, here and here</p>
+<h2 id="Step-1-The-Common-Core-Course-List"><a href="#Step-1-The-Common-Core-Course-List" class="headerlink" title="Step 1: The Common Core Course List"></a>Step 1: The Common Core Course List</h2><p>You are given a starting HTML file here and a few CSS files here, here and here. You can click it for download.</p>
+<p>Let’s see what original HTML file looks like ; so open it with the sublime editor. </p>
+<p>At the top of the HTML file, we can see the first three CSS style sheets are linked  like this:</p>
+<p>And we should know that among the three CSS files, <code>top.css</code> and <code>course.css</code> have been mostly complete.</p>
+<p>Athough, the HTML file is very long, has 2500 lines. But inside the body of the HTML file, it contains only <code>three</code> components:</p>
+<ul>
+<li>1.A top-level menu for large screen displays:<code>&lt;ul id=&quot;main-menu-large&quot;&gt;...&lt;/ul&gt;</code></li>
+<li>2.A top-level menu for small screen displays:<code>&lt;div id=&quot;main-menu-small&quot;&gt;...&lt;/div&gt;</code></li>
+<li>3.The common core course list: <code>&lt;div class=&quot;course-list&quot;&gt;...&lt;/div&gt;</code></li>
+</ul>
+<p>I will show you the three part in our target html.</p>
+<p>First part is the large screen display top-level menu, its color is yellow</p>
+<p>Second part is the small screen display top-level menu, its color is green</p>
+<p>Last is all of the main course list and name .</p>
+<p style="color:palevioletred;font-size:20px;font-family:Comic Sans MS"><i class="fa fa-pencil fa-lg"></i><span> So, now let me tell you the main tasks of the lab is to:</span> </p>
+
+
+<ul>
+<li>First, format the top-level menus, both for the large screens and small screens, </li>
+<li>Write the necessary JavaScript code to filter the course list</li>
+<li>Apply responsive instructions to the course list</li>
+<li>Apply responsive instructions to the top-level menu</li>
+</ul>
+<p>You will largely work with <code>CSS</code> in the lab and a little bit of <code>JavaScript</code>for the filtering of courses</p>
+<hr>
+<p>So now we start: </p>
+<h2 id="Step-2-Formatting-the-Top-level-Menus"><a href="#Step-2-Formatting-the-Top-level-Menus" class="headerlink" title="Step 2: Formatting the Top-level Menus"></a>Step 2: Formatting the Top-level Menus</h2><p>[open the original webpage ] what we should do is that </p>
+<ul>
+<li>There are two versions of the same menu in the HTML file.</li>
+<li>You need to format the two menus in different ways because one is for large screens and another is for small screens.</li>
+<li>After finishing the lab, you only have one of the two shown inside the webpage.</li>
+</ul>
+<h3 id="2-1-The-Top-level-Menu-for-Large-Screens"><a href="#2-1-The-Top-level-Menu-for-Large-Screens" class="headerlink" title="2.1 The Top-level Menu for Large Screens"></a>2.1 The Top-level Menu for Large Screens</h3><p>So at first, let’s deal with the top-level menu.</p>
+<ul>
+<li>first at the moment, the top-level menu for large screens is an unordered list like this:</li>
+<li>[open the target] but you want them to look like this way.</li>
+<li>how to deal with it ?</li>
+<li>[open the code]</li>
+</ul>
+<p>first you need to make the <code>&lt;ul&gt;</code> to be a box-like .</p>
+<p>so [open the menu.css] i add width and height and background color to  <code>&lt;ul&gt;</code> ‘s style. [build the code]</p>
+<p>Then for the <code>&lt;li&gt;</code> elements. we should put the <code>&lt;li&gt;</code> element inside the ‘box’ you have created above.</p>
+<p>Remember that in lab 2 you have arranged the holes in the game horizontally, even though the holes are block elements.The key is to use the float CSS property. the float property makes any block element ‘flow’ within its container. So you will need to do this for each list item:[build the code]</p>
+<p>Last for the <code>&lt;a&gt;</code> elements. They look really like a hyperlink now, you need to change their default appearance so that they will look like a menu button.</p>
+<p>Here is what i can do with the  <code>&lt;a&gt;</code> [build the code]</p>
+<p>After i give these changes, it is more button-like. You can then apply further changes to the hyperlinks such as borders, text and background colours so that they look more like the menu item that you would like to see</p>
+<p>last but not least If you look at the HTML now, you will find the list item has been ‘selected’ with a selected class. This class is used to indicate that the menu item is the current filtering criteria. And the color of it will change from yellow to orange . </p>
+<p>you can change the selected menu item to using bold text and orange background colour. [build the code ]</p>
+<p>At this point, your top-level menu for large screens is ready.</p>
+<hr>
+<h3 id="2-2-The-Top-level-Menu-for-Small-Screens"><a href="#2-2-The-Top-level-Menu-for-Small-Screens" class="headerlink" title="2.2. The Top-level Menu for Small Screens"></a>2.2. The Top-level Menu for Small Screens</h3><p>for the smaller one, how it is look like [show the target]</p>
+<p>So first step, Similar to before, make a box for the outer div so that it occupies the top area of the page, like this (i give it green color to ensure the difference.)</p>
+<p>Then The steps are just the same as what you have done for the previous large screen menu.</p>
+<p>In this small screen menu, you don’t need to use float to arrange the menu items horizontally.</p>
+<p>[build the code]</p>
+<p><strong>However, you will find that the menu is somehow ‘hidden’ behind some other elements in the webpage, like this:</strong></p>
+<p>One trick to put this menu to the top is by using this CSS position: absolute to the <code>&lt;ul&gt;</code> element. </p>
+<p>If you do this, the entire list will be detached from the flow of the page and in front of all other elements.</p>
+<p style="color:palevioletred;font-size:20px;font-family:Comic Sans MS">Before writing the JavaScript, you can do all sorts of improvements to the menu:</p>
+
+<p style="color:palevioletred;font-size:20px;font-family:Comic Sans MS"><br>1. Adding the :hover class to the hyperlinks so that you can highlight the current menu item.</p>
+
+<p style="color:palevioletred;font-size:20px;font-family:Comic Sans MS"><br>2. Adding appropriate border(s) to separate the menu items<br></p>
+
+<hr>
+<h2 id="Step-3-Writing-JavaScript-to-Do-the-Filtering"><a href="#Step-3-Writing-JavaScript-to-Do-the-Filtering" class="headerlink" title="Step 3: Writing JavaScript to Do the Filtering"></a>Step 3: Writing JavaScript to Do the Filtering</h2><p>After decorating the menus, you will find that some of the interactions are already working. For example, you can click on the ‘menu button’ to open or close the menu for small screens. This is done by simply using toggleSlide() on the <code>&lt;ul&gt;</code> element in the <code>common_core_course.html</code></p>
+<ul>
+<li>When you click on a menu item, you are activating the link href.</li>
+<li>The click event handler has been created for your in the code too [open the code to show line47 53]</li>
+<li>The only missing piece of the code is the content of the <code>filterCourses</code>function</li>
+</ul>
+<p>So now we need to fill up the whole filterCourses function in the line 18-35 [build the code]</p>
+<p style="color:palevioletred;font-size:20px;font-family:Comic Sans MS">Getting the Area Code:</p>
+
+<p>The ‘course area code’ has been added to every menu item as an href value<br>For example, the area code ar is added to the menu item like this:</p>
+<p><code>&lt;li class=&quot;menu-ar&quot;&gt;&lt;a href=&quot;#ar&quot;&gt;Arts&lt;/a&gt;&lt;/li&gt;</code></p>
+<ul>
+<li>The area code is useful to control the rest of the elements because most of the elements are named according to the area code</li>
+<li>Once a menu item is clicked, the click event handler extracts the href attribute (i.e. #ar) and sends it to the filterCourses() function</li>
+<li>Then in the function, you can further extract just the area code</li>
+<li>Since the area code is always behind the # symbol, you can easily extract the code using split(“#”)</li>
+</ul>
+<p>[build the code]</p>
+<p style="color:palevioletred;font-size:20px;font-family:Comic Sans MS">Filtering the Courses:</p>
+
+<ul>
+<li>If the area code is ready, you can write the code to show/hide the courses</li>
+<li>For a start, if you click on the ‘All’ menu item, you should show all courses to the page</li>
+<li>This can be done by simply selecting <code>all .course-container</code> and show them</li>
+<li>This should just be one simple line of JQuery code, i.e.:</li>
+</ul>
+<p><code>$(&quot;.course-container&quot;).show();</code></p>
+<p>[build the code]</p>
+<ul>
+<li>On the other hand, if the area is not ‘all’ but one of the course areas, you will need to:</li>
+<li>Hide all courses first</li>
+<li>Show the courses inside the selected area</li>
+<li>Hiding all courses is simple, which is again one simple line of JQuery code</li>
+<li>If you look at the HTML, you can see all course containers have their corresponding area listed inside the class attribute, like this:</li>
+<li>To show the courses within the area you can select the elements with the area-code class</li>
+<li>Therefore, you can show one area of the courses by using just one line of code again</li>
+</ul>
+<p><code>&lt;div class=&quot;course-container area-ar&quot;&gt;</code></p>
+<p style="color:palevioletred;font-size:20px;font-family:Comic Sans MS">Updating the Menu Items:</p>
+
+<ul>
+<li>When the filtering of the courses is done, the corresponding menu item should be highlighted with the selected class</li>
+<li>You can do that easily using the toggleClass() function</li>
+<li>For example, you can toggle the selected class on the Arts area:</li>
+</ul>
+<p><code>$(&quot;.menu-ar&quot;).toggleClass(&quot;selected&quot;);</code></p>
+<ul>
+<li>If you do this, both the menu items in the large and small screens’ menu will be affected by the selected class</li>
+<li>Certainly, before you apply the selected class to the new filtered area, you have to remember to take away the selected class from the previously filtered area, which can be easily obtained using JQuery</li>
+<li>Here is an example of filtering the courses by clicking on the English Communication area:</li>
+</ul>
+<p>[build the code]</p>
+<h2 id="Step-4-Making-the-Webpage-Responsive"><a href="#Step-4-Making-the-Webpage-Responsive" class="headerlink" title="Step 4. Making the Webpage Responsive:"></a>Step 4. Making the Webpage Responsive:</h2><ul>
+<li>If you read know how to use the @media rule in CSS, you will find that it is extremely easy to make this webpage responsive</li>
+<li>It is always a case of finding a certain display width and applying appropriate CSS properties</li>
+<li>In this lab, you will work on two parts:</li>
+</ul>
+<ol>
+<li>Making the top-level menu responsive</li>
+<li>Making the course list responsive</li>
+</ol>
+<h3 id="Step-4-1-Making-the-Menu-Responsive"><a href="#Step-4-1-Making-the-Menu-Responsive" class="headerlink" title="Step 4.1. Making the Menu Responsive:"></a>Step 4.1. Making the Menu Responsive:</h3><p>I mean what is the last part of this lab, is that we need to make the two top-menus show at the appropriate time.</p>
+<ul>
+<li>Rather than making it complicated by using the word responsive, simply speaking, we want to show only one of the menus at any one time</li>
+<li>The decision to choose one menu over another is then based on the size of the screen display</li>
+<li>To determine the screen size that help you select which menu to use, you can experiment it using the Chrome device emulator</li>
+<li>Inside the emulator, you can render the page using Responsive rather than a particular mobile device</li>
+<li>You will then be able to adjust the width of the screen display so that you can find the breakpoint, i.e. the width that is going to break the style of your page</li>
+<li>For instance, the above image shows that the width (=480px) breaks the larger top-level menu so that the menu items cannot be shown correctly</li>
+<li>You can then use two @media rules to hide the menu for large screens and small screens appropriately, i.e.</li>
+</ul>
+<p>[build the code]</p>
+<p>so now let’s come to the last final steps</p>
+<h3 id="Step-4-2-Making-the-Course-List-Responsive"><a href="#Step-4-2-Making-the-Course-List-Responsive" class="headerlink" title="Step 4.2. Making the Course List Responsive"></a>Step 4.2. Making the Course List Responsive</h3><ul>
+<li>Finally, you need to make the course list responsive</li>
+<li>As you can see from the webpage, there are always four courses shown in each row of the list</li>
+<li>This is controlled by setting the width of each course container to 25%, which you can find inside the style sheet</li>
+<li>Similar to what you do for the menus, you can use the Chrome emulator to help you find breakpoints</li>
+<li>This time, you can find several breakpoints so that you can have 4 courses per row, 3 courses per row and so on</li>
+<li>To make the list to have, say, 3 courses per row, you simply adjust the width of the course container to 33%</li>
+<li>Therefore, you can have three @media rules to control the number of courses to show for each row, like this:</li>
+</ul>
 
       
     </div>
@@ -611,7 +757,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#First——Target"><span class="nav-number">1.</span> <span class="nav-text">First——Target:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-1-The-Common-Core-Course-List"><span class="nav-number">2.</span> <span class="nav-text">Step 1: The Common Core Course List</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#First——Target"><span class="nav-number">1.</span> <span class="nav-text">First——Target:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-1-The-Common-Core-Course-List"><span class="nav-number">2.</span> <span class="nav-text">Step 1: The Common Core Course List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-2-Formatting-the-Top-level-Menus"><span class="nav-number">3.</span> <span class="nav-text">Step 2: Formatting the Top-level Menus</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-The-Top-level-Menu-for-Large-Screens"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 The Top-level Menu for Large Screens</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-The-Top-level-Menu-for-Small-Screens"><span class="nav-number">3.2.</span> <span class="nav-text">2.2. The Top-level Menu for Small Screens</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-3-Writing-JavaScript-to-Do-the-Filtering"><span class="nav-number">4.</span> <span class="nav-text">Step 3: Writing JavaScript to Do the Filtering</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-4-Making-the-Webpage-Responsive"><span class="nav-number">5.</span> <span class="nav-text">Step 4. Making the Webpage Responsive:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-4-1-Making-the-Menu-Responsive"><span class="nav-number">5.1.</span> <span class="nav-text">Step 4.1. Making the Menu Responsive:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-4-2-Making-the-Course-List-Responsive"><span class="nav-number">5.2.</span> <span class="nav-text">Step 4.2. Making the Course List Responsive</span></a></li></ol></li></ol></div>
             
 
           </div>
