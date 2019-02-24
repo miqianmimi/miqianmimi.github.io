@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Video Streaming,Machine Learning," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="If life deals you lemons, make lemonade.">
+<meta name="description" content="some scatter knowledge     Author: Yiqing Ma (Hongkong University of Science and Technology) udp, protocol">
+<meta name="keywords" content="Video Streaming,Machine Learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FINEAS">
 <meta property="og:url" content="http://yoursite.com/2019/02/22/FINEAS/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="If life deals you lemons, make lemonade.">
+<meta property="og:description" content="some scatter knowledge     Author: Yiqing Ma (Hongkong University of Science and Technology) udp, protocol">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-02-22T02:00:50.339Z">
+<meta property="og:updated_time" content="2019-02-24T16:18:54.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FINEAS">
-<meta name="twitter:description" content="If life deals you lemons, make lemonade.">
+<meta name="twitter:description" content="some scatter knowledge     Author: Yiqing Ma (Hongkong University of Science and Technology) udp, protocol">
 
 
 
@@ -302,6 +303,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/paper/" itemprop="url" rel="index">
+                    <span itemprop="name">paper</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -345,7 +368,35 @@
       
 
       
-        
+        <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS"> <i class="fa fa-pencil fa-lg"></i><span> some scatter knowledge  </span><br></p>
+
+<ul>
+<li>Author: <code>Yiqing Ma</code> (Hongkong University of Science and Technology)</li>
+<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">udp, protocol</p>
+
+</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h2 id="摘要："><a href="#摘要：" class="headerlink" title="摘要："></a>摘要：</h2><p>HTTP自适应流（HAS）正在迅速成为视频流服务的标准衡量对象。在HAS中，每个视频在时间上被分段并以不同的质量水平存储。在视频播放器中部署的速率适配启发式算法允许根据当前网络条件动态请求最合适的级别。已经表明，由于客户之间的公平性问题，当多个客户端同时使用视频时，今天的启发式表现不佳。</p>
+<h2 id="引入："><a href="#引入：" class="headerlink" title="引入："></a>引入：</h2><p>如今，视频流应用程序需要处理因特网交换的最大流量。特别地，HTTP自适应流（HAS）协议由于其灵活性而变得非常流行，因此可以被视为视频流服务的标准。 </p>
+<ul>
+<li>Microsoft的Smooth Streaming，</li>
+<li>Apple的HTTP Live Streaming，</li>
+<li>Adobe的HTTP Adaptive Streaming</li>
+<li>HTTP上MPEG Dynamic Adaptive Streaming over HTTP（DASH）</li>
+</ul>
+<p>当前HAS解决方案的主要缺点是 <strong>客户使用的启发式方法</strong>来选择适当的quality,但在多用户的情况下表现不佳。在实际场景中，多个客户端同时从HAS服务器请求内容。正如Akhshabi等人报道的那样。公平性问题不是由于TCP动态，而是主要来自 <strong>速率自适应算法</strong>，因为他们决定下载的实际速率。当前HAS启发式的不协调性质加剧了这个问题。</p>
+<p>这样的不公平性问题，在多用户的使用环境中频频出现。特别是，我们提供了一个公平的HAS客户端，能够在与其他客户协调的同时实现流畅的视频播放，以提高整个系统的公平性。借助于基于网络的协调代理系统来实现该目标，该系统负责收集网络状况的测量结果。</p>
+<ul>
+<li><p>首先，我们提出了一种名为FINEAS（Fair In-Network Enhanced Adaptive Streaming）的新HAS启发式算法，能够根据网络条件选择最佳质量，以提供流畅的视频流和提高公平性。特别是，与当前的HAS启发式相比，我们的启发式能够提高平均请求质量水平，并避免视频冻结，同时保证所有客户端流视频的类似QoE，即公平性。</p>
+</li>
+<li><p>其次，我们设计了一个基于网络的系统来帮助客户协调他们的行为，这不需要明确的客户端到客户端的通信或集中的决策过程。因此，仍然可以执行质量等级选择每个客户在本地和独立，不对一般HAS原则进行任何修改。</p>
+</li>
+<li><p>第三，提供了详细的模拟结果，以表征与最先进的HAS启发式方法相比所提出的框架的收益。</p>
+</li>
+</ul>
+
       
     </div>
     
@@ -359,6 +410,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Video-Streaming/" rel="tag"># Video Streaming</a>
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
       
 
       
@@ -433,8 +492,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -534,6 +602,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要："><span class="nav-number">1.</span> <span class="nav-text">摘要：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入："><span class="nav-number">2.</span> <span class="nav-text">引入：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
