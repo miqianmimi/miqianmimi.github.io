@@ -88,7 +88,7 @@
 <meta property="og:description" content="here for website    Author: Yiqing Ma (Hongkong University of Science and Technology )  TA , Course">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/03/04/InternetComputing-lab-4/图1.png">
-<meta property="og:updated_time" content="2019-03-06T05:39:55.468Z">
+<meta property="og:updated_time" content="2019-03-08T03:39:23.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="InternetComputing-Lab-4">
 <meta name="twitter:description" content="here for website    Author: Yiqing Ma (Hongkong University of Science and Technology )  TA , Course">
@@ -385,8 +385,8 @@
 <ul>
 <li>The player walks along a path</li>
 <li>Things in the sky or on the grass moves backwards</li>
-<li>The player needs to jump over obstacles such as holes under the ground or flowers on the ground</li>
-<li>If the player falls into the hole or hits the flower, the game will be over</li>
+<li>The player needs to jump over bombs </li>
+<li>If the player falls into the hole or hits the bomb, the game will be over</li>
 </ul>
 <p>You will use a lot of CSS animations to do all animations in the game.</p>
 <h2 id="Step-1-basic-introduction-to-the-jumping-game"><a href="#Step-1-basic-introduction-to-the-jumping-game" class="headerlink" title="Step 1: basic introduction to the jumping game."></a>Step 1: basic introduction to the jumping game.</h2><p><strong>[I Introduce the knowledge you need in this game.]</strong> </p>
@@ -404,7 +404,7 @@
 <li>the ground</li>
 <li>some clouds</li>
 <li>the player</li>
-<li>two double hole/flower on the ground</li>
+<li>two double bombs on the ground</li>
 </ul>
 </blockquote>
 </li>
@@ -421,7 +421,7 @@
 <li>the ground</li>
 <li>some clouds</li>
 <li>the player</li>
-<li>a hole/flower on the ground</li>
+<li>two bombs on the ground</li>
 </ul>
 </blockquote>
 <p>You can freely choose one of the following ways to create them:</p>
@@ -450,11 +450,11 @@
 <p>It’s super easy cause you only need to draw the picture (like photoshop) and then click on the svg translate, then you get a svg photo.</p>
 <hr>
 <p><strong>[open the website to show examples]</strong></p>
-<p>Now i’m going to talk about how to make a ball-like several color ball. </p>
+<p>Now i’m going to talk about how to make a ball-like bomb. </p>
 <p>show how to make this photo.</p>
 <p><img src="/2019/03/04/InternetComputing-lab-4/图1.png" alt=""></p>
 <p>Here is the important thing, that you need to make a 3d ball-like bombs in the game. And if you made a good one , you can get the score of 5 . And this one should be at least the one showing in the demo. And another 2 score here is put the all to the correct location of the game.</p>
-<p><strong>remeber it is very important to put the location of the clouds and obstacles correctly, it will show just like what its place in the svg-editor(i will read this word 3 times)</strong> </p>
+<p><strong>remeber it is very important to put the location of the clouds and bombs correctly, it will show just like what its place in the svg-editor(i will read this word 3 times)</strong> </p>
 <h3 id="Searching-for-SVG-Pictures-on-the-web"><a href="#Searching-for-SVG-Pictures-on-the-web" class="headerlink" title="Searching for SVG Pictures on the web"></a>Searching for SVG Pictures on the web</h3><p>If you want to include some fantastic pictures in your game, it may take you a long time to draw/make one Then the simplest way is to ‘borrow’ one from the Web. You can search for SVG pictures easily using Google search. You can either:</p>
 <ul>
 <li>Change the advanced settings in Google Image search to include only SVG results</li>
@@ -517,7 +517,7 @@
 <p>we want to control the obstacle animation, we can setting the animation-play-state property to paused and it is stopped.</p>
 <p>it can be restart by changing the property to running.</p>
 <hr>
-<p><strong>what is important in this game is that we need two obstacles and they start at same place but with different speed. it can be achieved by simply copied the first obstacle. and set the different animation-duration. this is worth 10 pt.</strong></p>
+<p><strong>what is important in this game is that we need two bombs and they start at same place but with different speed. it can be achieved by simply copied the first obstacle. and set the different animation-duration. this is worth 10 pt.</strong></p>
 <p>this two obstacle step makes the game more real-world and harder. this animation for the obstacle is 20 pt in total.</p>
 <hr>
 <h3 id="Animation-for-the-Player"><a href="#Animation-for-the-Player" class="headerlink" title="Animation for the Player"></a>Animation for the Player</h3><p>Finally, it’s time to hellokitty. The animation is used to mimic the jumping action of the player.</p>
@@ -539,7 +539,7 @@
 <li>Stopping all animations when the game is over</li>
 </ul>
 <h3 id="4-1-Starting-to-Move-the-Obstacle"><a href="#4-1-Starting-to-Move-the-Obstacle" class="headerlink" title="4.1 Starting to Move the Obstacle"></a>4.1 Starting to Move the Obstacle</h3><p>so in this part you need to build the function called (makeobstacle) and in this function ,you need to do two things , <strong>first is starting the animation,second is stopping the animation</strong></p>
-<p>so you can first dp a random timeout and by using settimeout() and math.random() according to the given instructions from the website.</p>
+<p>so you can first set a random timeout and by using settimeout() and math.random() according to the given instructions from the website.</p>
 <p><strong>The idea is You need to run the animation only once and then you will stop it. you can then restart the animation after a random time again then one iteration of the animation finishes, you temporarily pause the animation, wait for a random time and restart the animation</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The obstacle finishes 1 iteration of animation...</span></span><br><span class="line">$(<span class="string">"#obstacle"</span>).on(<span class="string">"animationiteration"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// You need to stop the animation here</span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>So inside the handler, you will :</p>
@@ -568,7 +568,7 @@
 <h4 id="Game-Over"><a href="#Game-Over" class="headerlink" title="Game Over"></a>Game Over</h4><p><strong>When the game over, you can then stop all animations of the game, including the cloud(s), the obstacle and the player. it worth 5pt. so this is pretty important.</strong></p>
 <p><strong>Also, you need to add some fancy animations of the gameover text when it shows up . this also worth 5pt”</strong></p>
 <p>so in the last you need to remember to run the checkGameover() again after the game is over so you should not run the following line of code in the function when that happens.</p>
-<p>[at the last of the lab , i open the marking scheme to show them again about the important part]</p>
+<p><strong>[at the last of the lab , i open the marking scheme to show them again about the important part]</strong></p>
 
       
     </div>
