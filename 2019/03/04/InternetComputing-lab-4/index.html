@@ -88,7 +88,7 @@
 <meta property="og:description" content="here for website    Author: Yiqing Ma (Hongkong University of Science and Technology )  TA , Course">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/03/04/InternetComputing-lab-4/图1.png">
-<meta property="og:updated_time" content="2019-03-08T03:39:23.443Z">
+<meta property="og:updated_time" content="2019-03-08T04:04:42.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="InternetComputing-Lab-4">
 <meta name="twitter:description" content="here for website    Author: Yiqing Ma (Hongkong University of Science and Technology )  TA , Course">
@@ -386,14 +386,14 @@
 <li>The player walks along a path</li>
 <li>Things in the sky or on the grass moves backwards</li>
 <li>The player needs to jump over bombs </li>
-<li>If the player falls into the hole or hits the bomb, the game will be over</li>
+<li>If the player falls into the bomb, the game will be over</li>
 </ul>
 <p>You will use a lot of CSS animations to do all animations in the game.</p>
 <h2 id="Step-1-basic-introduction-to-the-jumping-game"><a href="#Step-1-basic-introduction-to-the-jumping-game" class="headerlink" title="Step 1: basic introduction to the jumping game."></a>Step 1: basic introduction to the jumping game.</h2><p><strong>[I Introduce the knowledge you need in this game.]</strong> </p>
 <p>You are given a starting HTML file here. And you can download it easily.</p>
 <p>So basically, you are given a “Game Over” html.</p>
 <hr>
-<p>The coordinate system of the SVG area has been set up using the viewBox attribute so that the top left corner is (0, 0) and the bottom right corner is (1000, 400).Even if you change the size of the browser, the coordinate system will remain the keep within the SVG area, i.e. the coordinate system is not related to the actual size of the SVG area in the browser</p>
+<p>The coordinate system of the SVG area has been set up using the viewBox attribute so that the top left corner is (0, 0) and the bottom right corner is (1000, 400).Even if you change the size of the browser, the coordinate system will remain within the SVG area, i.e. the coordinate system is not related to the actual size of the SVG area in the browser</p>
 <hr>
 <p>To make the game in , you need to: “</p>
 <ol>
@@ -412,7 +412,7 @@
 </li>
 <li>Control the animations using JavaScript</li>
 </ol>
-<p>Similar to before, this game uses a Google font that you can see from the link:</p>
+<p>Similar to the previous labs, this game uses a Google font that you can see from the link:</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link <span class="attribute">href</span>=<span class="string">"https://fonts.googleapis.com/css?family=Dosis:700"</span> <span class="attribute">rel</span>=<span class="string">"stylesheet"</span>&gt;</span><br></pre></td></tr></table></figure>
 <h2 id="Step-2-Creating-the-SVG-Elements"><a href="#Step-2-Creating-the-SVG-Elements" class="headerlink" title="Step 2: Creating the SVG Elements"></a>Step 2: Creating the SVG Elements</h2><p>we should create these SVG elements in the game:</p>
 <blockquote>
@@ -439,11 +439,11 @@
 <p>Every Time you can inspect the code to see how SVG code is written.</p>
 <hr>
 <p><strong>[open the demo]</strong><br>Remember in this game you should make a sky, a cloud and a grass for the background. </p>
-<p>you can make the sky a day-like or a night-like , if you make a day-like , you should do like the demo, do two clouds with a blue sky. if you make a night-like, you should make a dark sky and two stars.</p>
-<p><strong>this total grass, dark and cloud thing is sky (5pt), a grass (3pt) 2 clouds/ 2 starts(5pt) total together 13pt</strong></p>
+<p>you can make the sky a day-like or a night-like , if you make a day-like , you should do like the demo, do three clouds with a blue sky. if you make a night-like, you should make a dark sky and three stars.</p>
+<p><strong>this total grass, dark and cloud thing is sky (5pt), a grass (3pt) 3 clouds/ 3 stars(5pt) total together 13pt</strong></p>
 <hr>
 <h3 id="Using-SVG-Edit"><a href="#Using-SVG-Edit" class="headerlink" title="Using SVG Edit"></a>Using SVG Edit</h3><p>If you are not too sure about writing your own SVG code, you can make use of SVG edit to help you do that. you can see the introductions through the website.</p>
-<p>I will talk about how to make a ball-like SVG Edit.</p>
+<p>I will talk about how to make a ball-like bomb.</p>
 <hr>
 <p><strong>[open the website to show examples]</strong></p>
 <p>First you can see many examples they can all be built by svg.</p>
@@ -453,8 +453,8 @@
 <p>Now i’m going to talk about how to make a ball-like bomb. </p>
 <p>show how to make this photo.</p>
 <p><img src="/2019/03/04/InternetComputing-lab-4/图1.png" alt=""></p>
-<p>Here is the important thing, that you need to make a 3d ball-like bombs in the game. And if you made a good one , you can get the score of 5 . And this one should be at least the one showing in the demo. And another 2 score here is put the all to the correct location of the game.</p>
-<p><strong>remeber it is very important to put the location of the clouds and bombs correctly, it will show just like what its place in the svg-editor(i will read this word 3 times)</strong> </p>
+<p>Here is the important thing, that you need to make a 3d ball-like bomb in the game. And if you made a good one , you can get the score of 5 . And another 2 score here is put the bomb to the correct location of the game.</p>
+<p><strong>remeber it is very important to put the location of the clouds and bombs correctly, it will show just like what its place in the svg-editor</strong> </p>
 <h3 id="Searching-for-SVG-Pictures-on-the-web"><a href="#Searching-for-SVG-Pictures-on-the-web" class="headerlink" title="Searching for SVG Pictures on the web"></a>Searching for SVG Pictures on the web</h3><p>If you want to include some fantastic pictures in your game, it may take you a long time to draw/make one Then the simplest way is to ‘borrow’ one from the Web. You can search for SVG pictures easily using Google search. You can either:</p>
 <ul>
 <li>Change the advanced settings in Google Image search to include only SVG results</li>
@@ -468,13 +468,13 @@
 <p>Once you have chosen a desired SVG picture from the result You can again copy the appropriate SVG code into your game. However, most of the time the pictures on the Web may not have the size that you want.</p>
 <p><strong>In this case, you can use SVG edit to help you change the canvas and the location correctly (this is also 5pt)</strong></p>
 <p><strong>[open the svg code edit]</strong></p>
-<p>I will show how to do it. -&gt; First change the canvas and then move it to the correct place</p>
+<p>I will show how to do it. -&gt; First change the canvas background size and then move it to the correct place</p>
 <hr>
-<p>Here is the important thing, that you need to choose a qute player(for example hello kitty but not only hello kitty) . And if you made a good one , you can get the score of 5 . And if you get the correct svg code and correctly put it into the location of the game. you will get the whole 10 score.</p>
+<p>Here is the important thing, that you need to choose a cute player(for example hello kitty but not only hello kitty) . And if you made a good one , you can get the score of 5 . And if you get the correct svg code and correctly put it into the location of the game. you will get the whole 10 score.</p>
 <h3 id="The-Elements-in-the-Game"><a href="#The-Elements-in-the-Game" class="headerlink" title="The Elements in the Game"></a>The Elements in the Game</h3><p><strong>The SVG elements will scatter all over the place.</strong>  Therefore, you should group the SVG elements of an object together and give the group an element so that you can work with the group later.</p>
 <p>for example, the code is like this </p>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;g id=<span class="string">"player"</span>&gt;</span><br><span class="line">    <span class="string">...SVG</span> elements for the player.<span class="string">..</span></span><br><span class="line">&lt;<span class="string">/g</span>&gt;</span><br></pre></td></tr></table></figure>
-<p>there is no need for grouping the sky and the grass. This is because you do not really need to create animation for the sky and grass. they just still. <strong>But for the clouds(or starts), the obstacle (bombs) and the player(maybe hellokitty or a dinasour) they all need to have animations so they need group id</strong></p>
+<p>there is no need for grouping the sky and the grass. This is because you do not really need to create animation for the sky and grass. they just still. <strong>But for the clouds(or starts), the bomb (bombs) and the player(maybe hellokitty or a dinasour) they all need to have animations so they need group id</strong></p>
 <p>so after this huge step 2 what we should have in our code is that like this two effects. </p>
 <p><strong>[show two effect after step 2]</strong></p>
 <p><strong>Because it is a hand-in lab so i will not teach you the code hand by hand. so you need to learn by yourself and you can ask me on the class. after step 2 if you get the version i show you just then, you will get the full score</strong></p>
@@ -482,8 +482,8 @@
 <h2 id="Step-3-Making-the-Animations"><a href="#Step-3-Making-the-Animations" class="headerlink" title="Step 3: Making the Animations:"></a>Step 3: Making the Animations:</h2><p><strong>Actually to this part, you have already build half of the lab 4; the remaining half is the animation part</strong></p>
 <p>So you will make CSS animations for the three things in the game:</p>
 <ul>
-<li>The Cloud(or star)</li>
-<li>The obstacle</li>
+<li>The three cloud(or star)</li>
+<li>The two bombs</li>
 <li>The player</li>
 </ul>
 <h3 id="Animation-for-the-Cloud"><a href="#Animation-for-the-Cloud" class="headerlink" title="Animation for the Cloud"></a>Animation for the Cloud</h3><p><strong>[open the final demo]</strong></p>
@@ -510,15 +510,15 @@
 <p><strong>A trick to start your animation differently for the clouds is to use the animation-delay property</strong></p>
 <p>So for your code, you can easily set 3 clouds, and for each clouds set different kinds of animation-delay and properties. This is 5 pt in the game<br>So if you done three clouds or stars move correctly ,you will get 10 pt.</p>
 <hr>
-<h3 id="Animation-for-the-Obstacle"><a href="#Animation-for-the-Obstacle" class="headerlink" title="Animation for the Obstacle"></a>Animation for the Obstacle</h3><p><strong>[open the final demo]</strong></p>
-<p>you can see through the demo, that the animation for the obstacle is not so much different to the cloud one.<br>large part of them is the same. But there is one thing you need to do for the obstacle is that.</p>
+<h3 id="Animation-for-the-bombs"><a href="#Animation-for-the-bombs" class="headerlink" title="Animation for the bombs"></a>Animation for the bombs</h3><p><strong>[open the final demo]</strong></p>
+<p>you can see through the demo, that the animation for the bomb is not so much different to the cloud one.<br>large part of them is the same. But there is one thing you need to do for the bomb is that.</p>
 <p><strong>Using the animation-play-state Property</strong></p>
 <p><strong>this property helps us control the generation of the animation, which means we can add some controls to the animation, so that we could add the conditions to deal with the animations.</strong></p>
-<p>we want to control the obstacle animation, we can setting the animation-play-state property to paused and it is stopped.</p>
+<p>we want to control the bomb animation, we can setting the animation-play-state property to paused and it is stopped.</p>
 <p>it can be restart by changing the property to running.</p>
 <hr>
-<p><strong>what is important in this game is that we need two bombs and they start at same place but with different speed. it can be achieved by simply copied the first obstacle. and set the different animation-duration. this is worth 10 pt.</strong></p>
-<p>this two obstacle step makes the game more real-world and harder. this animation for the obstacle is 20 pt in total.</p>
+<p><strong>what is important in this game is that we need two bombs and they start at same place but with different speed. it can be achieved by simply copied the first bomb. and set the different animation-duration. this is worth 10 pt.</strong></p>
+<p>this two bomb step makes the game more real-world and harder. The animation for the bomb is 20 pt in total.</p>
 <hr>
 <h3 id="Animation-for-the-Player"><a href="#Animation-for-the-Player" class="headerlink" title="Animation for the Player"></a>Animation for the Player</h3><p>Finally, it’s time to hellokitty. The animation is used to mimic the jumping action of the player.</p>
 <p><strong>[open the final demo]</strong></p>
@@ -528,47 +528,47 @@
 <p>The rest of the animation will be similar to what you have done before</p>
 <p>so after you build the code you should see hello kitty jump up and down correctly by setting the animation-play-state appropriately.</p>
 <hr>
-<p>So after this whole big step 3, which is 40 scores, we should get the animations correctly build. Because it was a hand-in lab, so we don’t have the code teaching , but here i build the code myself, so this is what it looks like when i add all these animation.</p>
-<p><strong>in this situation because i have don’t set the animation-play-state to pause ecause i want all of you to see the effect of animation.But actually for the player and obstacle, they should be set this property.</strong></p>
+<p>So after this whole big step 3, which is 30 scores, we should get the animations correctly build. Because it was a hand-in lab, so we don’t have the code teaching , but here i build the code myself, so this is what it looks like when i add all these animation.</p>
+<p><strong>in this situation because i have don’t set the animation-play-state to pause ecause i want all of you to see the effect of animation. But actually for the player and bombs, they should be set this property.</strong></p>
 <hr>
 <h2 id="Step-4-Controlling-the-Animations-Using-JavaScript"><a href="#Step-4-Controlling-the-Animations-Using-JavaScript" class="headerlink" title="Step 4: Controlling the Animations Using JavaScript"></a>Step 4: Controlling the Animations Using JavaScript</h2><p>You have already finished the majority of the game. The remaining part of the lab is to control those animations. As you have learned already, you can easily start and stop those animations using the <strong>animation-play-state</strong> property.</p>
 <p>Now you will use the property to control the animations in the following cases:</p>
 <ul>
-<li>Starting to move the obstacle at a random start time</li>
+<li>Starting to move the bomb at a random start time</li>
 <li>Making the player jump when the spacebar key is pressed</li>
 <li>Stopping all animations when the game is over</li>
 </ul>
-<h3 id="4-1-Starting-to-Move-the-Obstacle"><a href="#4-1-Starting-to-Move-the-Obstacle" class="headerlink" title="4.1 Starting to Move the Obstacle"></a>4.1 Starting to Move the Obstacle</h3><p>so in this part you need to build the function called (makeobstacle) and in this function ,you need to do two things , <strong>first is starting the animation,second is stopping the animation</strong></p>
+<h3 id="4-1-Starting-to-Move-the-bomb"><a href="#4-1-Starting-to-Move-the-bomb" class="headerlink" title="4.1 Starting to Move the bomb"></a>4.1 Starting to Move the bomb</h3><p>so in this part you need to build the function called (makebomb) and in this function ,you need to do two things , <strong>first is starting the animation,second is stopping the animation</strong></p>
 <p>so you can first set a random timeout and by using settimeout() and math.random() according to the given instructions from the website.</p>
 <p><strong>The idea is You need to run the animation only once and then you will stop it. you can then restart the animation after a random time again then one iteration of the animation finishes, you temporarily pause the animation, wait for a random time and restart the animation</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The obstacle finishes 1 iteration of animation...</span></span><br><span class="line">$(<span class="string">"#obstacle"</span>).on(<span class="string">"animationiteration"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// You need to stop the animation here</span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The bomb finishes 1 iteration of animation...</span></span><br><span class="line">$(<span class="string">"#bomb"</span>).on(<span class="string">"animationiteration"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// You need to stop the animation here</span></span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>So inside the handler, you will :</p>
 <ul>
-<li>stop the obstacle animation</li>
-<li>start the obstacle animation at a random time later, i.e. running the makeObstacle() function</li>
+<li>stop the bomb animation</li>
+<li>start the bomb animation at a random time later, i.e. running the makebomb() function</li>
 </ul>
 <hr>
 <p>so in this part, the total score is 10pt, for each function in the handle its 5pt</p>
 <hr>
 <h3 id="Making-the-Player-Jump"><a href="#Making-the-Player-Jump" class="headerlink" title="Making the Player Jump"></a>Making the Player Jump</h3><p>Now comes to the next step: making the player jump.</p>
 <p>In the game, if the spacebar is pressed, you will make the player jump. If you look at the given code, the keydown event handler has been given so that it runs a jump() function to make the player jump.</p>
-<p>Similar to what you have done for the obstacle,<strong>this time we would like the player to jump when the spacebar key is pressed, you will need to stop the animation when one iteration of the animation has completed</strong> also do it in the handle.</p>
+<p>Similar to what you have done for the bomb,<strong>this time we would like the player to jump when the spacebar key is pressed, you will need to stop the animation when one iteration of the animation has completed</strong> also do it in the handle.</p>
 <hr>
 <h3 id="Checking-for-the-Game-Over-Situation"><a href="#Checking-for-the-Game-Over-Situation" class="headerlink" title="Checking for the Game Over Situation"></a>Checking for the Game Over Situation</h3><p>this is the last part of this lab—— game over situation.</p>
 <p><strong>That means you should hide the “game over “ text when the game starts and the text should show when the game is over. and you need to modify the function checkGameover()</strong></p>
 <p>the game is over when </p>
 <ul>
 <li>The player is near the ground AND</li>
-<li>The obstacle is under the player</li>
+<li>The bomb is under the player</li>
 </ul>
 <p>Luckily, you can read the transform property to see the current values of them even when they are in the middle of an animation</p>
 <hr>
 <h4 id="Reading-the-Transform-Property"><a href="#Reading-the-Transform-Property" class="headerlink" title="Reading the Transform Property"></a>Reading the Transform Property</h4><p>However, it is not easy to get the position from the property because it is matrix like (1,0,0,1,0,0) but the instruction has already told you that the position of an element is the last two numbers of the matrix. and one can use  the split() of JavaScript string to do that.</p>
 <hr>
-<h4 id="Game-Over"><a href="#Game-Over" class="headerlink" title="Game Over"></a>Game Over</h4><p><strong>When the game over, you can then stop all animations of the game, including the cloud(s), the obstacle and the player. it worth 5pt. so this is pretty important.</strong></p>
+<h4 id="Game-Over"><a href="#Game-Over" class="headerlink" title="Game Over"></a>Game Over</h4><p><strong>When the game over, you can then stop all animations of the game, including the cloud(s), the bomb and the player. it worth 5pt. so this is pretty important.</strong></p>
 <p><strong>Also, you need to add some fancy animations of the gameover text when it shows up . this also worth 5pt”</strong></p>
 <p>so in the last you need to remember to run the checkGameover() again after the game is over so you should not run the following line of code in the function when that happens.</p>
-<p><strong>[at the last of the lab , i open the marking scheme to show them again about the important part]</strong></p>
+<p><strong>[At the last of the lab , i open the marking scheme to show them again about the important part]</strong></p>
 
       
     </div>
@@ -779,7 +779,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-0-target"><span class="nav-number">1.</span> <span class="nav-text">Step 0: target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-1-basic-introduction-to-the-jumping-game"><span class="nav-number">2.</span> <span class="nav-text">Step 1: basic introduction to the jumping game.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-2-Creating-the-SVG-Elements"><span class="nav-number">3.</span> <span class="nav-text">Step 2: Creating the SVG Elements</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Writing-your-Own-SVG-Code"><span class="nav-number">3.1.</span> <span class="nav-text">Writing your Own SVG Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-SVG-Edit"><span class="nav-number">3.2.</span> <span class="nav-text">Using SVG Edit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Searching-for-SVG-Pictures-on-the-web"><span class="nav-number">3.3.</span> <span class="nav-text">Searching for SVG Pictures on the web</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Elements-in-the-Game"><span class="nav-number">3.4.</span> <span class="nav-text">The Elements in the Game</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-3-Making-the-Animations"><span class="nav-number">4.</span> <span class="nav-text">Step 3: Making the Animations:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Animation-for-the-Cloud"><span class="nav-number">4.1.</span> <span class="nav-text">Animation for the Cloud</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Keyframes-Rule"><span class="nav-number">4.1.1.</span> <span class="nav-text">The Keyframes Rule</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Animation-Property"><span class="nav-number">4.1.2.</span> <span class="nav-text">The Animation Property</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Animation-for-the-Obstacle"><span class="nav-number">4.2.</span> <span class="nav-text">Animation for the Obstacle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Animation-for-the-Player"><span class="nav-number">4.3.</span> <span class="nav-text">Animation for the Player</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-4-Controlling-the-Animations-Using-JavaScript"><span class="nav-number">5.</span> <span class="nav-text">Step 4: Controlling the Animations Using JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Starting-to-Move-the-Obstacle"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 Starting to Move the Obstacle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Making-the-Player-Jump"><span class="nav-number">5.2.</span> <span class="nav-text">Making the Player Jump</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Checking-for-the-Game-Over-Situation"><span class="nav-number">5.3.</span> <span class="nav-text">Checking for the Game Over Situation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Reading-the-Transform-Property"><span class="nav-number">5.3.1.</span> <span class="nav-text">Reading the Transform Property</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Game-Over"><span class="nav-number">5.3.2.</span> <span class="nav-text">Game Over</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-0-target"><span class="nav-number">1.</span> <span class="nav-text">Step 0: target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-1-basic-introduction-to-the-jumping-game"><span class="nav-number">2.</span> <span class="nav-text">Step 1: basic introduction to the jumping game.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-2-Creating-the-SVG-Elements"><span class="nav-number">3.</span> <span class="nav-text">Step 2: Creating the SVG Elements</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Writing-your-Own-SVG-Code"><span class="nav-number">3.1.</span> <span class="nav-text">Writing your Own SVG Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-SVG-Edit"><span class="nav-number">3.2.</span> <span class="nav-text">Using SVG Edit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Searching-for-SVG-Pictures-on-the-web"><span class="nav-number">3.3.</span> <span class="nav-text">Searching for SVG Pictures on the web</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Elements-in-the-Game"><span class="nav-number">3.4.</span> <span class="nav-text">The Elements in the Game</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-3-Making-the-Animations"><span class="nav-number">4.</span> <span class="nav-text">Step 3: Making the Animations:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Animation-for-the-Cloud"><span class="nav-number">4.1.</span> <span class="nav-text">Animation for the Cloud</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Keyframes-Rule"><span class="nav-number">4.1.1.</span> <span class="nav-text">The Keyframes Rule</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Animation-Property"><span class="nav-number">4.1.2.</span> <span class="nav-text">The Animation Property</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Animation-for-the-bombs"><span class="nav-number">4.2.</span> <span class="nav-text">Animation for the bombs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Animation-for-the-Player"><span class="nav-number">4.3.</span> <span class="nav-text">Animation for the Player</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-4-Controlling-the-Animations-Using-JavaScript"><span class="nav-number">5.</span> <span class="nav-text">Step 4: Controlling the Animations Using JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Starting-to-Move-the-bomb"><span class="nav-number">5.1.</span> <span class="nav-text">4.1 Starting to Move the bomb</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Making-the-Player-Jump"><span class="nav-number">5.2.</span> <span class="nav-text">Making the Player Jump</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Checking-for-the-Game-Over-Situation"><span class="nav-number">5.3.</span> <span class="nav-text">Checking for the Game Over Situation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Reading-the-Transform-Property"><span class="nav-number">5.3.1.</span> <span class="nav-text">Reading the Transform Property</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Game-Over"><span class="nav-number">5.3.2.</span> <span class="nav-text">Game Over</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
