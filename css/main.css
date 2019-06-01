@@ -1841,7 +1841,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff2638;
+  background: #ff9960;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3143,6 +3143,12 @@ body {
   background: url("/images/1.jpg") 0% 0%/cover fixed;
 }
 Custom styles.,
+.gallery-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+}
 [class="container sidebar-position-left "],
 .main,
 [class$="page-home"] #footer,
