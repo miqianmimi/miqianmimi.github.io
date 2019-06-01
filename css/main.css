@@ -1823,7 +1823,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #49c471;
+  background: #ff6eda;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3121,10 +3121,285 @@ pre .javascript .function {
     margin: 8px 0 0;
   }
 }
-.bg_content {
-  position: fixed;
-  top: 0;
-  z-index: -1;
-  width: 100%;
-  height: 100%;
+[class="container sidebar-position-left "],
+.main,
+[class$="page-home"] #footer,
+[class$="page-post-detail"] #footer,
+.page-archive {
+  background: rgba(255,255,255,0.83);
+}
+[class="container sidebar-position-left "] .main,
+[class$="sidebar-position-left"] #footer,
+.page-archive .main {
+  background: transparent;
+}
+.pagination,
+.post-block,
+.comments,
+.container .header-inner,
+.sidebar-inner {
+  background: rgba(255,255,255,0.45);
+}
+#sidebar {
+  background: rgba(255,255,255,0);
+}
+.menu .menu-item a:hover {
+  background: rgba(34,34,34,0.231);
+  border-bottom-color: transparent;
+}
+.menu-item-active a {
+  background: rgba(251,203,63,0.741);
+  border-bottom-color: transparent;
+}
+.tabs ul.nav-tabs li.tab.active,
+.tabs .tab-content {
+  background-color: rgba(255,255,255,0.62) !important;
+}
+.gitment-editor-body textarea {
+  background-color: rgba(255,255,255,0.62) !important;
+}
+.gitment-editor-preview-field {
+  background-color: rgba(255,255,255,0.251) !important;
+}
+.gitment-comment-header {
+  background-color: transparent !important;
+}
+#gitment-container a {
+  border-bottom: none;
+}
+.post-toc ol a {
+  border-bottom-color: transparent;
+}
+.post-toc ol a:hover {
+  border-bottom-color: #666;
+}
+.post-toc .nav li[class$="active"]>.nav-link {
+  border-bottom-color: transparent;
+}
+.post-toc .nav li[class$="active"]>.nav-link:hover {
+  border-bottom-color: #fc6423;
+}
+.post-toc .nav li[class$="active-current"]>.nav-link {
+  color: #fff;
+  background: #337ab7;
+  border-radius: 3.6px;
+  display: block;
+  padding: 5px 7px;
+  border-bottom-color: transparent;
+}
+.post-toc .nav li[class$="active-current"]>.nav-link:hover {
+  background: #ffa500;
+  color: #000;
+}
+.site-state-item {
+  border-left: 1px solid #b1b1b1;
+}
+.post-toc .nav .active-current.nav-level-2 a {
+  width: 303px;
+}
+.post-toc .nav .active-current.nav-level-3 a {
+  width: 296px;
+}
+.post-toc .nav .active-current.nav-level-4 a {
+  width: 286px;
+}
+.post-toc .nav .active-current.nav-level-5 a {
+  width: 276px;
+}
+.post-toc .nav .active-current.nav-level-6 a {
+  width: 266px;
+}
+.post-toc {
+  width: calc(100% + 17px);
+}
+.posts-expand article:only-of-type h1 {
+  font-size: 37px;
+}
+.post-body h2 {
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  font-weight: bold;
+  height: 48px;
+  line-height: 40px;
+  margin: 20px -42.3px 15px -48px;
+  padding-left: 1.7%;
+  position: relative;
+  background-color: #ecf6f7;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .main .post-body h2 {
+    margin: 20px -23px 15px -28px;
+  }
+}
+@media (max-width: 767px) {
+  .main .post-body h2 {
+    margin: 20px -15px 15px -18px;
+  }
+}
+.post-body h3 {
+  border-bottom: 1px solid #cfd8dc !important;
+  padding-bottom: 0.3em;
+}
+.post-body .note {
+  border-color: #ddd;
+  background-color: rgba(249,249,249,0.502);
+}
+.post-body a {
+  color: #0593d3;
+  border-bottom: none;
+}
+.post-body a:hover {
+  color: #ff4500;
+}
+.post-body a code {
+  color: #0593d3;
+  border-bottom: none;
+}
+.post-body a code:hover {
+  color: #ff4500;
+}
+.post-nav-item a {
+  color: #0593d3;
+  border-bottom: none;
+}
+.post-nav-item a:hover {
+  color: #ff4500;
+}
+.post-button .btn {
+  border-bottom: 2px solid #555;
+}
+.posts-expand .post-body ul li {
+  list-style: disc;
+}
+.posts-expand .post-body ol {
+  counter-reset: counter;
+}
+.posts-expand .post-body ol>li {
+  list-style-type: none;
+  position: relative;
+}
+.posts-expand .post-body ol>li:before {
+  counter-increment: counter;
+  content: counter(counter);
+  background: #49b1f5;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  padding: 3px;
+  height: 13px;
+  width: 13px;
+  border-radius: 50%;
+  position: absolute;
+  left: -27px;
+  top: 5px;
+}
+.posts-expand .post-body .fancybox img {
+  display: block !important;
+  margin-left: 0px;
+  cursor: pointer;
+  cursor: zoom-in;
+  cursor: -webkit-zoom-in;
+}
+.post-body .image-caption,
+.post-body .figure .caption {
+  text-align: left;
+}
+.post-body .label {
+  font-weight: bold;
+  border-radius: 0.25em;
+  margin: 0px 3px 0px 3px;
+  padding: 3px 4px;
+}
+.post-body .label.primary {
+  background-color: #ecd6ff;
+}
+.post-body .label.info {
+  background-color: #c3e8f9;
+}
+.post-body .label.success {
+  background-color: #b2eabb;
+}
+.post-body .label.default {
+  background-color: #dcdcdc;
+}
+.post-body .label.warning {
+  background-color: #ffe89a;
+}
+.post-body .label.danger {
+  background-color: #f9c1ca;
+}
+.highlight .code pre {
+  background-color: transparent;
+}
+.highlight {
+  background-color: rgba(249,249,249,0.502);
+  border: 1px solid #ddd;
+  border-radius: 2px;
+}
+pre {
+  background: rgba(249,249,249,0.502);
+  border: 1px solid #ddd;
+  border-radius: 2px;
+}
+pre code {
+  border: transparent;
+}
+blockquote {
+  background-color: rgba(249,249,249,0.502);
+  border-left-color: #6b8afb;
+}
+.highlight table>tbody>tr:nth-of-type(odd) {
+  background-color: transparent;
+}
+table>tbody>tr:hover {
+  background-color: #fffff0;
+}
+table td,
+table th {
+  border-right: 1px solid #dcdcdc;
+}
+.site-meta {
+  background: #0072e3;
+}
+.posts-expand .post-tags a {
+  background: #e6e6e6;
+  padding: 3px 4px;
+  border-radius: 3px;
+  color: #2ca6cb;
+  border-bottom: none;
+}
+.posts-expand .post-tags a:hover {
+  color: #fff;
+  background: #2ca6cb;
+}
+hr {
+  margin: 0px 0px 0px 0px;
+  height: 1px;
+  border: none;
+  background-image: none;
+}
+code {
+  background: #dcdcdc;
+  margin: 0 2px 0 2px;
+}
+.tabs ul.nav-tabs li.tab.active a {
+  font-size: 19px;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #49b1f5;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.page-archive #footer {
+  position: inherit;
+  height: 1px;
+  padding-bottom: 1.9%;
 }
