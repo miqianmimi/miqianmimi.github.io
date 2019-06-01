@@ -445,11 +445,11 @@ body {
 .header-inner {
   margin: 0 auto;
   padding: 100px 0 70px;
-  width: calc(100% - 252px);
+  width: 97.7%;
 }
 @media (min-width: 1600px) {
   .container .header-inner {
-    width: 900px;
+    width: 97.7%;
   }
 }
 .main {
@@ -457,11 +457,11 @@ body {
 }
 .main-inner {
   margin: 0 auto;
-  width: calc(100% - 252px);
+  width: 97.7%;
 }
 @media (min-width: 1600px) {
   .container .main-inner {
-    width: 900px;
+    width: 97.7%;
   }
 }
 .footer {
@@ -474,11 +474,11 @@ body {
 .footer-inner {
   box-sizing: border-box;
   margin: 20px auto;
-  width: calc(100% - 252px);
+  width: 97.7%;
 }
 @media (min-width: 1600px) {
   .container .footer-inner {
-    width: 900px;
+    width: 97.7%;
   }
 }
 pre,
@@ -1841,7 +1841,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #beffff;
+  background: #9977d2;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2683,7 +2683,7 @@ pre .javascript .function {
   float: right;
   box-sizing: border-box;
   padding: 40px;
-  width: calc(100% - 252px);
+  width: 97.7%;
   background: #fff;
   min-height: 700px;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);
@@ -3138,6 +3138,9 @@ pre .javascript .function {
   .pagination {
     margin: 8px 0 0;
   }
+}
+#body {
+  background: url("\imges\1") 0% 0%/cover fixed;
 }
 [class="container sidebar-position-left "],
 .main,
