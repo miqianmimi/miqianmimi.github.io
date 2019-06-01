@@ -2,6 +2,19 @@
 
 $(document).ready(function () {
 
+    var backgroundImgUrls = [
+        "\imges\1.jpg",
+        "\imges\2.jpg",
+        "\imges\3.jpg"
+    ];
+    var randomIndex = Math.floor(Math.random() * (backgroundImgUrls.length + 1));
+    if (randomIndex == backgroundImgUrls.length) {
+        $("body").css({"background-color":"white"});
+    } else {
+        var background_image = "url(" + backgroundImgUrls[randomIndex] + ")";
+        $("body").css({"background":background_image, "background-attachment":"fixed", "background-size":"cover"});
+    }
+
   $(document).trigger('bootstrap:before');
 
   NexT.utils.isMobile() && window.FastClick.attach(document.body);
