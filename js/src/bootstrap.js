@@ -3,9 +3,9 @@
 $(document).ready(function () {
 
     var backgroundImgUrls = [
-        "\imges\1.jpg",
-        "\imges\2.jpg",
-        "\imges\3.jpg"
+        "\images\1.jpg",
+        "\images\2.jpg",
+        "\images\3.jpg"
     ];
     var randomIndex = Math.floor(Math.random() * (backgroundImgUrls.length + 1));
     if (randomIndex == backgroundImgUrls.length) {
