@@ -85,17 +85,17 @@
 
 
 
-<meta name="description" content="HKUST PhD in Network &amp; ML.">
+<meta name="description" content="here for paper     Author:Francis Y.Yan(Stanford University) Prof. Keith Winstein  congestion control, evaluation, testbed">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pantheon">
 <meta property="og:url" content="http://yoursite.com/2020/02/25/pantheon-0/index.html">
 <meta property="og:site_name" content="miqianmimi Ma">
-<meta property="og:description" content="HKUST PhD in Network &amp; ML.">
+<meta property="og:description" content="here for paper     Author:Francis Y.Yan(Stanford University) Prof. Keith Winstein  congestion control, evaluation, testbed">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-25T03:09:48.936Z">
+<meta property="og:updated_time" content="2020-02-25T05:51:00.211Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pantheon">
-<meta name="twitter:description" content="HKUST PhD in Network &amp; ML.">
+<meta name="twitter:description" content="here for paper     Author:Francis Y.Yan(Stanford University) Prof. Keith Winstein  congestion control, evaluation, testbed">
 
 
 
@@ -363,7 +363,66 @@
       
 
       
-        
+        <p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">  <a id="download" href="https://sing.stanford.edu/site/publications/pantheon-atc18.pdf" target="_blank" rel="noopener"><i class="fa fa-pencil fa-lg"></i><span> here for paper </span></a> </p>
+
+<ul>
+<li><p>Author:<code>Francis Y.Yan</code>(Stanford University) Prof. Keith Winstein</p>
+</li>
+<li><p style="color:palevioletred;font-size:16px;font-family:Comic Sans MS">congestion control, evaluation, testbed</p>
+
+</li>
+</ul>
+<hr>
+<a id="more"></a>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>这篇文章提出了<a href="https://pantheon.stanford.edu" target="_blank" rel="noopener">Pantheon</a>,一个系统通过提供training ground，为传输协议和拥塞控制提供帮助。这是一个共享的评测CC的平台。它的实现主要分成四部分：</p>
+<ul>
+<li>Software Library: 内含各种CC协议,每一种都提供了相同的界面来开启一个full-throttle的流</li>
+<li>Diverse testbed: pantheon的remote测试节点遍布全世界，cellular network包括斯坦福，墨西哥，巴西，哥伦比亚，印第安，中国。wired network 包括伦敦，东京，悉尼。</li>
+<li>Collection of network emulators ,仿真器可以模拟网络任意两个节点及其链路。</li>
+<li>Continuous-testing systems, 在线持续测试系统，实时比较各种CC的好坏。</li>
+</ul>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><p>30年过去了，网络拥塞控制的问题仍旧是cornerstone problem基石问题，初衷是去除网络catastrophic灾难性的问题。但今天面临更多的挑战。流行的传输协议和拥塞控制体系需要评测，但当今网络更难统一。</p>
+<p>大部分拥塞控制的研究多是在小规模的网络上，而且很难重现。大多数研究者会建立自己的testbed。为了证明算法的优势，会和之前的算法做对比。为了做到公平比较，会有很多额外的工作。尽管比较了，算法也不会部署到真实的internet网上。比如sprout,PCC,verus.</p>
+<p>这篇paper中描述了Pantheon,一个分布式的，综合的系统，专门为了评测端到端的网络，比如拥塞控制，传输协议和网路仿真器。</p>
+<p>pantheon 解决了科研者在开发网络协议的时候面临的现实性和复现性权衡的问题。不是关注是否有jitter, packet loss, reordering, pantheon的关注指标是throughoput,delay和loss rate，</p>
+<p>借鉴了ImageNet在计算机视觉领域取得成功的推动下，我们相信可运行benchmark,连续的实验，将有助于更快的创新和更有效，可复现的研究。</p>
+<h2 id="实验结果总结："><a href="#实验结果总结：" class="headerlink" title="实验结果总结："></a>实验结果总结：</h2><ul>
+<li><p>通过对Pantheon超过一年的测量结果分析，我们发现传输协议的表现十分多 变，通常随着<strong>网络路径，网络瓶颈和时间</strong>的变化而变化，没有任何一种协议在所有环境下效果都最优。</p>
+</li>
+<li><p>在自然和合成交叉流量的情况下，我们发现一些网络仿真器参数可以重现很大部分的传输协议的性能。这一结果与先前结果相悖，某些人专注于构建详细的网络仿真器。</p>
+</li>
+<li><p>我们讨论了三种使用pantheon作为共享评估测试平台的拥塞控制新方法，是在USENIX NSDI 2018上发表的Copa 和Vivace。我们还描述了用于拥塞控制的数据驱动设计，它基于神经网络，可以在pantheon的仿真器集合上进行训练，从而在真实的互联网路径上实现良好的性能。</p>
+</li>
+</ul>
+<h2 id="设计思路："><a href="#设计思路：" class="headerlink" title="设计思路："></a>设计思路：</h2><ul>
+<li><p>对各种CC算法的收集，每个都拥有相同的界面。</p>
+<blockquote>
+<p>每个CC的interface是一个full-throttle flow，它会持续进行，直到sender端被killed。pantheon 通过写不同CC的wrapper来实现这种统一的interface，但是也限制了evaluation的种类。</p>
+</blockquote>
+</li>
+<li><p>Instrumenting network paths</p>
+<blockquote>
+<p>Pantheon 仪表器 instrumentation追踪了大小，发送的时间和接受的时间。Pantheon创建了一个endpoint之间的VPN（virtual private network),被称为Pantheon-tunnel.  UDP的datagram中UID每个包都分配一个。</p>
+</blockquote>
+</li>
+<li><p>interesting network上的testbed节点</p>
+<blockquote>
+<p>和公司合作的LTE service 是一个经济和实际的方法。</p>
+</blockquote>
+</li>
+</ul>
+<p>一次实验后，path两端重复测量clock的offset对于一个common NTP server 并用这些来计算one-way delay.</p>
+<h2 id="标准仿真："><a href="#标准仿真：" class="headerlink" title="标准仿真："></a>标准仿真：</h2><p>仿真器是为了控制实验环境，这样比较不同的CC会更方便。但是过去的仿真器认为，参数越多仿真器做得越好。这个paper里，我们提出了一个新标准。我们认为仿真器和真实的路径越类似，这个仿真器越好。我们的指标是emulator测出的结果与真实real internet中的结果。more-parameterized network models 不一定就越好。</p>
+<p>5-parameter network model就足够来模拟一个复杂的真实路径，这五个参数如下：</p>
+<ul>
+<li>bottleneck link rate</li>
+<li>constant propogation delay</li>
+<li>DropTail queue的阈值 threshold</li>
+<li>stochastic loss rate </li>
+<li>one Bit decides whether link runs isochronously 或者poisson过程</li>
+</ul>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>继续研究代码</p>
+
       
     </div>
     
@@ -447,8 +506,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -548,6 +616,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引入"><span class="nav-number">2.</span> <span class="nav-text">引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实验结果总结："><span class="nav-number">3.</span> <span class="nav-text">实验结果总结：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计思路："><span class="nav-number">4.</span> <span class="nav-text">设计思路：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准仿真："><span class="nav-number">5.</span> <span class="nav-text">标准仿真：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结："><span class="nav-number">6.</span> <span class="nav-text">总结：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
